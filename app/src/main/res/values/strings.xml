@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">luckyzyx</string>
+    <string name="todo" translatable="false">TODO</string>
+    <string name="button">Toast</string>
+    <string name="button2">Alertdialog</string>
+    <string name="textview" translatable="false">TextView</string>
+    <string name="checkbox" translatable="false">CheckBox</string>
 </resources>
