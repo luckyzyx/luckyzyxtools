@@ -23,15 +23,9 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle("标题")
                     .setMessage("消息")
                     .setCancelable(true)
-                    .setPositiveButton("确定", (dialog, which) -> {
-                        makeText(this,"点击确定",LENGTH_SHORT).show();
-                    })
-                    .setNegativeButton("取消",  (dialog, which) -> {
-                        makeText(this,"点击取消",LENGTH_SHORT).show();
-                    })
-                    .setNeutralButton("中间",  (dialog, which) -> {
-                        makeText(this,"点击中间",LENGTH_SHORT).show();
-                    });
+                    .setPositiveButton("确定", (dialog, which) -> makeText(this,"点击确定",LENGTH_SHORT).show())
+                    .setNegativeButton("取消",  (dialog, which) -> makeText(this,"点击取消",LENGTH_SHORT).show())
+                    .setNeutralButton("中间",  (dialog, which) -> makeText(this,"点击中间",LENGTH_SHORT).show());
             alert.create().show();
         });
 
