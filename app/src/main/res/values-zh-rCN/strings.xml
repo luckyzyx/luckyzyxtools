@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">luckyzyx</string>
-    <string name="button" translatable="false">Toast提示</string>
-    <string name="button2" translatable="false">对话框提示</string>
-</resources>

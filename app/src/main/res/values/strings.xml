@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">luckyzyx</string>
     <string name="todo" translatable="false">TODO</string>
-    <string name="button">Toast</string>
-    <string name="button2">Alertdialog</string>
-    <string name="textview" translatable="false">TextView</string>
-    <string name="checkbox" translatable="false">CheckBox</string>
+    <string name="button" translatable="false">Toast</string>
+    <string name="button2" translatable="false">对话框</string>
+    <string name="textview" translatable="false">文本框</string>
+    <string name="checkbox" translatable="false">复选框</string>
+    <string name="name">NameNameNameNameNameNameNameNameName</string>
 </resources>
