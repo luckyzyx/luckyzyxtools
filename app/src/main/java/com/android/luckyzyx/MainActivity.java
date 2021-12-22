@@ -2,15 +2,11 @@ package com.android.luckyzyx;
 
 import static android.widget.Toast.*;
 
+import android.os.Bundle;
+import android.widget.Button;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,17 +24,21 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage("消息")
                     .setCancelable(true)
                     .setPositiveButton("确定", (dialog, which) -> {
-                        Toast.makeText(this,"点击确定",LENGTH_SHORT).show();
+                        makeText(this,"点击确定",LENGTH_SHORT).show();
                     })
                     .setNegativeButton("取消",  (dialog, which) -> {
-                        Toast.makeText(this,"点击取消",LENGTH_SHORT).show();
+                        makeText(this,"点击取消",LENGTH_SHORT).show();
                     })
                     .setNeutralButton("中间",  (dialog, which) -> {
-                        Toast.makeText(this,"点击中间",LENGTH_SHORT).show();
+                        makeText(this,"点击中间",LENGTH_SHORT).show();
                     });
             alert.create().show();
         });
 
+        Button root = findViewById(R.id.root);
+        root.setOnClickListener(v -> {
+
+        });
 
     }
 }
