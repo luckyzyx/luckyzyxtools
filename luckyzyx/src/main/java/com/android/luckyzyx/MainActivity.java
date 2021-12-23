@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Button btn1 = findViewById(R.id.button);
         btn1.setOnClickListener(v -> makeText(this, "Toast: 点击按钮", LENGTH_SHORT).show());
         Button btn2 = findViewById(R.id.button2);
