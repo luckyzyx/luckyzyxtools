@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -30,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
                     .setNeutralButton("中间",  (dialog, which) -> makeText(this,"点击中间",LENGTH_SHORT).show());
             alert.create().show();
         });
-//        Button activity = findViewById(R.id.activity);
-//        activity.setOnClickListener(v -> {
-//            Intent intent=new Intent(this,SettingsActivity.class);
-//            startActivity(intent);
-//        });
+        Button activity = findViewById(R.id.activity);
+        activity.setOnClickListener(v -> {
+            Intent intent=new Intent(this,SettingsActivity.class);
+            startActivity(intent);
+        });
         Button close = findViewById(R.id.close);
         close.setOnClickListener(v -> this.finish());
         Button exit = findViewById(R.id.exit);
