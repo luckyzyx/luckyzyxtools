@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">luckyzyx</string>
+    <string name="todo" />
+    <string name="button" >Toast</string>
+    <string name="button2" >对话框</string>
+    <string name="activity" >跳转Activity</string>
+    <string name="close" >关闭Activity</string>
+    <string name="exit" >退出exit</string>
+</resources>

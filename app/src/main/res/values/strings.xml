@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">luckyzyx</string>
-    <string name="todo" translatable="false">TODO</string>
-    <string name="button" translatable="false">Toast</string>
-    <string name="button2" translatable="false">对话框</string>
-    <string name="root">获取su</string>
-</resources>
