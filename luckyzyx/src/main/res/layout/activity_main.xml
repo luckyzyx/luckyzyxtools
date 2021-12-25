@@ -54,10 +54,10 @@
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:onClick="exit"
         android:text="@string/exit"
         tools:ignore="TextContrastCheck" />
 

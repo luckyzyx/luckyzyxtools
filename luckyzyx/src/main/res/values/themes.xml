@@ -31,6 +31,16 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--虚拟按键颜色-->
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here.在此自定义您的主题 -->
+        <!-- Title颜色 -->
+        <item name="actionBarTheme">@style/MyActionBar</item>
+        <!-- Menu字体颜色 -->
+        <item name="actionBarPopupTheme">@style/MyActionBarPopupTheme</item>
     </style>
+    <style name="MyActionBar" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:titleTextColor">@color/white</item>
+    </style>
+    <style name="MyActionBarPopupTheme" parent="@style/ThemeOverlay.MaterialComponents.Light">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>

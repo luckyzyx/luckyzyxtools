@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+    <item android:id="@+id/action_material"
+        android:title="1"
+        android:orderInCategory="100"
+        app:showAsAction="never"  />
+
+    <item android:id="@+id/action_circles"
+        android:title="2"
+        android:orderInCategory="100"
+        app:showAsAction="never"  />
+
+    <item android:id="@+id/action_water_drop"
+        android:title="3"
+        android:orderInCategory="100"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:title="2"
+                android:orderInCategory="100"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+
+    <item android:id="@+id/action_ring"
+        android:title="4"
+        android:orderInCategory="100"
+        app:showAsAction="never"  />
+</menu>

@@ -5,7 +5,7 @@
     <string name="button2">对话框</string>
     <string name="activity">跳转Activity</string>
     <string name="close">关闭Activity</string>
-    <string name="exit">退出exit</string>
+    <string name="exit">退出</string>
     <string name="title_activity_settings">设置</string>
 
     <!-- 首选项标题 -->

@@ -5,10 +5,12 @@ import static android.widget.Toast.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,8 +19,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        toast提示
         Button btn1 = findViewById(R.id.button);
         btn1.setOnClickListener(v -> makeText(this, "Toast: 点击按钮", LENGTH_SHORT).show());
+//        对话框
         Button btn2 = findViewById(R.id.button2);
         btn2.setOnClickListener(v -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this)
@@ -30,17 +34,60 @@ public class MainActivity extends AppCompatActivity {
                     .setNeutralButton("中间",  (dialog, which) -> makeText(this,"点击中间",LENGTH_SHORT).show());
             alert.create().show();
         });
+//        跳转activity
         Button activity = findViewById(R.id.activity);
         activity.setOnClickListener(v -> {
             Intent intent=new Intent(this,SettingsActivity.class);
             startActivity(intent);
         });
+//        关闭当前activity
         Button close = findViewById(R.id.close);
         close.setOnClickListener(v -> this.finish());
-        Button exit = findViewById(R.id.exit);
-        exit.setOnClickListener(v -> {
-            System.exit(0);
-            overridePendingTransition(0, 0);
-        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu,menu);
+        /*
+         * add()方法的四个参数，依次是：
+         * 1、组别，如果不分组的话就写Menu.NONE,
+         * 2、Id，这个很重要，Android根据这个Id来确定不同的菜单
+         * 3、顺序，那个菜单现在在前面由这个参数的大小决定
+         * 4、文本，菜单的显示文本
+         */
+        // setIcon()方法为菜单设置图标，这里使用的是系统自带的图标
+        // 以android.R开头的资源是系统提供的，我们自己提供的资源是以R开头的
+
+//        menu.addSubMenu("一级菜单").add(0,0,0,"二级菜单");
+        menu.add(1, 0, 0, "关于");
+        menu.add(999, 999, 0, "退出");
+        return super.onCreateOptionsMenu(menu);
+    }
+// 菜单项被选择事件
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                Toast.makeText(this, item.getTitle(), LENGTH_SHORT).show();
+                break;
+            case 999:
+                exit();
+                break;
+        }
+        return false;
+    }
+
+    // 菜单被显示之前的事件
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        选项菜单显示之前onPrepareOptionsMenu方法会被调用
+//         如果返回false，此方法就把用户点击menu的动作取消，onCreateOptionsMenu方法将不会被调用
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    //退出APP事件
+    public void exit() {
+        System.exit(0);
+        overridePendingTransition(0, 0);
     }
 }
