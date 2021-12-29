@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -43,6 +45,41 @@ public class MainActivity extends AppCompatActivity {
 //        关闭当前activity
         Button close = findViewById(R.id.close);
         close.setOnClickListener(v -> this.finish());
+
+//        获取root权限
+        findViewById(R.id.root).setOnClickListener(v -> get_root());
+
+    }
+
+    // 获取ROOT权限
+    public void get_root(){
+        if (is_root()){
+            Toast.makeText(this, "已经具有ROOT权限!", LENGTH_SHORT).show();
+        }
+        else{
+            try{
+                Toast.makeText(this, "正在获取ROOT权限!", LENGTH_SHORT).show();
+                Runtime.getRuntime().exec("su");
+            }
+            catch (Exception e){
+                Toast.makeText(this, "获取ROOT权限时出错!", LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // 判断是否具有ROOT权限
+    public static boolean is_root() {
+        boolean res = false;
+        try {
+            if ((!new File("/system/bin/su").exists())) {
+                res = false;
+            } else {
+                res = true;
+            }
+        } catch (Exception e) {
+
+        }
+        return res;
     }
 
     @Override
@@ -88,6 +125,6 @@ public class MainActivity extends AppCompatActivity {
     //退出APP事件
     public void exit() {
         System.exit(0);
-        overridePendingTransition(0, 0);
+//        overridePendingTransition(0, 0);
     }
 }

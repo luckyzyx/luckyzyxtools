@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">luckyzyx</string>
-    <string name="todo" />
+    <string name="todo" translatable="false" />
     <string name="button">Toast</string>
     <string name="button2">对话框</string>
     <string name="activity">跳转Activity</string>
     <string name="close">关闭Activity</string>
     <string name="exit">退出</string>
+    <string name="root">获取root</string>
     <string name="title_activity_settings">设置</string>
 
     <!-- 首选项标题 -->
@@ -21,4 +22,5 @@
     <string name="attachment_title">下载传入的附件</string>
     <string name="attachment_summary_on">为收到的电子邮件自动下载附件</string>
     <string name="attachment_summary_off">仅在手动请求时下载附件</string>
+
 </resources>
