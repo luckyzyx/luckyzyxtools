@@ -8,5 +8,5 @@ dependencyResolutionManagement {
         google()
     }
 }
-rootProject.name = "luckyzyx"
+rootProject.name = "luckyzyx3"
 include ':luckyzyx'

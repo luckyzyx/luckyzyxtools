@@ -8,6 +8,9 @@
     <string name="exit">退出</string>
     <string name="root">获取root</string>
     <string name="title_activity_settings">设置</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
     <!-- 首选项标题 -->
     <string name="messages_header">信息</string>
@@ -22,5 +25,4 @@
     <string name="attachment_title">下载传入的附件</string>
     <string name="attachment_summary_on">为收到的电子邮件自动下载附件</string>
     <string name="attachment_summary_off">仅在手动请求时下载附件</string>
-
 </resources>

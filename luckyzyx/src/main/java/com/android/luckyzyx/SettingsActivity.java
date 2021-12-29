@@ -2,6 +2,7 @@ package com.android.luckyzyx;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
@@ -31,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.settings_preferences, rootKey);
         }
     }
-//标题栏返回事件
+    //标题栏返回事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.openOptionsMenu();

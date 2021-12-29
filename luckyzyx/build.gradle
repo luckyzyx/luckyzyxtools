@@ -5,7 +5,7 @@ plugins {
 android {
     signingConfigs {
         release {
-        storeFile file('D:\\Android\\luckyzyx\\luckyzyx.jks')
+            storeFile file('D:\\Android\\luckyzyx\\luckyzyx.jks')
             storePassword 'luckyzyx'
             keyAlias 'luckyzyx'
             keyPassword 'luckyzyx'
@@ -22,8 +22,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        targetSdkVersion 31
+        signingConfig signingConfigs.release
         minSdkVersion 30
+        targetSdkVersion 31
     }
 
     buildTypes {
@@ -44,13 +45,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'   //无需与设备存储空间交互，也不需要管理界面，便能构建交互式设置画面
-    implementation 'com.google.android.material:material:1.3.0'   //Material
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.preference:preference:1.1.1'//约束布局
+
+    implementation 'androidx.appcompat:appcompat:1.4.0'   //无需与设备存储空间交互，也不需要管理界面，便能构建交互式设置画面
+    implementation 'com.google.android.material:material:1.3.0'   //material
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'   //约束布局
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.preference:preference:1.1.1'   //快捷搭建设置页面
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

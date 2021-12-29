@@ -5,7 +5,6 @@
         <EditTextPreference
             app:key="signature"
             app:title="@string/signature_title"
-            app:icon="@drawable/messages"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -13,7 +12,6 @@
             app:entries="@array/reply_entries"
             app:entryValues="@array/reply_values"
             app:key="reply"
-            app:icon="@drawable/messages"
             app:title="@string/reply_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -23,12 +21,10 @@
 
         <SwitchPreferenceCompat
             app:key="sync"
-            app:icon="@drawable/sync"
             app:title="@string/sync_title" />
 
         <SwitchPreferenceCompat
             app:dependency="sync"
-            app:icon="@drawable/sync"
             app:key="attachment"
             app:summaryOff="@string/attachment_summary_off"
             app:summaryOn="@string/attachment_summary_on"
