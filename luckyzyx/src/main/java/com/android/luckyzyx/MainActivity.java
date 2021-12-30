@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public interface notification{
-        void  get_root();
-    }
-
     //跳转Fragment函数
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
