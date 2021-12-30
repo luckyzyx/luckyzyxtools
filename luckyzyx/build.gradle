@@ -5,7 +5,7 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('D:\\Android\\luckyzyx\\luckyzyx.jks')
+        storeFile file('D:\\Android\\luckyzyx\\luckyzyx.jks')
             storePassword 'luckyzyx'
             keyAlias 'luckyzyx'
             keyPassword 'luckyzyx'
@@ -22,9 +22,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.release
-        minSdkVersion 30
         targetSdkVersion 31
+        minSdkVersion 30
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
@@ -45,21 +45,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.0'   //无需与设备存储空间交互，也不需要管理界面，便能构建交互式设置画面
+//    implementation 'androidx.appcompat:appcompat:1.4.0'   //使能在平台的旧版API上访问新API   原V7包
     implementation 'com.google.android.material:material:1.3.0'   //material
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'   //约束布局
+    implementation 'androidx.preference:preference:1.1.1'   //快捷搭建设置页面
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'   //原V4包
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
-    implementation 'androidx.preference:preference:1.1.1'   //快捷搭建设置页面
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
