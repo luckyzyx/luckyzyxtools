@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public interface notification{
+        void  get_root();
+    }
+
     //跳转Fragment函数
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     // 获取ROOT权限
     public void get_root(){
         if (is_root()){
-            Toast.makeText(this, "已经具有ROOT权限!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "已获取ROOT权限!", Toast.LENGTH_SHORT).show();
         }
         else{
             try{
@@ -122,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 Runtime.getRuntime().exec("su");
             }
             catch (Exception e){
-                Toast.makeText(this, "获取ROOT权限时出错!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "获取ROOT权限出错!", Toast.LENGTH_SHORT).show();
             }
         }
     }

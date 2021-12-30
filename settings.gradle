@@ -10,4 +10,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "luckyzyx"
 include ':luckyzyx'
-include ':myapplication'
