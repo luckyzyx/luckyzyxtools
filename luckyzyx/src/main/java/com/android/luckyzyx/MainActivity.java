@@ -1,16 +1,17 @@
 package com.android.luckyzyx;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.android.luckyzyx.ui.DashboardFragment;
 import com.android.luckyzyx.ui.HomeFragment;
@@ -122,18 +123,17 @@ public class MainActivity extends AppCompatActivity {
                 Runtime.getRuntime().exec("su");
             }
             catch (Exception e){
-                Toast.makeText(this, "获取ROOT权限出错!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "获取ROOT权限出错!"+e, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     // 判断是否具有ROOT权限
-    public static boolean is_root() {
+    public boolean is_root() {
         boolean res = false;
         try {
             res = new File("/system/bin/su").exists();
         } catch (Exception ignored) {
-
         }
         return res;
     }
@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
     //退出APP事件
     public void exit() {
         System.exit(0);
-        //overridePendingTransition(0, 0);
     }
 
 }

@@ -17,6 +17,8 @@ import com.android.luckyzyx.MainActivity;
 import com.android.luckyzyx.R;
 import com.android.luckyzyx.SettingsActivity;
 
+import java.io.IOException;
+
 public class HomeFragment extends Fragment {
 
     public HomeFragment() {
@@ -47,11 +49,29 @@ public class HomeFragment extends Fragment {
         btn2.setOnClickListener(v -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity())
                     .setTitle("标题")
-                    .setMessage("消息")
+                    .setMessage("确定--强制全局高刷\n取消--强制全局低刷\n中间--恢复默认")
                     .setCancelable(true)
-                    .setPositiveButton("确定", (dialog, which) -> Toast.makeText(requireActivity(),"点击确定",Toast.LENGTH_SHORT).show())
-                    .setNegativeButton("取消",  (dialog, which) -> Toast.makeText(requireActivity(),"点击取消",Toast.LENGTH_SHORT).show())
-                    .setNeutralButton("中间",  (dialog, which) -> Toast.makeText(requireActivity(),"点击中间",Toast.LENGTH_SHORT).show());
+                    .setPositiveButton("确定", (dialog, which) -> {
+                        try {
+                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 1");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .setNegativeButton("取消",  (dialog, which) -> {
+                        try {
+                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 0");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .setNeutralButton("中间",  (dialog, which) -> {
+                        try {
+                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 2");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
             alert.create().show();
         });
         //跳转activity

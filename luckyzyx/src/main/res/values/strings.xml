@@ -2,7 +2,7 @@
     <string name="app_name">luckyzyx</string>
     <string name="todo" translatable="false" />
     <string name="button">Toast</string>
-    <string name="button2">对话框</string>
+    <string name="button2">全局刷新率</string>
     <string name="activity">跳转activity</string>
     <string name="close">关闭activity</string>
     <string name="root">获取root</string>
