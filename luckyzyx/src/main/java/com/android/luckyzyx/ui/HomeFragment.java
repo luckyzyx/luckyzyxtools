@@ -41,6 +41,9 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        MainActivity mainActivity = (MainActivity ) getActivity();
+        assert mainActivity != null;
+
         //Toast提示
         Button btn1 = requireActivity().findViewById(R.id.toast);
         btn1.setOnClickListener(v -> Toast.makeText(requireActivity(), "Toast", Toast.LENGTH_SHORT).show());
@@ -77,8 +80,7 @@ public class HomeFragment extends Fragment {
         //跳转activity
         Button activity = requireActivity().findViewById(R.id.activity);
         activity.setOnClickListener(v -> {
-            Intent intent=new Intent(requireActivity(), SettingsActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(requireActivity(), SettingsActivity.class));
         });
         //关闭当前activity
         Button close = requireActivity().findViewById(R.id.close);
@@ -86,8 +88,6 @@ public class HomeFragment extends Fragment {
 
         //获取root权限
         requireActivity().findViewById(R.id.root).setOnClickListener(v -> {
-            MainActivity mainActivity = (MainActivity ) getActivity();
-            assert mainActivity != null;
             mainActivity.get_root();
         });
     }
