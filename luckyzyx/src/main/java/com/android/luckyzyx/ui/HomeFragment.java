@@ -43,55 +43,55 @@ public class HomeFragment extends Fragment {
 
         MainActivity mainActivity = (MainActivity ) getActivity();
         assert mainActivity != null;
-
-        //Toast提示
-        Button btn1 = requireActivity().findViewById(R.id.toast);
-        btn1.setOnClickListener(v -> Toast.makeText(requireActivity(), "Toast", Toast.LENGTH_SHORT).show());
-        //对话框
-        Button btn2 = requireActivity().findViewById(R.id.alertdialog);
-        btn2.setOnClickListener(v -> {
-            AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity())
-                    .setTitle("标题")
-                    .setMessage("确定--强制全局高刷\n取消--强制全局低刷\n中间--恢复默认")
-                    .setCancelable(true)
-                    .setPositiveButton("确定", (dialog, which) -> {
-                        try {
-                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 1");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    })
-                    .setNegativeButton("取消",  (dialog, which) -> {
-                        try {
-                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 0");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    })
-                    .setNeutralButton("中间",  (dialog, which) -> {
-                        try {
-                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 2");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-            alert.create().show();
-        });
-        //跳转activity
-        Button activity = requireActivity().findViewById(R.id.activity);
-        activity.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));
-        //关闭当前activity
-        Button close = requireActivity().findViewById(R.id.close);
-        close.setOnClickListener(v -> requireActivity().finish());
-
-        //获取root权限
-        requireActivity().findViewById(R.id.root).setOnClickListener(v -> {
-            if(MainActivity.is_root()){
-                Toast.makeText(requireActivity(), "true", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(requireActivity(), "false", Toast.LENGTH_SHORT).show();
-            }
-        });
+//
+//        //Toast提示
+//        Button btn1 = requireActivity().findViewById(R.id.toast);
+//        btn1.setOnClickListener(v -> Toast.makeText(requireActivity(), "Toast", Toast.LENGTH_SHORT).show());
+//        //对话框
+//        Button btn2 = requireActivity().findViewById(R.id.alertdialog);
+//        btn2.setOnClickListener(v -> {
+//            AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity())
+//                    .setTitle("标题")
+//                    .setMessage("确定--强制全局高刷\n取消--强制全局低刷\n中间--恢复默认")
+//                    .setCancelable(true)
+//                    .setPositiveButton("确定", (dialog, which) -> {
+//                        try {
+//                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 1");
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    })
+//                    .setNegativeButton("取消",  (dialog, which) -> {
+//                        try {
+//                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 0");
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    })
+//                    .setNeutralButton("中间",  (dialog, which) -> {
+//                        try {
+//                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 2");
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    });
+//            alert.create().show();
+//        });
+//        //跳转activity
+//        Button activity = requireActivity().findViewById(R.id.activity);
+//        activity.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));
+//        //关闭当前activity
+//        Button close = requireActivity().findViewById(R.id.close);
+//        close.setOnClickListener(v -> requireActivity().finish());
+//
+//        //获取root权限
+//        requireActivity().findViewById(R.id.root).setOnClickListener(v -> {
+//            if(MainActivity.is_root()){
+//                Toast.makeText(requireActivity(), "true", Toast.LENGTH_SHORT).show();
+//            }else{
+//                Toast.makeText(requireActivity(), "false", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 
