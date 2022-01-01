@@ -1,12 +1,11 @@
 package com.android.luckyzyx;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,10 @@ import com.android.luckyzyx.ui.HomeFragment;
 import com.android.luckyzyx.ui.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         switchFragment(homeFragment);
+
+
     }
 
     //NavigationItem被选择事件
@@ -102,30 +106,36 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    // 获取ROOT权限
-    public void get_root(){
-        if (is_root()){
-            Toast.makeText(this, "已获取ROOT权限!", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            try{
-                Toast.makeText(this, "正在获取ROOT权限!", Toast.LENGTH_SHORT).show();
-                Runtime.getRuntime().exec("su");
-            }
-            catch (Exception e){
-                Toast.makeText(this, "获取ROOT权限出错!\n"+e, Toast.LENGTH_SHORT).show();
-            }
-        }
+    //判断root
+    public static boolean is_root() {
+        String binPath = "/system/bin/su";
+        String xBinPath = "/system/xbin/su";
+        if (new File(binPath).exists() && isExecutable(binPath)){
+            return true;
+        }else return new File(xBinPath).exists() && isExecutable(xBinPath);
     }
 
-    // 判断是否具有ROOT权限
-    public boolean is_root() {
-        boolean res = false;
+    private static boolean isExecutable(String filePath) {
+        Process p = null;
         try {
-            res = new File("/system/bin/su").exists();
-        } catch (Exception ignored) {
+            p = Runtime.getRuntime().exec("ls -l " + filePath);
+            // 获取返回内容
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String str = in.readLine();
+            Log.i("RootUtil", str);
+            if (str != null && str.length() >= 4) {
+                char flag = str.charAt(3);
+                if (flag == 's' || flag == 'x')
+                    return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (p != null) {
+                p.destroy();
+            }
         }
-        return res;
+        return false;
     }
 
     //退出APP事件

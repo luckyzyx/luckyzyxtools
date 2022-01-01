@@ -79,16 +79,18 @@ public class HomeFragment extends Fragment {
         });
         //跳转activity
         Button activity = requireActivity().findViewById(R.id.activity);
-        activity.setOnClickListener(v -> {
-            startActivity(new Intent(requireActivity(), SettingsActivity.class));
-        });
+        activity.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));
         //关闭当前activity
         Button close = requireActivity().findViewById(R.id.close);
         close.setOnClickListener(v -> requireActivity().finish());
 
         //获取root权限
         requireActivity().findViewById(R.id.root).setOnClickListener(v -> {
-            mainActivity.get_root();
+            if(MainActivity.is_root()){
+                Toast.makeText(requireActivity(), "true", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(requireActivity(), "false", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
