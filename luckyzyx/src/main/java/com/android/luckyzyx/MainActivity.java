@@ -3,7 +3,6 @@ package com.android.luckyzyx;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 Runtime.getRuntime().exec("su");
             }
             catch (Exception e){
-                Toast.makeText(this, "获取ROOT权限出错!"+e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "获取ROOT权限出错!\n"+e, Toast.LENGTH_SHORT).show();
             }
         }
     }

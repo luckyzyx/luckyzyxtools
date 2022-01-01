@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
 
         //Toast提示
         Button btn1 = requireActivity().findViewById(R.id.toast);
-        btn1.setOnClickListener(v -> Toast.makeText(requireActivity(), "Toast: 点击按钮", Toast.LENGTH_SHORT).show());
+        btn1.setOnClickListener(v -> Toast.makeText(requireActivity(), "Toast", Toast.LENGTH_SHORT).show());
         //对话框
         Button btn2 = requireActivity().findViewById(R.id.alertdialog);
         btn2.setOnClickListener(v -> {
