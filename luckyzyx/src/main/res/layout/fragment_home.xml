@@ -44,6 +44,14 @@
                     android:gravity="center"
                     android:text="Hello World!" />
 
+                <Button
+                    android:id="@+id/fps"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="刷新率" />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

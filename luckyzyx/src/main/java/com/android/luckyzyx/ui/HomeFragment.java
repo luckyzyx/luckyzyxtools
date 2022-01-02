@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,36 +48,36 @@ public class HomeFragment extends Fragment {
 //        //Toast提示
 //        Button btn1 = requireActivity().findViewById(R.id.toast);
 //        btn1.setOnClickListener(v -> Toast.makeText(requireActivity(), "Toast", Toast.LENGTH_SHORT).show());
-//        //对话框
-//        Button btn2 = requireActivity().findViewById(R.id.alertdialog);
-//        btn2.setOnClickListener(v -> {
-//            AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity())
-//                    .setTitle("标题")
-//                    .setMessage("确定--强制全局高刷\n取消--强制全局低刷\n中间--恢复默认")
-//                    .setCancelable(true)
-//                    .setPositiveButton("确定", (dialog, which) -> {
-//                        try {
-//                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 1");
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    })
-//                    .setNegativeButton("取消",  (dialog, which) -> {
-//                        try {
-//                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 0");
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    })
-//                    .setNeutralButton("中间",  (dialog, which) -> {
-//                        try {
-//                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 2");
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    });
-//            alert.create().show();
-//        });
+        //对话框
+        Button btn2 = requireActivity().findViewById(R.id.fps);
+        btn2.setOnClickListener(v -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(requireActivity())
+                    .setTitle("标题")
+                    .setMessage("确定--强制全局高刷\n取消--强制全局低刷\n中间--恢复默认")
+                    .setCancelable(true)
+                    .setPositiveButton("确定", (dialog, which) -> {
+                        try {
+                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 1");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .setNegativeButton("取消",  (dialog, which) -> {
+                        try {
+                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 0");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    })
+                    .setNeutralButton("中间",  (dialog, which) -> {
+                        try {
+                            Runtime.getRuntime().exec("su -c service call SurfaceFlinger 1035 i32 2");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+            alert.create().show();
+        });
 //        //跳转activity
 //        Button activity = requireActivity().findViewById(R.id.activity);
 //        activity.setOnClickListener(v -> startActivity(new Intent(requireActivity(), SettingsActivity.class)));
