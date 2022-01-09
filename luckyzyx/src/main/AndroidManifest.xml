@@ -10,11 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luckyzyx">
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.luckyzyx.tools.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.luckyzyx.tools.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             android:value="true"/>
         <meta-data
             android:name="xposeddescription"
-            android:value="This is luckyzyx xposed module"/>
+            android:value="This is luckyzyx xposed + magisk module"/>
         <meta-data
             android:name="xposedminversion"
             android:value="82"/>

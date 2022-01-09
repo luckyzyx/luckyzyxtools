@@ -1,4 +1,4 @@
-package com.android.luckyzyx;
+package com.luckyzyx.tools;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,9 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.android.luckyzyx.ui.DashboardFragment;
-import com.android.luckyzyx.ui.HomeFragment;
-import com.android.luckyzyx.ui.UserFragment;
+import com.android.luckyzyx.R;
+import com.luckyzyx.tools.ui.DashboardFragment;
+import com.luckyzyx.tools.ui.HomeFragment;
+import com.luckyzyx.tools.ui.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
@@ -33,15 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //底部导航栏
         homeFragment = new HomeFragment();
         dashboardFragment = new DashboardFragment();
         userFragment = new UserFragment();
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         switchFragment(homeFragment);
-
-
     }
 
     //NavigationItem被选择事件
@@ -114,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }else return new File(xBinPath).exists() && isExecutable(xBinPath);
     }
-
     private static boolean isExecutable(String filePath) {
         Process p = null;
         try {

@@ -1,6 +1,7 @@
 <resources>
     <string-array name="xposed_scope">
-        <item>android</item>
+        <item>com.luckyzyx.test</item>
+<!--        <item>android</item>-->
     </string-array>
     <!-- Reply Preference -->
     <string-array name="reply_entries">

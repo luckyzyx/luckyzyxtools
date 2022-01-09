@@ -1,4 +1,4 @@
-package com.android.luckyzyx;
+package com.luckyzyx.tools;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -6,6 +6,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
+
+import com.android.luckyzyx.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
