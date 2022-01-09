@@ -85,14 +85,14 @@ public class HomeFragment extends Fragment {
 //        Button close = requireActivity().findViewById(R.id.close);
 //        close.setOnClickListener(v -> requireActivity().finish());
 //
-//        //获取root权限
-//        requireActivity().findViewById(R.id.root).setOnClickListener(v -> {
-//            if(MainActivity.is_root()){
-//                Toast.makeText(requireActivity(), "true", Toast.LENGTH_SHORT).show();
-//            }else{
-//                Toast.makeText(requireActivity(), "false", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        //获取root权限
+        requireActivity().findViewById(R.id.root).setOnClickListener(v -> {
+            if(MainActivity.is_root()){
+                Toast.makeText(requireActivity(), "true", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(requireActivity(), "false", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

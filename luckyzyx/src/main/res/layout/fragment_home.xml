@@ -14,13 +14,13 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_widthPercent="80%"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="0dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             app:cardCornerRadius="10dp"
-            app:cardElevation="10dp"
+            app:cardElevation="5dp"
             app:cardUseCompatPadding="true"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+            app:layout_widthPercent="80%">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -46,13 +46,35 @@
 
                 <Button
                     android:id="@+id/fps"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:text="刷新率" />
+                    android:text="@string/fps"
+                    tools:ignore="TextContrastCheck" />
 
             </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            app:layout_widthPercent="80%">
+
+            <Button
+                android:id="@+id/root"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/root"
+                tools:ignore="TextContrastCheck" />
 
         </androidx.cardview.widget.CardView>
 
