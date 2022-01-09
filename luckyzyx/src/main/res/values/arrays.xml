@@ -1,4 +1,7 @@
 <resources>
+    <string-array name="xposed_scope">
+        <item>android</item>
+    </string-array>
     <!-- Reply Preference -->
     <string-array name="reply_entries">
         <item>Reply</item>
