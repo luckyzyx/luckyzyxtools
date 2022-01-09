@@ -18,8 +18,8 @@ android {
         applicationId 'com.luckyzyx.tools'
         minSdk 30
         targetSdk 31
-        versionCode 1
         versionName "1.0"
+        versionCode getVersionCode()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         targetSdkVersion 31
@@ -65,4 +65,14 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+def getVersionCode() {
+    def propsFile = file('version.properties')
+    def properties = new Properties()
+    properties.load(new FileInputStream(propsFile))
+    def vCode = properties['versionCode'].toInteger()
+    properties['versionCode'] = (++vCode).toString()
+    properties.store(propsFile.newWriter(), null)
+    return vCode
 }

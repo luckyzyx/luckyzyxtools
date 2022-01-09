@@ -13,12 +13,8 @@ import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class hooktest {
-    public void hook(){
-        XposedHelpers.findAndHookMethod(Application.class, "istext", new XC_MethodHook() {
-            protected void beforeHookedMethod(XC_MethodHook.MethodHookParam param) throws Throwable {
-                super.beforeHookedMethod(param);
-            }
-
+    public void hook(XC_LoadPackage.LoadPackageParam lpparam){
+        XposedHelpers.findAndHookMethod("com.luckyzyx.test.MainActivity",lpparam.classLoader, "istext", new XC_MethodHook() {
             protected void afterHookedMethod(XC_MethodHook.MethodHookParam param) throws Throwable {
                 super.afterHookedMethod(param);
                 param.setResult("hook");
