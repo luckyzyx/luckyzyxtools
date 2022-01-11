@@ -157,39 +157,36 @@ public class MainActivity extends AppCompatActivity {
         final String[] list = {"重启", "关机", "Recovery", "fastboot"};
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setCancelable(true)
-                .setItems(list, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (list[which]){
-                            case "重启":
-                                try {
-                                    Runtime.getRuntime().exec("su -c reboot");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                break;
-                            case "关机":
-                                try {
-                                    Runtime.getRuntime().exec("su -c reboot -p");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                break;
-                            case "Recovery":
-                                try {
-                                    Runtime.getRuntime().exec("su -c reboot recovery");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                break;
-                            case "fastboot":
-                                try {
-                                    Runtime.getRuntime().exec("su -c reboot bootloader");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                break;
-                        }
+                .setItems(list, (dialog, which) -> {
+                    switch (list[which]){
+                        case "重启":
+                            try {
+                                Runtime.getRuntime().exec("su -c reboot");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case "关机":
+                            try {
+                                Runtime.getRuntime().exec("su -c reboot -p");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case "Recovery":
+                            try {
+                                Runtime.getRuntime().exec("su -c reboot recovery");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        case "fastboot":
+                            try {
+                                Runtime.getRuntime().exec("su -c reboot bootloader");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            break;
                     }
                 })
                 .show();
