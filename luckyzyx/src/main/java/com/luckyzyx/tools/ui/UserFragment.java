@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.luckyzyx.R;
+import com.luckyzyx.tools.R;
 
 /**
  * A simple {@link Fragment} subclass.

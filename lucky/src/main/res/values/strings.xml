@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">luckyzyx</string>
+    <string name="todo" translatable="false" />
+    <string name="button">Toast</string>
+    <string name="button2">全局刷新率</string>
+    <string name="activity">跳转activity</string>
+    <string name="close">关闭activity</string>
+    <string name="root">获取root</string>
+    <string name="exit">退出APP</string>
+    <string name="title_activity_settings">设置</string>
+    <string name="nav_item_home">主页</string>
+    <string name="nav_item_dashboard">仪表盘</string>
+    <string name="nav_item_user">我的</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="fps">刷新率</string>
+</resources>

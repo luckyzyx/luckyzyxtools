@@ -7,15 +7,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.android.luckyzyx.R;
-
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-        setTitle(R.string.title_activity_settings);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()

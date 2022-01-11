@@ -5,21 +5,20 @@ plugins {
 android {
     signingConfigs {
         release {
-        storeFile file('D:\\Android\\luckyzyx\\luckyzyx.jks')
+            storeFile file('D:\\Android\\luckyzyx\\luckyzyx.jks')
             storePassword 'luckyzyx'
             keyAlias 'luckyzyx'
             keyPassword 'luckyzyx'
         }
     }
     compileSdk 31
-    compileSdkVersion 31
-
+    def currentVersionCode = getVersionCode()
     defaultConfig {
-        applicationId 'com.luckyzyx.tools'
+        applicationId "com.luckyzyx.tools"
         minSdk 30
         targetSdk 31
+        versionCode currentVersionCode
         versionName "1.0"
-        versionCode getVersionCode()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         targetSdkVersion 31
@@ -29,15 +28,11 @@ android {
 
     buildTypes {
         release {
-            debuggable false
-            minifyEnabled true     //源代码混淆压缩
-            shrinkResources true     //移除无用的resource文件
-            zipAlignEnabled true     //zipAlign优化
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
-            debuggable true
             signingConfig signingConfigs.release
         }
     }
@@ -45,23 +40,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    compileSdkVersion 31
 }
 
 dependencies {
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"
     compileOnly "de.robv.android.xposed:api:82:sources"
-
-//    implementation 'androidx.appcompat:appcompat:1.4.0'   //使能在平台的旧版API上访问新API   原V7包
-    implementation 'com.google.android.material:material:1.3.0'   //material
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'   //约束布局
-    implementation 'androidx.preference:preference:1.1.1'   //快捷搭建设置页面
-//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'   //原V4包
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.percentlayout:percentlayout:1.0.0'   //百分比布局
+    //使能在平台的旧版API上访问新API   原V7包
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    //Material主题
+    implementation 'com.google.android.material:material:1.3.0'
+    //约束布局
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    //百分比布局
+    implementation 'androidx.percentlayout:percentlayout:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

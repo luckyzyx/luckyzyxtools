@@ -27,4 +27,6 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="fps">刷新率</string>
+    <string name="btn_xposed_text">Xposed</string>
+    <string name="btn_magisk_text">Magisk</string>
 </resources>
