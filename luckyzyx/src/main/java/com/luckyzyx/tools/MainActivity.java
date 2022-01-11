@@ -1,6 +1,5 @@
 package com.luckyzyx.tools;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.luckyzyx.tools.ui.DashboardFragment;
@@ -112,16 +110,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startcheck(){
-
+        is_root();
+        try {
+            Runtime.getRuntime().exec("su");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //判断root
-    public static boolean is_root() {
+    public static void is_root() {
         String binPath = "/system/bin/su";
         String xBinPath = "/system/xbin/su";
         if (new File(binPath).exists() && isExecutable(binPath)){
-            return true;
-        }else return new File(xBinPath).exists() && isExecutable(xBinPath);
+        }else {
+            if (new File(xBinPath).exists()) {
+                isExecutable(xBinPath);
+            }
+        }
     }
     private static boolean isExecutable(String filePath) {
         Process p = null;
@@ -200,23 +206,14 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("title")
                 .setMessage("message")
                 .setCancelable(true)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton("OK", (dialog, which) -> {
 
-                    }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setNegativeButton("Cancel", (dialog, which) -> {
 
-                    }
                 })
-                .setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setNeutralButton("Neutral", (dialog, which) -> {
 
-                    }
                 })
                 .show();
     }
