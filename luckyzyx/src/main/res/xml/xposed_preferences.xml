@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Xposed Test">
+    <PreferenceCategory android:title="Xposed Test"
+        android:summary="test">
 
         <SwitchPreference
+            android:layout_width="match_parent"
             android:defaultValue="false"
-            android:key="switch_preference_1"
-            android:title="Hook" />
+            android:key="hooktest"
+            android:title="Hook"
+            android:summary="Hook2"/>
     </PreferenceCategory>
+
     <PreferenceCategory android:title="好多动漫">
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="switch_preference_1"
+            android:key="isadopen"
             android:title="跳过启动广告" />
         <SwitchPreference
             android:defaultValue="false"
-            android:key="switch_preference_1"
+            android:key="isvip"
             android:title="下载原图" />
     </PreferenceCategory>
 </PreferenceScreen>

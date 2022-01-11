@@ -10,7 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luckyzyx">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.XposedActivity"
+            android:exported="false"
+            android:label="@string/title_activity_xposed" />
+        <activity
+            android:name=".ui.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity

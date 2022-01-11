@@ -8,6 +8,7 @@
     <string name="root">获取root</string>
     <string name="exit">退出APP</string>
     <string name="title_activity_settings">设置</string>
+    <string name="title_activity_xposeds">Xposed</string>
     <string name="nav_item_home">主页</string>
     <string name="nav_item_dashboard">仪表盘</string>
     <string name="nav_item_user">我的</string>
@@ -29,4 +30,5 @@
     <string name="fps">刷新率</string>
     <string name="btn_xposed_text">Xposed</string>
     <string name="btn_magisk_text">Magisk</string>
+    <string name="title_activity_xposed">XposedActivity</string>
 </resources>

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Luckyzyx">
         <activity
-            android:name="com.luckyzyx.tools.SettingsActivity"
+            android:name="com.luckyzyx.tools.ui.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity

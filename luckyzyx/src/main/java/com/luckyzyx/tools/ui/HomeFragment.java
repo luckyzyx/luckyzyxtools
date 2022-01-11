@@ -1,6 +1,5 @@
 package com.luckyzyx.tools.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,9 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.SettingsActivity;
-
-import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -37,7 +33,7 @@ public class HomeFragment extends Fragment {
 
         Button btn_xposed = requireActivity().findViewById(R.id.btn_xposed);
         btn_xposed.setOnClickListener(v ->
-                startActivity(new Intent(requireActivity(), SettingsActivity.class))
+                startActivity(new Intent(requireActivity(), XposedActivity.class))
         );
 
     }
