@@ -1,5 +1,6 @@
 package com.luckyzyx.tools;
 
+import com.luckyzyx.tools.hook.hookeast2d;
 import com.luckyzyx.tools.utils.Log;
 
 import android.content.SharedPreferences;
@@ -17,7 +18,7 @@ import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-public class XposedInit implements IXposedHookZygoteInit,IXposedHookLoadPackage,IXposedHookInitPackageResources {
+public class XposedInit implements IXposedHookLoadPackage,IXposedHookInitPackageResources {
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         switch (lpparam.packageName) {
@@ -25,39 +26,9 @@ public class XposedInit implements IXposedHookZygoteInit,IXposedHookLoadPackage,
                 new hooktest().hook(lpparam);
                 break;
             case "com.east2d.everyimage":
-//                pref = getPrefs();
-//                if (pref != null) {
-//                    // do things with it for B
-//                } else {
-//                    Log.d("TAG", "Cannot load pref for B properly");
-//                }
+                new hookeast2d().hook(lpparam);
                 break;
         }
-
-/*        if (lpparam.packageName.equals("com.luckyzyx.test")) {
-            XSPUtils.initXSP();
-            String isOpen = XSPUtils.getString("reply","");
-            XposedBridge.log(String.valueOf(isOpen));
-//            new hooktest().hook(lpparam);
-        }
-        if (lpparam.packageName.equals("com.east2d.everyimage")) {
-//            if (getBoolean("isadopen",false)) {
-//                new hookeast2d().hookad(lpparam);
-//            }
-//            if (getBoolean("isvip",false)) {
-//                new hookeast2d().hookvip(lpparam);
-//            }
-        }*/
-    }
-
-    @Override
-    public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) {
-//        SharedPreferences pref = getPref("zygote_conf");
-//        if (pref != null) {
-//            // do things with it
-//        } else {
-//            Log.e("TAG", "Cannot load pref for zygote properly");
-//        }
     }
 
     //findAndHookMethod(String className, ClassLoader classLoader, String methodName, Object... parameterTypesAndCallback)

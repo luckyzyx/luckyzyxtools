@@ -15,11 +15,11 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="isadopen"
+            android:key="ad"
             android:title="跳过启动广告" />
         <SwitchPreference
             android:defaultValue="false"
-            android:key="isvip"
+            android:key="vip"
             android:title="下载原图" />
     </PreferenceCategory>
 </PreferenceScreen>

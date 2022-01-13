@@ -1,11 +1,22 @@
 package com.luckyzyx.tools.hook;
 
+import com.luckyzyx.tools.utils.XSPUtils;
+
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class hookeast2d {
-    public void hookad(XC_LoadPackage.LoadPackageParam lpparam) {
+    public void hook(XC_LoadPackage.LoadPackageParam lpparam) {
+        if (XSPUtils.getBoolean("ad",false)){
+            HookisAdOpen(lpparam);
+        }
+        if (XSPUtils.getBoolean("vip",false)){
+            HookisVip(lpparam);
+        }
+    }
+
+    public void HookisAdOpen(XC_LoadPackage.LoadPackageParam lpparam) {
         XposedHelpers.findAndHookMethod("com.east2d.haoduo.ui.activity.SplashActivity", lpparam.classLoader, "isAdOpen", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -15,7 +26,7 @@ public class hookeast2d {
         });
     }
 
-    public void hookvip(XC_LoadPackage.LoadPackageParam lpparam) {
+    public void HookisVip(XC_LoadPackage.LoadPackageParam lpparam) {
         XposedHelpers.findAndHookMethod("com.east2d.haoduo.mvp.browerimages.FunctionImageMainActivity", lpparam.classLoader, "isVip", new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
@@ -24,4 +35,6 @@ public class hookeast2d {
             }
         });
     }
+
+
 }

@@ -18,7 +18,6 @@ import com.luckyzyx.tools.utils.Log;
 
 public class XposedActivity extends AppCompatActivity {
 
-    @SuppressLint("WorldReadableFiles")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
