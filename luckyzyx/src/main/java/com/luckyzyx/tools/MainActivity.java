@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
         switchFragment(homeFragment);
 
         startcheck();
-
-
-
     }
     //NavigationItem被选择事件
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -74,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.nav_container,fragment).commitNow();
+    }
+
+    public void startcheck(){
+        is_root();
+        try {
+            Runtime.getRuntime().exec("su");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //创建Menu菜单
@@ -113,15 +120,6 @@ public class MainActivity extends AppCompatActivity {
         //选项菜单显示之前onPrepareOptionsMenu方法会被调用
         //如果返回false，此方法就把用户点击menu的动作取消，onCreateOptionsMenu方法将不会被调用
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    public void startcheck(){
-        is_root();
-        try {
-            Runtime.getRuntime().exec("su");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     //判断root

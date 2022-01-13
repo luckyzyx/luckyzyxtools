@@ -1,8 +1,10 @@
 package com.luckyzyx.tools;
 
-import com.luckyzyx.tools.hook.hookeast2d;
+import com.luckyzyx.tools.utils.Log;
+
+import android.content.SharedPreferences;
+
 import com.luckyzyx.tools.hook.hooktest;
-import android.util.Log;
 
 //当指定应用被加载时被调用，一般用于hook特定应用的方法
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -11,23 +13,51 @@ import de.robv.android.xposed.IXposedHookZygoteInit;
 //指定应用的资源进行初始化时被调用，一般用于资源的替换
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 
-import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XposedBridge;
-import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-public class XposedInit implements IXposedHookLoadPackage{
+public class XposedInit implements IXposedHookZygoteInit,IXposedHookLoadPackage,IXposedHookInitPackageResources {
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
-//        XposedBridge.log("[luckyzyx] Loaded APP: " + lpparam.packageName);
-        switch (lpparam.packageName){
+        switch (lpparam.packageName) {
             case "com.luckyzyx.test":
                 new hooktest().hook(lpparam);
                 break;
             case "com.east2d.everyimage":
-                new hookeast2d().hook(lpparam);
+//                pref = getPrefs();
+//                if (pref != null) {
+//                    // do things with it for B
+//                } else {
+//                    Log.d("TAG", "Cannot load pref for B properly");
+//                }
                 break;
         }
+
+/*        if (lpparam.packageName.equals("com.luckyzyx.test")) {
+            XSPUtils.initXSP();
+            String isOpen = XSPUtils.getString("reply","");
+            XposedBridge.log(String.valueOf(isOpen));
+//            new hooktest().hook(lpparam);
+        }
+        if (lpparam.packageName.equals("com.east2d.everyimage")) {
+//            if (getBoolean("isadopen",false)) {
+//                new hookeast2d().hookad(lpparam);
+//            }
+//            if (getBoolean("isvip",false)) {
+//                new hookeast2d().hookvip(lpparam);
+//            }
+        }*/
+    }
+
+    @Override
+    public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) {
+//        SharedPreferences pref = getPref("zygote_conf");
+//        if (pref != null) {
+//            // do things with it
+//        } else {
+//            Log.e("TAG", "Cannot load pref for zygote properly");
+//        }
     }
 
     //findAndHookMethod(String className, ClassLoader classLoader, String methodName, Object... parameterTypesAndCallback)
@@ -36,5 +66,10 @@ public class XposedInit implements IXposedHookLoadPackage{
     //methodName:被hook的方法的名，注意如有混淆，则应该用混淆后的名字
     //object... 与为被hook的方法的参数对应
     //Callback  ：指定该方法被调用时，需要被执行的回调
+
+    @Override
+    public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resparam) {
+        // similar to handleLoadPackage
+    }
 
 }
