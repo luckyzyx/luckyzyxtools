@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     //关机菜单
     public void refreshmode(){
         final String[] list = {"重启", "关机", "Recovery", "fastboot"};
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setItems(list, (dialog, which) -> {
                     switch (list[which]){
@@ -196,13 +197,10 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    //退出APP事件
-    public void exit() {
-        System.exit(0);
-    }
-
+    @Deprecated
+    //对话框demo
     public void alertdialog(){
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle("title")
                 .setMessage("message")
