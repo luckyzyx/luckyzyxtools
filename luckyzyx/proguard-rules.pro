@@ -21,9 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
 
-
-
-
 #############################################
 #
 # 对于一些基本指令的添加
@@ -47,7 +44,7 @@
 #过度超载
 -overloadaggressively
 #重新打包类
--repackageclasses repack
+-repackageclasses com.repack
 #允许访问修改
 -allowaccessmodification
 #调整类字符串
@@ -60,10 +57,15 @@
 -dontskipnonpubliclibraryclasses
 #不要跳过非公共library class members
 -dontskipnonpubliclibraryclassmembers
-
+#保持反射
+-keepattributes EnclosingMethod
+#保留注释
 -keepattributes *Annotation*,InnerClasses
+#保持泛型
 -keepattributes Signature
+#保留行号,异常
 -keepattributes SourceFile,LineNumberTable,Exceptions
+#混淆时采用的算法
 -optimizations !code/simplification/cast,!field/*,!class/merging/*
 
 #############################################
@@ -80,14 +82,19 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
--keep public class com.android.vending.licensing.ILicensingService
 -keep class android.support.** {*;}
 -keep class **.R$* {*;}
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+-keep class * implements de.robv.android.xposed.IXposedHookLoadPackage {
+    public void *(de.robv.android.xposed.callbacks.XC_LoadPackage$LoadPackageParam);
+}
 
+-keep class * implements de.robv.android.xposed.IXposedHookInitPackageResources {
+    public void *(de.robv.android.xposed.callbacks.XC_InitPackageResources$InitPackageResourcesParam);
+}
 #webView处理，项目中没有使用到webView忽略即可
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;

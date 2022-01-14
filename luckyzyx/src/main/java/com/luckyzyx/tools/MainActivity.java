@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private DashboardFragment dashboardFragment;
     private UserFragment userFragment;
+    private Fragment BackupFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
