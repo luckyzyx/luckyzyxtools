@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.BuildConfig;
@@ -22,7 +24,6 @@ public class XposedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-        CheckXposed();
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -32,19 +33,6 @@ public class XposedActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    @SuppressLint("WorldReadableFiles")
-    private void CheckXposed() {
-        try {
-            getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
-        } catch (SecurityException exception) {
-            new AlertDialog.Builder(this)
-                    .setMessage(getString(R.string.not_supported))
-                    .setPositiveButton(android.R.string.ok, (dialog12, which) -> finish())
-                    .setNegativeButton(R.string.ignore, null)
-                    .show();
         }
     }
 
@@ -65,6 +53,10 @@ public class XposedActivity extends AppCompatActivity {
             getPreferenceManager().setSharedPreferencesName("XposedSettings");
             setPreferencesFromResource(R.xml.xposed_preferences, rootKey);
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+            //移除应用包安装程序xml
+            PreferenceCategory packageinstaller = findPreference("packageinstaller");
+            getPreferenceScreen().removePreference(packageinstaller);
         }
 
         @Override

@@ -6,14 +6,14 @@ Android从入门到入坟
 
 
 #
-XSharedPreferences读取问题\
+XSharedPreferences读取问题
 
-Xposed API 93\
+Xposed API 93 New XSharedPreferences\
 https://github.com/LSPosed/LSPosed/wiki/New-XSharedPreferences\
 核心破解\
 https://github.com/LSPosed/CorePatch\
 ColorOSTool\
-https://github.com/Oosl/ColorOSTool\
+https://github.com/Oosl/ColorOSTool
 
 
 

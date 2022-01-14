@@ -1,25 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Xposed Test"
-        android:summary="test">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:summary="XP功能还处于测试阶段"
+        app:iconSpaceReserved="false"
+        android:title="Xposed">
 
         <SwitchPreference
             android:layout_width="match_parent"
             android:defaultValue="false"
             android:key="hooktest"
-            android:title="Hook"
-            android:summary="Hook2"/>
+            android:summary="Hook2"
+            app:iconSpaceReserved="false"
+            android:title="Hook" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="好多动漫">
+    <PreferenceCategory android:title="应用包安装程序v3.2.2426"
+        app:iconSpaceReserved="false"
+        android:key="packageinstaller">
 
         <SwitchPreference
             android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            android:key="safe_install"
+            android:title="账号安全验证" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="warn_install"
+            app:iconSpaceReserved="false"
+            android:title="版本警告" />
+        <SwitchPreference
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            android:key="aosp_install"
+            android:title="原生安装器" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="好多动漫"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
             android:key="ad"
             android:title="跳过启动广告" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="vip"
+            app:iconSpaceReserved="false"
             android:title="下载原图" />
     </PreferenceCategory>
+
 </PreferenceScreen>

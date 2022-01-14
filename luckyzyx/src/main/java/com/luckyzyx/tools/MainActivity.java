@@ -22,6 +22,7 @@ import com.luckyzyx.tools.ui.DashboardFragment;
 import com.luckyzyx.tools.ui.HomeFragment;
 import com.luckyzyx.tools.ui.SettingsActivity;
 import com.luckyzyx.tools.ui.UserFragment;
+import com.luckyzyx.tools.ui.XposedActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         switchFragment(homeFragment);
 
         startcheck();
+        CheckXposed();
     }
     //NavigationItem被选择事件
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -155,6 +157,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    //初始化Xposed XSharedPreferences
+    @SuppressLint("WorldReadableFiles")
+    public void CheckXposed() {
+        try {
+            getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
+        } catch (SecurityException exception) {
+            new AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.not_supported))
+                    .setPositiveButton(android.R.string.ok, (dialog12, which) -> finish())
+                    .setNegativeButton(R.string.ignore, null)
+                    .show();
+        }
     }
 
     //关机菜单

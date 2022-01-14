@@ -1,6 +1,7 @@
 package com.luckyzyx.tools;
 
 import com.luckyzyx.tools.hook.hookeast2d;
+import com.luckyzyx.tools.hook.hookpackageinstaller;
 import com.luckyzyx.tools.utils.Log;
 
 import android.content.SharedPreferences;
@@ -27,6 +28,9 @@ public class XposedInit implements IXposedHookLoadPackage,IXposedHookInitPackage
                 break;
             case "com.east2d.everyimage":
                 new hookeast2d().hook(lpparam);
+                break;
+            case "com.android.packageinstaller":
+                new hookpackageinstaller().hook(lpparam);
                 break;
         }
     }

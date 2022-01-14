@@ -5,15 +5,15 @@
         android:id="@+id/nav_item_home"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/nav_item_home"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/nav_item_dashboard"
         android:icon="@drawable/ic_baseline_dashboard_24"
         android:title="@string/nav_item_dashboard"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/nav_item_user"
         android:icon="@drawable/ic_baseline_android_24"
         android:title="@string/nav_item_user"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>
