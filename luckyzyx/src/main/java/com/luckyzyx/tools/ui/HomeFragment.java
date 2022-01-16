@@ -2,12 +2,16 @@ package com.luckyzyx.tools.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,8 @@ import android.widget.TextView;
 
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
+
+import java.io.File;
 
 public class HomeFragment extends Fragment {
 
@@ -30,7 +36,7 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -38,16 +44,36 @@ public class HomeFragment extends Fragment {
         Button btn_xposed = requireActivity().findViewById(R.id.btn_xposed);
         btn_xposed.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
 
-        TextView condition = requireActivity().findViewById(R.id.condition);
-        condition.setText(getModuleInfo());
+        TextView condition_app = requireActivity().findViewById(R.id.condition_app);
+        condition_app.setText(getAppInfo());
+        TextView condition_module = requireActivity().findViewById(R.id.condition_module);
+        condition_module.setText(getModuleInfo());
     }
 
-    public String getModuleInfo(){
+    public String getAppInfo() {
+        String appName = BuildConfig.APPLICATION_ID;
         String versionName = BuildConfig.VERSION_NAME;
         int versionCode = BuildConfig.VERSION_CODE;
         String[] info ={
-                "内置版本:"+versionName+"\n"+
-                "内置版本号:" + versionCode+"\n"+ ""
+                "App: "+appName+"\n"+
+                "内置版本: "+versionName+"\n"+
+                "内置版本号: " + versionCode
+        };
+        return info[0];
+    }
+
+    public String getModuleInfo() {
+        String moduleName = "luckyzyx_tools";
+        String moduleDir = "/data/adb/modules/"+moduleName;
+        String versionName = null;
+        int versionCode = 0;
+        if(!new File(moduleDir).exists()){
+            moduleName = versionName = "未安装";
+        }
+        String[] info ={
+                "Magisk: "+moduleName+"\n"+
+                "版本: "+versionName+"\n"+
+                "版本号: "+versionCode
         };
         return info[0];
     }
