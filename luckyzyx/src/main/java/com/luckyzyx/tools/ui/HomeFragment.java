@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -41,8 +42,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button btn_xposed = requireActivity().findViewById(R.id.btn_xposed);
-        btn_xposed.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
+        CardView cardview = requireActivity().findViewById(R.id.cardview);
+        cardview.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
 
         TextView condition_app = requireActivity().findViewById(R.id.condition_app);
         condition_app.setText(getAppInfo());

@@ -4,37 +4,26 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.luckyzyx.tools.ui.DashboardFragment;
 import com.luckyzyx.tools.ui.HomeFragment;
+import com.luckyzyx.tools.ui.OtherActivity;
 import com.luckyzyx.tools.ui.SettingsActivity;
 import com.luckyzyx.tools.ui.UserFragment;
-import com.luckyzyx.tools.ui.XposedActivity;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.luckyzyx.tools.utils.ShellUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homeFragment;
-    private DashboardFragment dashboardFragment;
+    private OtherActivity.OtherFragment otherFragment;
     private UserFragment userFragment;
-    private Fragment BackupFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         //底部导航栏
         homeFragment = new HomeFragment();
-        dashboardFragment = new DashboardFragment();
+        otherFragment = new OtherActivity.OtherFragment();
         userFragment = new UserFragment();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         switchFragment(homeFragment);
+//        switchFragment(otherFragment);
 
-        startcheck();
         CheckXposed();
     }
     //NavigationItem被选择事件
@@ -63,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     switchFragment(homeFragment);
                     break;
                 case R.id.nav_item_dashboard:
-                    switchFragment(dashboardFragment);
+                    switchFragment(otherFragment);
                     break;
                 case R.id.nav_item_user:
                     switchFragment(userFragment);
@@ -76,15 +66,6 @@ public class MainActivity extends AppCompatActivity {
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.nav_container,fragment).commitNow();
-    }
-
-    public void startcheck(){
-        is_root();
-        try {
-            Runtime.getRuntime().exec("su");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     //创建Menu菜单
@@ -126,49 +107,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    //判断root
-    public static void is_root() {
-        String binPath = "/system/bin/su";
-        String xBinPath = "/system/xbin/su";
-        if (new File(binPath).exists() && isExecutable(binPath)){
-        }else {
-            if (new File(xBinPath).exists()) {
-                isExecutable(xBinPath);
-            }
-        }
-    }
-    private static boolean isExecutable(String filePath) {
-        Process p = null;
-        try {
-            p = Runtime.getRuntime().exec("ls -l " + filePath);
-            // 获取返回内容
-            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String str = in.readLine();
-            Log.i("RootUtil", str);
-            if (str != null && str.length() >= 4) {
-                char flag = str.charAt(3);
-                if (flag == 's' || flag == 'x')
-                    return true;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (p != null) {
-                p.destroy();
-            }
-        }
-        return false;
-    }
-
     //初始化Xposed XSharedPreferences
     @SuppressLint("WorldReadableFiles")
     public void CheckXposed() {
         try {
             getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
+            getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
         } catch (SecurityException exception) {
             new AlertDialog.Builder(this)
                     .setMessage(getString(R.string.not_supported))
-                    .setPositiveButton(android.R.string.ok, (dialog12, which) -> finish())
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> System.exit(0))
                     .setNegativeButton(R.string.ignore, null)
                     .show();
         }
@@ -182,32 +130,16 @@ public class MainActivity extends AppCompatActivity {
                 .setItems(list, (dialog, which) -> {
                     switch (list[which]){
                         case "重启":
-                            try {
-                                Runtime.getRuntime().exec("su -c reboot");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            ShellUtils.execCommand("reboot",true,false);
                             break;
                         case "关机":
-                            try {
-                                Runtime.getRuntime().exec("su -c reboot -p");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            ShellUtils.execCommand("reboot -p",true,false);
                             break;
                         case "Recovery":
-                            try {
-                                Runtime.getRuntime().exec("su -c reboot recovery");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            ShellUtils.execCommand("reboot recovery",true,false);
                             break;
                         case "fastboot":
-                            try {
-                                Runtime.getRuntime().exec("su -c reboot bootloader");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            ShellUtils.execCommand("reboot bootloader",true,false);
                             break;
                     }
                 })

@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -33,9 +34,11 @@
                     android:id="@+id/logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_gravity="center_horizontal|center_vertical"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_margin="5dp"
+                    android:contentDescription="@string/todo"
+                    android:src="@mipmap/ic_launcher"
+                    tools:ignore="ImageContrastCheck" />
 
                 <TextView
                     android:id="@+id/condition_app"
@@ -70,17 +73,8 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_xposed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="10dp"
-                android:text="@string/btn_xposed_text"
-                tools:ignore="TextContrastCheck" />
-
-            <Button
                 android:id="@+id/btn_magisk"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="10dp"

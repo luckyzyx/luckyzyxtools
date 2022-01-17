@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="ColorOS相关"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="disable_ota"
+            android:title="禁用系统更新"
+            app:iconSpaceReserved="false"
+            app:summary="原理：冻结系统更新相关APP" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="disable_gamespace"
+            android:title="禁用游戏空间"
+            app:iconSpaceReserved="false"
+            app:summary="原理：冻结游戏空间相关APP" />
+        <Preference
+            app:iconSpaceReserved="false"
+            app:title="进程管理"
+            app:summary="ColorOS进程管理"
+            app:key="process_management"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>
