@@ -19,6 +19,8 @@ import com.luckyzyx.tools.ui.SettingsActivity;
 import com.luckyzyx.tools.ui.UserFragment;
 import com.luckyzyx.tools.utils.ShellUtils;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homeFragment;
@@ -38,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         switchFragment(homeFragment);
-//        switchFragment(otherFragment);
 
         CheckXposed();
+        CheckBrand();
     }
     //NavigationItem被选择事件
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_item_home:
                     switchFragment(homeFragment);
                     break;
-                case R.id.nav_item_dashboard:
+                case R.id.nav_item_other:
                     switchFragment(otherFragment);
                     break;
                 case R.id.nav_item_user:
@@ -107,12 +109,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    //检测机型实行方案
+    public void CheckBrand(){
+        File data = new File(getFilesDir().getAbsoluteFile() + "/firststart/");
+        if (!data.exists()) {
+            new AlertDialog.Builder(this)
+                    .setMessage("检测为首次启动,需点击确定跳转到设置选择机型,否则不予使用")
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(new Intent(this, SettingsActivity.class)))
+                    .show();
+            data.mkdir();
+        }
+    }
+
     //初始化Xposed XSharedPreferences
     @SuppressLint("WorldReadableFiles")
     public void CheckXposed() {
         try {
             getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
             getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
+            getSharedPreferences("Settings", Context.MODE_WORLD_READABLE);
         } catch (SecurityException exception) {
             new AlertDialog.Builder(this)
                     .setMessage(getString(R.string.not_supported))

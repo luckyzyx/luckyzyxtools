@@ -13,7 +13,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class hookpackageinstaller {
     public void hook(XC_LoadPackage.LoadPackageParam lpparam) throws ClassNotFoundException {
-        if (XSPUtils.getBoolean("safe_install",false)){
+        if (XSPUtils.getBooleanXS("safe_install",false)){
             hooksafe(lpparam);
         }
     }

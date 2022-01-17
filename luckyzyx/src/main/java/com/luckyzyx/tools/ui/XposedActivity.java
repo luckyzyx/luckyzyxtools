@@ -28,7 +28,7 @@ public class XposedActivity extends AppCompatActivity {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.settings, new XposedFragment())
-                    .commit();
+                    .commitNow();
         }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

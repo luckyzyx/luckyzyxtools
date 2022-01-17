@@ -7,7 +7,7 @@
         android:title="@string/nav_item_home"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/nav_item_dashboard"
+        android:id="@+id/nav_item_other"
         android:icon="@drawable/ic_baseline_dashboard_24"
         android:title="@string/nav_item_dashboard"
         app:showAsAction="ifRoom" />

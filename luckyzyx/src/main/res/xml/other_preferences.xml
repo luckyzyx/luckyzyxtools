@@ -23,4 +23,15 @@
             app:key="process_management"/>
 
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="开发者模式相关"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="touches"
+            android:title="显示触摸操作"
+            app:iconSpaceReserved="false"
+            app:summary="触摸屏幕时显示小圆点" />
+    </PreferenceCategory>
 </PreferenceScreen>
