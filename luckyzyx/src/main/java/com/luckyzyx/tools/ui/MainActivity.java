@@ -1,5 +1,6 @@
-package com.luckyzyx.tools;
+package com.luckyzyx.tools.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,22 +8,21 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.luckyzyx.tools.ui.HomeFragment;
-import com.luckyzyx.tools.ui.OtherFragment;
-import com.luckyzyx.tools.ui.SettingsActivity;
-import com.luckyzyx.tools.ui.UserFragment;
+import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.ShellUtils;
-import com.luckyzyx.tools.utils.XSPUtils;
 
 import java.io.File;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         CheckXposed();
         CheckBrand();
-        CheckTitle();
     }
     //NavigationItem被选择事件
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -114,40 +113,56 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    //检测机型实行方案
-    public void CheckBrand(){
-        File data = new File(getFilesDir().getAbsoluteFile() + "/nofirst/");
-        if (!data.exists()) {
-            final String[] brand = {"OPPO", "OnePlus"};
-            new AlertDialog.Builder(this)
-                    .setTitle("选择相应的机型方案")
-                    .setCancelable(false)
-                    .setItems(brand, (dialog, which) -> {
-                        switch (brand[which]){
-                            case "OPPO":
-                                data.mkdir();
-                                new File(getFilesDir().getAbsoluteFile() + "/oppo/").mkdir();
-                                Toast.makeText(this, "你选择的机型为"+brand[which], Toast.LENGTH_SHORT).show();
-                                break;
-                            case "OnePlus":
-                                data.mkdir();
-                                new File(getFilesDir().getAbsoluteFile() + "/oplus/").mkdir();
-                                Toast.makeText(this, "你选择的机型为"+brand[which], Toast.LENGTH_SHORT).show();
-                                break;
-                        }
-                    })
-                    .show();
+//    com.oplus.engineermode
+    public boolean Appexist(@NonNull Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        //获取手机系统的所有APP包名，然后进行比较
+        @SuppressLint("QueryPermissionsNeeded")
+        List<PackageInfo> applist = packageManager.getInstalledPackages(0);
+        for (int i = 0; i < applist.size(); i++) {
+            if (applist.get(i).packageName.equalsIgnoreCase(packageName))
+                return true;
         }
+        return false;
     }
 
-    public void CheckTitle() {
-        if (new File(getFilesDir().getAbsoluteFile() + "/nofirst/").exists()) {
-            if (new File(getFilesDir().getAbsoluteFile() + "/oppo/").exists()) {
-                setTitle(getString(R.string.app_name) + "_方案: OPPO");
-            } else if (new File(getFilesDir().getAbsoluteFile() + "/oplus/").exists()) {
-                setTitle(getString(R.string.app_name) + "_方案: OnePlus");
-            } else {
-                setTitle(getString(R.string.app_name) + "_方案: 无");
+    //检测机型实行方案
+    public void CheckBrand(){
+        File first = new File(getFilesDir().getAbsoluteFile() + "/nofirst/");
+        File oppof = new File(getFilesDir().getAbsoluteFile() + "/oppo/");
+        File oplusf = new File(getFilesDir().getAbsoluteFile() + "/oplus/");
+        if (!first.exists()) {
+            boolean oppo = Appexist(this,"com.oppo.engineermode");
+            boolean oplus = Appexist(this,"com.oplus.engineermode");
+            if (oppo==oplus){
+                new AlertDialog.Builder(this)
+                        .setMessage("检测机型出错,请联系作者修复")
+                        .setCancelable(false)
+                        .show();
+            }else {
+                new AlertDialog.Builder(this)
+                        .setTitle("首次启动")
+                        .setMessage("检测机型为:"+(oppo?"OPPO":"OnePlus")+"\n如若有误请联系作者")
+                        .setCancelable(false)
+                        .setPositiveButton("确定", (dialog, which) -> {
+                            //noinspection ResultOfMethodCallIgnored
+                            first.mkdir();
+                            if (oppo) {
+                                //noinspection ResultOfMethodCallIgnored
+                                oppof.mkdir();
+                            } else {
+                                //noinspection ResultOfMethodCallIgnored
+                                oplusf.mkdir();
+                            }
+                        })
+                        .setNeutralButton("联系作者", (dialog, which) -> {
+                            Uri uri = Uri.parse("http://www.coolapk.com/u/1930284");
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            intent.setData(uri);
+                            startActivity(intent);
+                        })
+                        .show();
             }
         }
     }

@@ -2,8 +2,8 @@
     <string-array name="xposed_scope">
         <item>com.luckyzyx.test</item>
         <item>com.east2d.everyimage</item>
-        <item>com.android.systemui</item>
-        <!--<item>android</item>-->
+<!--        <item>com.android.systemui</item>-->
+<!--        <item>android</item>-->
     </string-array>
 
     <string-array name="network_speed_option">

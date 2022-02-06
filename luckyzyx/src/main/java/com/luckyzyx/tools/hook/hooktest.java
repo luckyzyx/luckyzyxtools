@@ -9,7 +9,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class hooktest {
 
-    private String tag = "hook test";
+    private final String tag = "hook test";
+
     public void hook(XC_LoadPackage.LoadPackageParam lpparam) throws ClassNotFoundException {
         if (XSPUtils.getBooleanXS("hooktest",false)){
             hooktext(lpparam);
@@ -29,14 +30,13 @@ public class hooktest {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         super.beforeHookedMethod(param);
-                        Log.d(tag, (String) param.args[0]);
-                        param.args[0] = "0";
+//                        Log.d(tag, (String) param.args[0]);
+                        param.args[0] = "拦截传参";
                     }
-
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         super.afterHookedMethod(param);
-                        Log.d(tag, (String) param.args[0]);
+//                        Log.d(tag, (String) param.args[0]);
                     }
                 });
     }

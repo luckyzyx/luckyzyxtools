@@ -1,10 +1,10 @@
 package com.luckyzyx.tools.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,17 +12,16 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
 
 import java.io.File;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -49,7 +48,12 @@ public class HomeFragment extends Fragment {
         condition_app.setText(getAppInfo());
         TextView condition_module = requireActivity().findViewById(R.id.condition_module);
         condition_module.setText(getModuleInfo());
+
+        TextView appinfo = requireActivity().findViewById(R.id.appinfo);
+        appinfo.setText("aaa");
     }
+
+
 
     public String getAppInfo() {
         String appName = BuildConfig.APPLICATION_ID;

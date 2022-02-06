@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
         minSdkVersion 30
-        targetSdkVersion 31
+        targetSdk 31
     }
 
     buildTypes {
@@ -42,7 +42,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    compileSdkVersion 31
+    compileSdk 31
 }
 
 dependencies {

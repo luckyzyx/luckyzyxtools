@@ -82,5 +82,29 @@
                 tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true"
+            app:layout_widthPercent="80%">
+
+            <TextView
+                android:id="@+id/appinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical|left"
+                android:textSize="12sp"/>
+
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
+
 </ScrollView>
