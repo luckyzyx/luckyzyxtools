@@ -7,24 +7,27 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.luckyzyx.tools.ui.HomeFragment;
-import com.luckyzyx.tools.ui.OtherActivity;
+import com.luckyzyx.tools.ui.OtherFragment;
 import com.luckyzyx.tools.ui.SettingsActivity;
 import com.luckyzyx.tools.ui.UserFragment;
 import com.luckyzyx.tools.utils.ShellUtils;
+import com.luckyzyx.tools.utils.XSPUtils;
 
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homeFragment;
-    private OtherActivity.OtherFragment otherFragment;
+    private OtherFragment otherFragment;
     private UserFragment userFragment;
 
     @Override
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         //底部导航栏
         homeFragment = new HomeFragment();
-        otherFragment = new OtherActivity.OtherFragment();
+        otherFragment = new OtherFragment();
         userFragment = new UserFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         CheckXposed();
         CheckBrand();
+        CheckTitle();
     }
     //NavigationItem被选择事件
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     //创建Menu菜单
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
+        //引用menu文件
         //getMenuInflater().inflate(R.menu.menu,menu);
         /*
          * add()方法的四个参数，依次是：
@@ -111,14 +116,39 @@ public class MainActivity extends AppCompatActivity {
 
     //检测机型实行方案
     public void CheckBrand(){
-        File data = new File(getFilesDir().getAbsoluteFile() + "/firststart/");
+        File data = new File(getFilesDir().getAbsoluteFile() + "/nofirst/");
         if (!data.exists()) {
+            final String[] brand = {"OPPO", "OnePlus"};
             new AlertDialog.Builder(this)
-                    .setMessage("检测为首次启动,需点击确定跳转到设置选择机型,否则不予使用")
+                    .setTitle("选择相应的机型方案")
                     .setCancelable(false)
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> startActivity(new Intent(this, SettingsActivity.class)))
+                    .setItems(brand, (dialog, which) -> {
+                        switch (brand[which]){
+                            case "OPPO":
+                                data.mkdir();
+                                new File(getFilesDir().getAbsoluteFile() + "/oppo/").mkdir();
+                                Toast.makeText(this, "你选择的机型为"+brand[which], Toast.LENGTH_SHORT).show();
+                                break;
+                            case "OnePlus":
+                                data.mkdir();
+                                new File(getFilesDir().getAbsoluteFile() + "/oplus/").mkdir();
+                                Toast.makeText(this, "你选择的机型为"+brand[which], Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    })
                     .show();
-            data.mkdir();
+        }
+    }
+
+    public void CheckTitle() {
+        if (new File(getFilesDir().getAbsoluteFile() + "/nofirst/").exists()) {
+            if (new File(getFilesDir().getAbsoluteFile() + "/oppo/").exists()) {
+                setTitle(getString(R.string.app_name) + "_方案: OPPO");
+            } else if (new File(getFilesDir().getAbsoluteFile() + "/oplus/").exists()) {
+                setTitle(getString(R.string.app_name) + "_方案: OnePlus");
+            } else {
+                setTitle(getString(R.string.app_name) + "_方案: 无");
+            }
         }
     }
 

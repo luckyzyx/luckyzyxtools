@@ -12,6 +12,9 @@ public class XSPUtils {
     public static boolean getBooleanXS(String prefsName, Boolean defValue){
         return XSprefs.getBoolean(prefsName, defValue);
     }
+    public static String getStringXS(String prefsName, String defValue){
+        return XSprefs.getString(prefsName, defValue);
+    }
     public static boolean getBooleanOS(String prefsName, Boolean defValue){
         return OSprefs.getBoolean(prefsName, defValue);
     }

@@ -12,6 +12,7 @@
             app:entries="@array/brand_option"
             app:entryValues="@array/brand_value"
             app:iconSpaceReserved="false"
+            android:enabled="false"
             app:key="brand"
             app:title="机型设置"
             app:useSimpleSummaryProvider="true" />

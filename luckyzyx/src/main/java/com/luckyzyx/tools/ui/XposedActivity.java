@@ -1,22 +1,15 @@
 package com.luckyzyx.tools.ui;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.utils.Log;
 
 public class XposedActivity extends AppCompatActivity {
 

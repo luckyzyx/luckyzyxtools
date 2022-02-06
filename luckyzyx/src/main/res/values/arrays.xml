@@ -2,7 +2,20 @@
     <string-array name="xposed_scope">
         <item>com.luckyzyx.test</item>
         <item>com.east2d.everyimage</item>
+        <item>com.android.systemui</item>
         <!--<item>android</item>-->
+    </string-array>
+
+    <string-array name="network_speed_option">
+        <item>1秒</item>
+        <item>2秒</item>
+        <item>4秒(默认)</item>
+    </string-array>
+
+    <string-array name="network_speed_value">
+        <item>1000</item>
+        <item>2000</item>
+        <item>4000</item>
     </string-array>
 
     <string-array name="brand_option">
@@ -12,6 +25,6 @@
 
     <string-array name="brand_value">
         <item>oppo</item>
-        <item>oneplus</item>
+        <item>oplus</item>
     </string-array>
 </resources>

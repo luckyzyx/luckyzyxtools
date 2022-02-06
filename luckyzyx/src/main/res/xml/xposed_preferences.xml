@@ -15,6 +15,21 @@
             android:title="Hook" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        android:title="系统界面v12.0.0"
+        android:summary="OnePlus">
+
+        <ListPreference
+            android:defaultValue="4000"
+            android:entries="@array/network_speed_option"
+            android:entryValues="@array/network_speed_value"
+            android:key="network_speed"
+            android:title="状态栏网速刷新率"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="应用包安装程序v3.2.2426"
         app:iconSpaceReserved="false"
         android:key="packageinstaller">
