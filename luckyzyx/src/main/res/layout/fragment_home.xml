@@ -101,7 +101,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:gravity="center_vertical|left"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                tools:ignore="RtlHardcoded" />
 
         </androidx.cardview.widget.CardView>
 
