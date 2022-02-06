@@ -15,16 +15,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView textview = findViewById(R.id.textView);
+
         Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textview.setText(istext());
-            }
-        });
+        Button button2 = findViewById(R.id.button2);
+        button.setOnClickListener(v -> textview.setText(istext()));
+        button2.setOnClickListener(v -> istext2("传参"));
     }
 
     public String istext(){
-        return "修改前";
+        return "hook return";
+    }
+    public void istext2(String a){
+        TextView textview = findViewById(R.id.textView);
+        textview.setText(a);
     }
 }

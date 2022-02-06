@@ -1,4 +1,3 @@
 <resources>
     <string name="app_name">Xposed Test</string>
-    <string name="hook">修改</string>
 </resources>
