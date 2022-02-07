@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //处理有地图的Fragment第一次切换时 会黑屏闪一下的问题。
+//        getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
         //底部导航栏
         homeFragment = new HomeFragment();
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
     //跳转Fragment函数
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //移除切换fragment时闪烁的动画效果
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(R.id.nav_container,fragment).commitNow();
     }
 

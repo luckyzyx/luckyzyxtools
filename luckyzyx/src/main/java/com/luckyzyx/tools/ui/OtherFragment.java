@@ -18,8 +18,6 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         setPreferencesFromResource(R.xml.other_preferences, rootKey);
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-
-
         if(new File(requireActivity().getFilesDir().getAbsoluteFile() + "/oppo/").exists()){
             //移除OnePlus
             getPreferenceScreen().removePreference(findPreference("coloros_oplus"));
