@@ -27,11 +27,11 @@
         <item name="colorSecondaryVariant">@color/white</item>
         <item name="colorOnSecondary">@color/black</item>
 
-        <!--状态栏颜色 -->
+        <!--状态栏沉浸颜色 -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!--虚拟按键颜色-->
+        <!--虚拟按键沉浸颜色-->
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Title颜色 -->
+        <!-- Title字体颜色 -->
         <item name="actionBarTheme">@style/MyActionBar</item>
         <!-- Menu字体颜色 -->
         <item name="actionBarPopupTheme">@style/MyActionBarPopupTheme</item>
@@ -43,4 +43,17 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="Theme.Luckyzyx2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_200</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--状态栏沉浸颜色 -->
+        <item name="android:statusBarColor" tools:targetApi="l" tools:ignore="DuplicateDefinition">?attr/colorPrimaryVariant</item>
+        <!--虚拟按键沉浸颜色-->
+        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
+    </style>
 </resources>

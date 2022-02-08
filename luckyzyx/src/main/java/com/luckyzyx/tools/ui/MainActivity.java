@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +18,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.io.File;
@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //处理有地图的Fragment第一次切换时 会黑屏闪一下的问题。
-//        getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
         //底部导航栏
         homeFragment = new HomeFragment();
@@ -44,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        //设置默认选中item
         switchFragment(homeFragment);
+        bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
         CheckXposed();
         CheckBrand();
@@ -72,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
     //跳转Fragment函数
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //移除切换fragment时闪烁的动画效果
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.replace(R.id.nav_container,fragment).commitNow();
     }
 
@@ -130,41 +129,45 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    //判断主题
+    void CheckTheme(){
+        boolean green = new File(getFilesDir().getAbsoluteFile() + "/theme/green/").exists();
+        boolean purple = new File(getFilesDir().getAbsoluteFile() + "/theme/purple/").exists();
+
+        if(green==purple){
+            setTheme(R.style.Theme_Luckyzyx);
+        }else if(green){
+            setTheme(R.style.Theme_Luckyzyx);
+        }else {
+            setTheme(R.style.Theme_Luckyzyx2);
+        }
+    }
     //检测机型实行方案
     public void CheckBrand(){
-        File first = new File(getFilesDir().getAbsoluteFile() + "/nofirst/");
-        File oppof = new File(getFilesDir().getAbsoluteFile() + "/oppo/");
-        File oplusf = new File(getFilesDir().getAbsoluteFile() + "/oplus/");
-        if (!first.exists()) {
+        boolean firststart = SPUtils.getBoolean(this,"firststart",true);
+        String brand = SPUtils.getString(this,"brand",null);
+        //若首次启动
+        if (firststart) {
             boolean oppo = Appexist(this,"com.oppo.engineermode");
             boolean oplus = Appexist(this,"com.oplus.engineermode");
             if (oppo==oplus){
                 new AlertDialog.Builder(this)
-                        .setMessage("检测机型出错,请联系作者修复")
+                        .setTitle("机型错误")
+                        .setMessage("本模块仅适用于ColorOS11+\n判断机型出错,点击确定联系作者")
                         .setCancelable(false)
+                        .setPositiveButton("确定", (dialog, which) -> {
+                            ContactAuthor();
+                            System.exit(0);
+                        })
                         .show();
             }else {
                 new AlertDialog.Builder(this)
-                        .setTitle("首次启动")
-                        .setMessage("检测机型为:"+(oppo?"OPPO":"OnePlus")+"\n如若有误请联系作者")
+                        .setTitle("欢迎使用")
+                        .setMessage("检测到是首次使用\n判断机型为: "+(oppo?"OPPO":"OnePlus")+"\n如若有误请务必联系作者")
                         .setCancelable(false)
                         .setPositiveButton("确定", (dialog, which) -> {
-                            //noinspection ResultOfMethodCallIgnored
-                            first.mkdir();
-                            if (oppo) {
-                                //noinspection ResultOfMethodCallIgnored
-                                oppof.mkdir();
-                            } else {
-                                //noinspection ResultOfMethodCallIgnored
-                                oplusf.mkdir();
-                            }
-                        })
-                        .setNeutralButton("联系作者", (dialog, which) -> {
-                            Uri uri = Uri.parse("http://www.coolapk.com/u/1930284");
-                            Intent intent = new Intent();
-                            intent.setAction("android.intent.action.VIEW");
-                            intent.setData(uri);
-                            startActivity(intent);
+                            SPUtils.putBoolean(this,"firststart",false);
+                            SPUtils.putString(this,"brand",oppo?"OPPO":"OnePlus");
                         })
                         .show();
             }
@@ -177,9 +180,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
             getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
-            getSharedPreferences("Settings", Context.MODE_WORLD_READABLE);
         } catch (SecurityException exception) {
             new AlertDialog.Builder(this)
+                    .setCancelable(false)
                     .setMessage(getString(R.string.not_supported))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> System.exit(0))
                     .setNegativeButton(R.string.ignore, null)
@@ -187,6 +190,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //联系作者_跳转URL
+    void ContactAuthor(){
+        Uri uri = Uri.parse("http://www.coolapk.com/u/1930284");
+        startActivity(new Intent().setAction("android.intent.action.VIEW").setData(uri));
+    }
     //关机菜单
     public void refreshmode(){
         final String[] list = {"重启", "关机", "Recovery", "fastboot"};
@@ -195,16 +203,16 @@ public class MainActivity extends AppCompatActivity {
                 .setItems(list, (dialog, which) -> {
                     switch (list[which]){
                         case "重启":
-                            ShellUtils.execCommand("reboot",true,false);
+                            ShellUtils.execCommand("reboot",true);
                             break;
                         case "关机":
-                            ShellUtils.execCommand("reboot -p",true,false);
+                            ShellUtils.execCommand("reboot -p",true);
                             break;
                         case "Recovery":
-                            ShellUtils.execCommand("reboot recovery",true,false);
+                            ShellUtils.execCommand("reboot recovery",true);
                             break;
                         case "fastboot":
-                            ShellUtils.execCommand("reboot bootloader",true,false);
+                            ShellUtils.execCommand("reboot bootloader",true);
                             break;
                     }
                 })

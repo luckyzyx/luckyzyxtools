@@ -3,15 +3,12 @@ package com.luckyzyx.tools.ui;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
-
-import java.io.File;
 
 public class SettingsActivity extends AppCompatActivity {
 

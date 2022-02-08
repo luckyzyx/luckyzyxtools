@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_item_home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/nav_item_home"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/nav_item_other"
         android:icon="@drawable/ic_baseline_dashboard_24"
         android:title="@string/nav_item_dashboard"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nav_item_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/nav_item_home"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/nav_item_user"

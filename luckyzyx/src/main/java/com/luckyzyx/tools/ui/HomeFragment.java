@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
 
         TextView appinfo = requireActivity().findViewById(R.id.appinfo);
         appinfo.setText("aaa");
+
     }
 
 

@@ -6,9 +6,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
-import java.io.File;
-
 
 public class OtherFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -18,7 +17,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         setPreferencesFromResource(R.xml.other_preferences, rootKey);
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-        if(new File(requireActivity().getFilesDir().getAbsoluteFile() + "/oppo/").exists()){
+        if(SPUtils.getString(requireActivity(),"brand").equals("OPPO")){
             //移除OnePlus
             getPreferenceScreen().removePreference(findPreference("coloros_oplus"));
             getPreferenceScreen().removePreference(findPreference("developer_oplus"));
@@ -35,7 +34,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             Preference engineering_model_oppo = findPreference("engineering_model_oppo");
             assert engineering_model_oppo != null;
             engineering_model_oppo.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.aftersale.AfterSalePage\n", true);
+                ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.aftersale.AfterSalePage", true);
                 return false;
             });
 
@@ -43,7 +42,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             Preference power_test_oppo = findPreference("power_test_oppo");
             assert power_test_oppo != null;
             power_test_oppo.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.charge.modeltest.BatteryInfoShow\n", true);
+                ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.charge.modeltest.BatteryInfoShow", true);
                 return false;
             });
 
@@ -51,11 +50,12 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             Preference systemui_demomode_oppo = findPreference("systemui_demomode_oppo");
             assert systemui_demomode_oppo != null;
             systemui_demomode_oppo.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.android.systemui/com.android.systemui.DemoMode\n", true);
+                ShellUtils.execCommand("am start -n com.android.systemui/com.android.systemui.DemoMode", true);
                 return false;
             });
         }
-        if(new File(requireActivity().getFilesDir().getAbsoluteFile() + "/oplus/").exists()){
+        if(SPUtils.getString(requireActivity(),"brand").equals("OnePlus")){
+
             //移除OPPO
             getPreferenceScreen().removePreference(findPreference("coloros_oppo"));
             getPreferenceScreen().removePreference(findPreference("developer_oppo"));
@@ -72,7 +72,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             Preference engineering_model_oplus = findPreference("engineering_model_oplus");
             assert engineering_model_oplus != null;
             engineering_model_oplus.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.aftersale.AfterSalePage\n", true);
+                ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.aftersale.AfterSalePage", true);
                 return false;
             });
 
@@ -80,7 +80,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             Preference power_test_oplus = findPreference("power_test_oplus");
             assert power_test_oplus != null;
             power_test_oplus.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.charge.modeltest.BatteryInfoShow\n", true);
+                ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.charge.modeltest.BatteryInfoShow", true);
                 return false;
             });
 
@@ -88,7 +88,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             Preference systemui_demomode_oplus = findPreference("systemui_demomode_oplus");
             assert systemui_demomode_oplus != null;
             systemui_demomode_oplus.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.android.systemui/com.android.systemui.DemoMode\n", true);
+                ShellUtils.execCommand("am start -n com.android.systemui/com.android.systemui.DemoMode", true);
                 return false;
             });
         }
