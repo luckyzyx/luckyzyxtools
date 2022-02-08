@@ -21,7 +21,6 @@ import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
-import java.io.File;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +32,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //判断主题
+        String theme = SPUtils.getString(this,"Theme","");
+        switch (theme){
+            case "":
+                setTheme(R.style.Theme_Luckyzyx);
+                break;
+            case "green":
+                setTheme(R.style.Theme_Luckyzyx_green);
+                break;
+            case "purple":
+                setTheme(R.style.Theme_Luckyzyx_purple);
+                break;
+        }
         setContentView(R.layout.activity_main);
 
         //底部导航栏
@@ -116,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-//    com.oplus.engineermode
+    //检测包名判断机型
+    //com.oplus.engineermode,com.oplus.engineermode
     public boolean Appexist(@NonNull Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
         //获取手机系统的所有APP包名，然后进行比较
@@ -129,23 +142,9 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    //判断主题
-    void CheckTheme(){
-        boolean green = new File(getFilesDir().getAbsoluteFile() + "/theme/green/").exists();
-        boolean purple = new File(getFilesDir().getAbsoluteFile() + "/theme/purple/").exists();
-
-        if(green==purple){
-            setTheme(R.style.Theme_Luckyzyx);
-        }else if(green){
-            setTheme(R.style.Theme_Luckyzyx);
-        }else {
-            setTheme(R.style.Theme_Luckyzyx2);
-        }
-    }
     //检测机型实行方案
     public void CheckBrand(){
         boolean firststart = SPUtils.getBoolean(this,"firststart",true);
-        String brand = SPUtils.getString(this,"brand",null);
         //若首次启动
         if (firststart) {
             boolean oppo = Appexist(this,"com.oppo.engineermode");
@@ -221,8 +220,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Deprecated
     //对话框demo
-    public void alertdialog(){
-        new AlertDialog.Builder(this)
+    public static void alertdialog(Context context){
+        new AlertDialog.Builder(context)
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle("title")
                 .setMessage("message")

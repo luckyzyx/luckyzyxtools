@@ -18,13 +18,13 @@
         <!--        -->
 
         <!-- Primary brand color.主要品牌颜色 -->
-        <item name="colorPrimary">@color/coloros_green</item>
-        <item name="colorPrimaryVariant">@color/coloros_green</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
 
         <!-- Secondary brand color.次级品牌颜色 -->
-        <item name="colorSecondary">@color/coloros_green</item>
-        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <!--状态栏沉浸颜色 -->
@@ -43,7 +43,24 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Theme.Luckyzyx2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Luckyzyx_green" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">@color/coloros_green</item>
+        <item name="colorPrimaryVariant">@color/coloros_green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/coloros_green</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!--状态栏沉浸颜色 -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--虚拟按键沉浸颜色-->
+        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Title字体颜色 -->
+        <item name="actionBarTheme">@style/MyActionBar</item>
+        <!-- Menu字体颜色 -->
+        <item name="actionBarPopupTheme">@style/MyActionBarPopupTheme</item>
+    </style>
+
+    <style name="Theme.Luckyzyx_purple" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_200</item>
         <item name="colorOnPrimary">@color/black</item>
