@@ -32,19 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //判断主题
-        String theme = SPUtils.getString(this,"Theme","");
-        switch (theme){
-            case "":
-                setTheme(R.style.Theme_Luckyzyx);
-                break;
-            case "green":
-                setTheme(R.style.Theme_Luckyzyx_green);
-                break;
-            case "purple":
-                setTheme(R.style.Theme_Luckyzyx_purple);
-                break;
-        }
+        CheckTheme(this);
         setContentView(R.layout.activity_main);
 
         //底部导航栏
@@ -84,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     //跳转Fragment函数
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(R.id.nav_container,fragment).commitNow();
     }
 
@@ -128,6 +116,21 @@ public class MainActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    //判断主题
+    static void CheckTheme(Context context){
+        String theme = SPUtils.getString(context,"theme","default");
+        switch (theme){
+            case "default":
+                context.setTheme(R.style.Theme_Luckyzyx);
+                break;
+            case "green":
+                context.setTheme(R.style.Theme_Luckyzyx_green);
+                break;
+            case "purple":
+                context.setTheme(R.style.Theme_Luckyzyx_purple);
+                break;
+        }
+    }
     //检测包名判断机型
     //com.oplus.engineermode,com.oplus.engineermode
     public boolean Appexist(@NonNull Context context, String packageName) {

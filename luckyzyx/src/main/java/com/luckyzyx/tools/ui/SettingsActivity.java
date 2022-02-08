@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.utils.SPUtils;
 
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.CheckTheme(this);
         setContentView(R.layout.settings_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -39,6 +41,9 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 //            Toast.makeText(requireActivity(), key+":"+sharedPreferences.getBoolean(key,false), Toast.LENGTH_SHORT).show();
+            if ("theme".equals(key)){
+                SPUtils.putString(requireActivity(),"theme",sharedPreferences.getString(key,"default"));
+            }
         }
         @Override
         public void onResume() {

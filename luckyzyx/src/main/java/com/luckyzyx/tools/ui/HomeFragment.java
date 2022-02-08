@@ -50,12 +50,7 @@ public class HomeFragment extends Fragment {
         condition_module.setText(getModuleInfo());
 
         TextView btn_magisk = requireActivity().findViewById(R.id.btn_magisk);
-        btn_magisk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.alertdialog(requireActivity());
-            }
-        });
+        btn_magisk.setOnClickListener(v -> MainActivity.alertdialog(requireActivity()));
 
         TextView appinfo = requireActivity().findViewById(R.id.appinfo);
         appinfo.setText("aaa");

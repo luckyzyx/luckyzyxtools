@@ -19,7 +19,7 @@
 
         <!-- Primary brand color.主要品牌颜色 -->
         <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorPrimaryVariant">@color/transparent</item>
         <item name="colorOnPrimary">@color/black</item>
 
         <!-- Secondary brand color.次级品牌颜色 -->
@@ -27,28 +27,37 @@
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
 
+        <!--底部导航栏选中色-->
+        <item name="bottomNavigationStyle">@style/MyBottomNavigationStyle</item>
         <!--状态栏沉浸颜色 -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!--虚拟按键沉浸颜色-->
-        <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <!-- Title字体颜色 -->
         <item name="actionBarTheme">@style/MyActionBar</item>
         <!-- Menu字体颜色 -->
         <item name="actionBarPopupTheme">@style/MyActionBarPopupTheme</item>
+        <!--对话框按钮颜色-->
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
     </style>
-    <style name="MyActionBar" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
-        <item name="android:titleTextColor">@color/white</item>
+    <style name="MyActionBar" parent="@style/ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:titleTextColor">@color/black</item>
     </style>
     <style name="MyActionBarPopupTheme" parent="@style/ThemeOverlay.MaterialComponents.Light">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="MyBottomNavigationStyle" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Theme.Luckyzyx_green" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/coloros_green</item>
         <item name="colorPrimaryVariant">@color/coloros_green</item>
-        <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/coloros_green</item>
         <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnSecondary">@color/black</item>
         <!--状态栏沉浸颜色 -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

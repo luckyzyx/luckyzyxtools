@@ -3,18 +3,16 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:summary="注意：根据下列数据判断方案"
-        app:title="必要设置">
+        app:title="APP设置">
 
         <ListPreference
             android:defaultValue="false"
             app:defaultValue="false"
-            app:entries="@array/brand_option"
-            app:entryValues="@array/brand_value"
+            app:entries="@array/theme_option"
+            app:entryValues="@array/theme_value"
             app:iconSpaceReserved="false"
-            android:enabled="false"
-            app:key="brand"
-            app:title="机型设置"
+            app:key="theme"
+            app:title="个性主题"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

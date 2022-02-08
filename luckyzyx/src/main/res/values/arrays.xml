@@ -18,13 +18,15 @@
         <item>4000</item>
     </string-array>
 
-    <string-array name="brand_option">
-        <item>OPPO</item>
-        <item>OnePlus</item>
+    <string-array name="theme_option">
+        <item>默认</item>
+        <item>草原绿</item>
+        <item>基佬紫</item>
     </string-array>
 
-    <string-array name="brand_value">
-        <item>oppo</item>
-        <item>oplus</item>
+    <string-array name="theme_value">
+        <item>default</item>
+        <item>green</item>
+        <item>purple</item>
     </string-array>
 </resources>
