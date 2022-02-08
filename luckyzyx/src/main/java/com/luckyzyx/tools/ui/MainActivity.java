@@ -197,6 +197,14 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = Uri.parse("http://www.coolapk.com/u/1930284");
         startActivity(new Intent().setAction("android.intent.action.VIEW").setData(uri));
     }
+
+    //重启自身
+    static void reStart(Context context){
+        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
+
     //关机菜单
     public void refreshmode(){
         final String[] list = {"重启", "关机", "Recovery", "fastboot"};

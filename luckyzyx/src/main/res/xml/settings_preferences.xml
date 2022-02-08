@@ -3,6 +3,7 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:icon="@mipmap/ic_launcher_round"
         app:title="APP设置">
 
         <ListPreference
@@ -10,7 +11,8 @@
             app:defaultValue="false"
             app:entries="@array/theme_option"
             app:entryValues="@array/theme_value"
-            app:iconSpaceReserved="false"
+            app:iconSpaceReserved="true"
+            app:icon="@drawable/ic_baseline_color_lens_24"
             app:key="theme"
             app:title="个性主题"
             app:useSimpleSummaryProvider="true" />
