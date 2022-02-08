@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.luckyzyx.tools",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 759,
+      "versionName": "2.0",
+      "outputFile": "luckyzyx_v2.0.apk"
+    }
+  ],
+  "elementType": "File"
+}

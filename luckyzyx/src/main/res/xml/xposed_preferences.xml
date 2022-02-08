@@ -18,6 +18,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         android:title="系统界面v12.0.0"
+        android:key="systemui"
         android:summary="OnePlus">
 
         <ListPreference
@@ -28,6 +29,7 @@
             android:title="状态栏网速刷新率"
             app:iconSpaceReserved="false"
             app:useSimpleSummaryProvider="true"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="应用包安装程序v3.2.2426"

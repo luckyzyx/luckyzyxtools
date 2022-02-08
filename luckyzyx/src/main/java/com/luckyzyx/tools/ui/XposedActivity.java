@@ -51,6 +51,9 @@ public class XposedActivity extends AppCompatActivity {
             //移除应用包安装程序xml
             PreferenceCategory packageinstaller = findPreference("packageinstaller");
             getPreferenceScreen().removePreference(packageinstaller);
+            //移除网速xml
+            PreferenceCategory systemui = findPreference("systemui");
+            getPreferenceScreen().removePreference(systemui);
         }
 
         @Override

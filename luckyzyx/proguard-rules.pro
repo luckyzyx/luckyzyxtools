@@ -40,7 +40,7 @@
 #冗长
 -verbose
 #不要预先验证
--dontpreverify
+#-dontpreverify
 #过度超载
 -overloadaggressively
 #重新打包类
@@ -54,9 +54,9 @@
 #调整资源文件内容
 -adaptresourcefilecontents
 #不要跳过非公共library classes
--dontskipnonpubliclibraryclasses
+#-dontskipnonpubliclibraryclasses
 #不要跳过非公共library class members
--dontskipnonpubliclibraryclassmembers
+#-dontskipnonpubliclibraryclassmembers
 #保持反射
 -keepattributes EnclosingMethod
 #保留注释

@@ -9,6 +9,8 @@ android {
             storePassword 'luckyzyx'
             keyAlias 'luckyzyx'
             keyPassword 'luckyzyx'
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
 
@@ -43,6 +45,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     compileSdk 31
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if ('release' == variant.buildType.name) {
+                outputFileName = "luckyzyx_v${variant.versionName}.apk"
+            }
+            if ('debug' == variant.buildType.name) {
+                outputFileName = "luckyzyx_v${variant.versionName}_debug.apk"
+            }
+        }
+    }
 }
 
 dependencies {
