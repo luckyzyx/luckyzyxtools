@@ -27,29 +27,5 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        TextView theme = requireActivity().findViewById(R.id.theme);
-        theme.setOnClickListener(v -> {
-            final String[] themelist = {"草原绿", "基佬紫"};
-            new AlertDialog.Builder(requireActivity())
-                    .setTitle("切换主题")
-                    .setCancelable(true)
-                    .setItems(themelist, (dialog, which) -> {
-                        switch (themelist[which]){
-                            case "草原绿":
-                                new File(requireActivity().getFilesDir().getAbsoluteFile() + "/theme/").delete();
-                                new File(requireActivity().getFilesDir().getAbsoluteFile() + "/theme/green/").mkdir();
-                                requireActivity().recreate();
-                                break;
-                            case "基佬紫":
-                                new File(requireActivity().getFilesDir().getAbsoluteFile() + "/theme/").delete();
-                                new File(requireActivity().getFilesDir().getAbsoluteFile() + "/theme/purple/").mkdir();
-                                requireActivity().recreate();
-                                break;
-                        }
-                    })
-                    .show();
-
-        });
     }
 }

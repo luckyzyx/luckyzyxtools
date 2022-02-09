@@ -3,6 +3,7 @@ package com.luckyzyx.tools.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -92,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         // 以android.R开头的资源是系统提供的，我们自己提供的资源是以R开头的
 
         //  menu.addSubMenu("一级菜单").add(0,0,0,"二级菜单");
-        menu.add(0, 0, 0, "test").setIcon(R.drawable.ic_baseline_refresh_24);
         menu.add(0, 0, 0, "重启").setIcon(R.drawable.ic_baseline_refresh_24).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.add(0, 1, 0, "设置").setIcon(R.drawable.ic_baseline_settings_24).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         switch (theme){
             case "default":
                 context.setTheme(R.style.Theme_Luckyzyx);
+                break;
+            case "black":
+                context.setTheme(R.style.Theme_Luckyzyx_black);
+//                AppCompatDelegate.setDefaultNightMode(R.style.MODE_NIGHT_YES);
                 break;
             case "green":
                 context.setTheme(R.style.Theme_Luckyzyx_green);
