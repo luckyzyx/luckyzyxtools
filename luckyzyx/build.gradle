@@ -55,12 +55,19 @@ android {
             }
         }
     }
+//    allprojects {
+//        gradle.projectsEvaluated {
+//            tasks.withType(JavaCompile) {
+//                options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//            }
+//        }
+//    }
+
 }
 
 dependencies {
     //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"
-    compileOnly "de.robv.android.xposed:api:82:sources"
     //使能在平台的旧版API上访问新API   原V7包
     implementation 'androidx.appcompat:appcompat:1.4.0'
     //Material主题

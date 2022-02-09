@@ -5,8 +5,6 @@ import android.annotation.SuppressLint;
 import com.luckyzyx.tools.utils.Log;
 import com.luckyzyx.tools.utils.XSPUtils;
 
-import java.util.Objects;
-
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;

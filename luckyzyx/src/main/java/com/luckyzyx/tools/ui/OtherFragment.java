@@ -2,7 +2,6 @@ package com.luckyzyx.tools.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;

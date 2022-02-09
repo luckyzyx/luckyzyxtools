@@ -1,10 +1,7 @@
 package com.luckyzyx.tools.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,7 +18,6 @@ import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
 
 import java.io.File;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 

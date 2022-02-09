@@ -3,7 +3,6 @@ package com.luckyzyx.tools.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -233,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    @Deprecated
     //对话框demo
     public static void alertdialog(Context context){
         new AlertDialog.Builder(context)
