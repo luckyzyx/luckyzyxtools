@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="coloros_green">#99dd66</color>
+    <color name="green">#99dd66</color>
     <color name="yellow">#FFFFFF00</color>
     <color name="red">#FFFF0000</color>
     <color name="purple_200">#FFBB86FC</color>
