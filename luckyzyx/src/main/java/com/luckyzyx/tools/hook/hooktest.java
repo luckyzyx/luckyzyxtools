@@ -12,7 +12,7 @@ public class hooktest {
     private final String tag = "hook test";
 
     public void hook(XC_LoadPackage.LoadPackageParam lpparam) throws ClassNotFoundException {
-        if (XSPUtils.getBooleanXS("hooktest",false)){
+        if (XSPUtils.getBoolean("hooktest",false)){
             hooktext(lpparam);
         }
     }

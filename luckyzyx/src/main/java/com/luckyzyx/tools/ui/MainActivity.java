@@ -181,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
     public void CheckXposed() {
         try {
             getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
-            getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
         } catch (SecurityException exception) {
             new AlertDialog.Builder(this)
                     .setCancelable(false)

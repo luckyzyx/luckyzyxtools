@@ -10,10 +10,10 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class hookeast2d {
     public void hook(XC_LoadPackage.LoadPackageParam lpparam) {
-        if (XSPUtils.getBooleanXS("ad",false)) {
+        if (XSPUtils.getBoolean("ad",false)) {
             HookisAdOpen(lpparam);
         }
-        if (XSPUtils.getBooleanXS("vip",false)) {
+        if (XSPUtils.getBoolean("vip",false)) {
             HookisVip(lpparam);
         }
     }
