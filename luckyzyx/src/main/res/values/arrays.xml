@@ -19,8 +19,11 @@
     </string-array>
 
     <string-array name="theme_option">
-        <item>默认</item>
+        <item>默认白</item>
         <item>灯下黑</item>
+        <item>姨妈红</item>
+        <item>玉米黄</item>
+        <item>橘子橙</item>
         <item>草原绿</item>
         <item>基佬紫</item>
     </string-array>
@@ -28,6 +31,9 @@
     <string-array name="theme_value">
         <item>default</item>
         <item>black</item>
+        <item>red</item>
+        <item>yellow</item>
+        <item>orange</item>
         <item>green</item>
         <item>purple</item>
     </string-array>

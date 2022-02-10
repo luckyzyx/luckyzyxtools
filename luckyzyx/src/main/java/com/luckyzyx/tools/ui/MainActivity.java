@@ -125,7 +125,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "black":
                 context.setTheme(R.style.Theme_Luckyzyx_black);
-//                AppCompatDelegate.setDefaultNightMode(R.style.MODE_NIGHT_YES);
+                break;
+            case "red":
+                context.setTheme(R.style.Theme_Luckyzyx_red);
+                break;
+            case "yellow":
+                context.setTheme(R.style.Theme_Luckyzyx_yellow);
+                break;
+            case "orange":
+                context.setTheme(R.style.Theme_Luckyzyx_orange);
                 break;
             case "green":
                 context.setTheme(R.style.Theme_Luckyzyx_green);

@@ -53,7 +53,7 @@
             android:title="原生安装器" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="好多动漫"
+    <PreferenceCategory android:title="好多动漫v5.1.1"
         app:iconSpaceReserved="false">
 
         <SwitchPreference
