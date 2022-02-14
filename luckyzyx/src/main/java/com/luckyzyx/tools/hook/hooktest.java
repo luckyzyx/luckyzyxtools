@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.hook;
 
 import com.luckyzyx.tools.BuildConfig;
+import com.luckyzyx.tools.utils.XSPUtils;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
@@ -13,8 +14,7 @@ public class hooktest {
     private final String tag = "hook test";
 
     public void hook(XC_LoadPackage.LoadPackageParam lpparam) throws ClassNotFoundException {
-        XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, "XposedSettings");
-        if (prefs.getBoolean("hooktest",false)){
+        if (XSPUtils.getBoolean("hooktest",false)){
             hooktext(lpparam);
         }
     }

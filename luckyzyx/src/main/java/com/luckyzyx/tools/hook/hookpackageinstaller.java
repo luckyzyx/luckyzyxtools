@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.utils.Log;
+import com.luckyzyx.tools.utils.XSPUtils;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
@@ -12,8 +13,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class hookpackageinstaller {
     public void hook(XC_LoadPackage.LoadPackageParam lpparam) throws ClassNotFoundException {
-        XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, "XposedSettings");
-        if (prefs.getBoolean("safe_install",false)){
+        if (XSPUtils.getBoolean("safe_install",false)){
             hooksafe(lpparam);
         }
     }

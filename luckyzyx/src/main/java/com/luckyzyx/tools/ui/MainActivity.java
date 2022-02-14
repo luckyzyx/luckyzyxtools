@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         userFragment = new UserFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
-        //noinspection deprecation
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         //设置默认选中item
         switchFragment(homeFragment);
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         CheckXposed();
     }
     //NavigationItem被选择事件
-    @SuppressWarnings("deprecation")
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @SuppressLint("NonConstantResourceId")
