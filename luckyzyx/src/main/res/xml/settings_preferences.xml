@@ -7,8 +7,7 @@
         app:title="APP设置">
 
         <ListPreference
-            android:defaultValue="false"
-            app:defaultValue="false"
+            app:defaultValue="material"
             app:entries="@array/theme_option"
             app:entryValues="@array/theme_value"
             app:iconSpaceReserved="true"

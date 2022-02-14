@@ -30,6 +30,16 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    //标题栏返回事件
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.openOptionsMenu();
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return true;
+    }
+
     public static class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -58,13 +68,5 @@ public class SettingsActivity extends AppCompatActivity {
             getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
         }
     }
-    //标题栏返回事件
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.openOptionsMenu();
-        if(item.getItemId() == android.R.id.home){
-            finish();
-        }
-        return true;
-    }
+
 }

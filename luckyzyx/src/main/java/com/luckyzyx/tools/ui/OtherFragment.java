@@ -18,7 +18,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         setPreferencesFromResource(R.xml.other_preferences, rootKey);
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-        if(SPUtils.getString(requireActivity(),"brand").equals("OPPO")){
+        if(SPUtils.getString(requireActivity(),"brand",null).equals("OPPO")){
             //移除OnePlus
             getPreferenceScreen().removePreference(findPreference("coloros_oplus"));
             getPreferenceScreen().removePreference(findPreference("developer_oplus"));
@@ -55,7 +55,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                 return false;
             });
         }
-        if(SPUtils.getString(requireActivity(),"brand").equals("OnePlus")){
+        if(SPUtils.getString(requireActivity(),"brand",null).equals("OnePlus")){
 
             //移除OPPO
             getPreferenceScreen().removePreference(findPreference("coloros_oppo"));

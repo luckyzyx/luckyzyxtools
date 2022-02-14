@@ -1,17 +1,19 @@
 package com.luckyzyx.tools.hook;
 
-import com.luckyzyx.tools.utils.XSPUtils;
+import com.luckyzyx.tools.BuildConfig;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class hookeast2d {
     public void hook(XC_LoadPackage.LoadPackageParam lpparam) {
-        if (XSPUtils.getBoolean("ad",false)) {
+        XSharedPreferences prefs = new XSharedPreferences(BuildConfig.APPLICATION_ID, "XposedSettings");
+        if (prefs.getBoolean("ad",false)) {
             HookisAdOpen(lpparam);
         }
-        if (XSPUtils.getBoolean("vip",false)) {
+        if (prefs.getBoolean("vip",false)) {
             HookisVip(lpparam);
         }
     }

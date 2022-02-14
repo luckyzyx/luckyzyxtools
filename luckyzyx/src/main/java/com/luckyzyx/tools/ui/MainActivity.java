@@ -41,20 +41,22 @@ public class MainActivity extends AppCompatActivity {
         userFragment = new UserFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        //noinspection deprecation
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         //设置默认选中item
         switchFragment(homeFragment);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
-//        CheckXposed();
         CheckBrand();
+        CheckXposed();
     }
     //NavigationItem被选择事件
+    @SuppressWarnings("deprecation")
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @SuppressLint("NonConstantResourceId")
         @Override
-        public boolean onNavigationItemSelected( MenuItem item) {
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
                 case R.id.nav_item_home:
                     switchFragment(homeFragment);
@@ -117,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //判断主题
-    static void CheckTheme(Context context){
-        String theme = SPUtils.getString(context,"theme","default");
+    public static void CheckTheme(Context context){
+        String theme = SPUtils.getString(context,"theme","purple");
         switch (theme){
-            case "default":
-                context.setTheme(R.style.Theme_Luckyzyx);
+            case "material":
+                context.setTheme(R.style.Theme_Luckyzyx_material);
                 break;
-            case "black":
-                context.setTheme(R.style.Theme_Luckyzyx_black);
+            case "purple":
+                context.setTheme(R.style.Theme_Luckyzyx_purple);
                 break;
             case "red":
                 context.setTheme(R.style.Theme_Luckyzyx_red);
@@ -138,11 +140,27 @@ public class MainActivity extends AppCompatActivity {
             case "green":
                 context.setTheme(R.style.Theme_Luckyzyx_green);
                 break;
-            case "purple":
-                context.setTheme(R.style.Theme_Luckyzyx_purple);
-                break;
         }
     }
+
+    //初始化Xposed XSharedPreferences
+    @SuppressLint("WorldReadableFiles")
+    public void CheckXposed() {
+        try {
+            getSharedPreferences("Settings", Context.MODE_WORLD_READABLE);
+            getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
+            getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
+        } catch (SecurityException ignored) {
+            // The new XSharedPreferences is not enabled or module's not loading
+            new AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setMessage(getString(R.string.not_supported))
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> System.exit(0))
+                    .setNegativeButton(R.string.ignore, null)
+                    .show();
+        }
+    }
+
     //检测包名判断机型
     //com.oplus.engineermode,com.oplus.engineermode
     public boolean Appexist(@NonNull Context context, String packageName) {
@@ -185,21 +203,6 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .show();
             }
-        }
-    }
-
-    //初始化Xposed XSharedPreferences
-    @SuppressLint("WorldReadableFiles")
-    public void CheckXposed() {
-        try {
-            getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
-        } catch (SecurityException exception) {
-            new AlertDialog.Builder(this)
-                    .setCancelable(false)
-                    .setMessage(getString(R.string.not_supported))
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> System.exit(0))
-                    .setNegativeButton(R.string.ignore, null)
-                    .show();
         }
     }
 
@@ -247,15 +250,9 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("title")
                 .setMessage("message")
                 .setCancelable(true)
-                .setPositiveButton("OK", (dialog, which) -> {
-
-                })
-                .setNegativeButton("Cancel", (dialog, which) -> {
-
-                })
-                .setNeutralButton("Neutral", (dialog, which) -> {
-
-                })
+                .setPositiveButton("OK", (dialog, which) -> ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 1",true))
+                .setNegativeButton("Cancel", (dialog, which) -> ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 0",true))
+                .setNeutralButton("Neutral", (dialog, which) -> ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 3",true))
                 .show();
     }
 }

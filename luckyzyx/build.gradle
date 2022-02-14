@@ -69,7 +69,7 @@ dependencies {
     //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"
     //使能在平台的旧版API上访问新API   原V7包
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+//    implementation 'androidx.appcompat:appcompat:1.4.0'
     //Material主题
     implementation 'com.google.android.material:material:1.4.0'
     //约束布局
@@ -79,7 +79,7 @@ dependencies {
     //快速创建settings
     implementation 'androidx.preference:preference:1.1.1'
     //原 v4包
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

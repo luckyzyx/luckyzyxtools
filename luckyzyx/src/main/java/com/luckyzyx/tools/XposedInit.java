@@ -1,5 +1,7 @@
 package com.luckyzyx.tools;
 
+import androidx.annotation.NonNull;
+
 import com.luckyzyx.tools.hook.hookeast2d;
 import com.luckyzyx.tools.hook.hookpackageinstaller;
 import com.luckyzyx.tools.hook.hooksystemui;
@@ -8,7 +10,6 @@ import com.luckyzyx.tools.hook.hooktest;
 
 //当指定应用被加载时被调用，一般用于hook特定应用的方法
 import de.robv.android.xposed.IXposedHookLoadPackage;
-//在Android系统启动时被调用，作用于初始的zygote进程，可用于实现应用于所有应用的hook
 //指定应用的资源进行初始化时被调用，一般用于资源的替换
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 
@@ -17,7 +18,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class XposedInit implements IXposedHookLoadPackage,IXposedHookInitPackageResources {
     @Override
-    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
+    public void handleLoadPackage(@NonNull XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         switch (lpparam.packageName) {
             case "com.luckyzyx.test":
                 new hooktest().hook(lpparam);
@@ -26,10 +27,10 @@ public class XposedInit implements IXposedHookLoadPackage,IXposedHookInitPackage
                 new hookeast2d().hook(lpparam);
                 break;
             case "com.android.packageinstaller":
-                new hookpackageinstaller().hook(lpparam);
+//                new hookpackageinstaller().hook(lpparam);
                 break;
             case "com.android.systemui":
-                new hooksystemui().hooknetworkspeed(lpparam);
+//                new hooksystemui().hooknetworkspeed(lpparam);
                 break;
         }
     }
