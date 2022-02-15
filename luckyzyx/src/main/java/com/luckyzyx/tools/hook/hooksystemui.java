@@ -16,7 +16,7 @@ public class hooksystemui {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     super.afterHookedMethod(param);
-                    Log.d(tag, (String) param.args[0]);
+                    Log.log(tag, (String) param.args[0]);
                 }
             });
     }

@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CheckBrand();
+        CheckXposed();
         CheckTheme(this);
         setContentView(R.layout.activity_main);
 
@@ -45,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
         //设置默认选中item
         switchFragment(homeFragment);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
-
-        CheckBrand();
-        CheckXposed();
     }
     //NavigationItem被选择事件
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener

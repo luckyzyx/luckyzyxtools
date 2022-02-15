@@ -31,7 +31,7 @@ public class hookpackageinstaller {
                 }
             });
         }catch (Exception e){
-            Log.d("safe","safe:"+e.getLocalizedMessage());
+            Log.log("safe","safe:"+e.getLocalizedMessage());
         }
 
 
