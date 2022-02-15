@@ -1,34 +1,8 @@
 <resources>
-    <style name="Theme.Luckyzyx" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-
-        <!--应用的主要色调,actionBar默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimary">@color/dkgray</item>
-        <!-- 应用的主要暗色调,状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/black</item>
-        <!--主色上层的颜色,如按钮字体色-->
-        <item name="colorOnPrimary">@color/white</item>
-        <!--选中色,焦点色-->
-        <item name="colorSecondary">@color/white</item>
-
-        <!--底部导航栏选中色-->
-        <item name="bottomNavigationStyle">@style/MyBottomNavigationStyle</item>
+    <style name="Theme.Luckyzyx" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- 状态栏沉浸色-->
+<!--        <item name="android:statusBarColor">?attr/colorTertiary</item>-->
         <!--虚拟按键沉浸颜色-->
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <!-- 标题栏字体颜色 -->
-        <item name="actionBarTheme">@style/ActionBarLight</item>
-        <!--对话框按钮颜色-->
-        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
-
-        <!-- button 文字是否全部大写（默认true）-->
-        <item name="android:textAllCaps">false</item>
+<!--        <item name="android:navigationBarColor">#ff1c1b1f</item>-->
     </style>
-    <style name="MyActionBar" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
-        <item name="android:titleTextColor">@color/white</item>
-    </style>
-    <style name="MyBottomNavigationStyle" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="android:checkboxStyle">@color/white</item>
-    </style>
-
 </resources>

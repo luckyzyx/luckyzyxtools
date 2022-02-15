@@ -1,7 +1,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
-        android:title="ColorOS相关_OPPO"
+        android:title="ColorOS相关"
+        app:summary="OPPO"
         app:iconSpaceReserved="false"
         app:key="coloros_oppo">
 
@@ -46,7 +47,8 @@
 
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="ColorOS相关_OnePlus"
+        android:title="ColorOS相关"
+        app:summary="OnePlus"
         app:iconSpaceReserved="false"
         app:key="coloros_oplus">
 
@@ -98,7 +100,8 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:key="developer_oppo"
-        android:title="开发者模式相关_OPPO"
+        android:title="开发者模式相关"
+        app:summary="OPPO"
         app:iconSpaceReserved="false">
 
         <SwitchPreference
@@ -110,7 +113,8 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:key="developer_oplus"
-        android:title="开发者模式相关_OnePlus"
+        android:title="开发者模式相关"
+        app:summary="OnePlus"
         app:iconSpaceReserved="false">
 
         <SwitchPreference

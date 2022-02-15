@@ -2,6 +2,7 @@ package com.luckyzyx.tools.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
@@ -11,6 +12,8 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
 
+import java.util.Objects;
+
 public class XposedActivity extends AppCompatActivity {
 
     @Override
@@ -18,16 +21,22 @@ public class XposedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MainActivity.CheckTheme(this);
         setContentView(R.layout.settings_activity);
+        //设置Toolbar
+        setSupportActionBar(findViewById(R.id.topAppBar));
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.settings, new XposedFragment())
                     .commitNow();
         }
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+    }
+
+    //创建Menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     //标题栏返回事件

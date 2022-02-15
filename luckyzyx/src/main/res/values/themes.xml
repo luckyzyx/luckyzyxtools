@@ -1,23 +1,44 @@
 <resources>
-    <style name="Theme.Luckyzyx.material" parent="Theme.AppCompat.Light">
+    <style name="Theme.Luckyzyx" parent="Theme.Material3.Light.NoActionBar">
+
+    </style>
+    <style name="Theme.Luckyzyx.a" parent="Theme.Material3.Light">
+        <!--主题色,标题栏背景色-->
+        <item name="colorPrimary">@color/white</item>
+        <!--按钮Text颜色-->
+        <item name="colorOnPrimary">@color/black</item>
+        <!--控件选中,Preference组标题-->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/green</item>
+
+        <!--错误的颜色-->
+        <item name="colorError">#F44336</item>
+        <item name="colorOnError">@color/black</item>
+        <!--表面的颜色,即材料“纸张”:底部导航栏背景色-->
+        <item name="colorSurface">@color/white</item>
+        <!--普通状态控件表面颜色:复选框,底部导航栏默认色-->
+        <item name="colorOnSurface">@color/black</item>
+
+        <!--对话框按钮颜色-->
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
+
+        <!--底部导航栏布局:选中色-->
+        <item name ="bottomNavigationStyle">@style/MyBottomNavigationStyleLight</item>
+
+    <!--activity背景色-->
+<!--    <item name="android:colorBackground">@color/black</item>-->
+        <item name="colorOnBackground">#212121</item>
+        <!-- 状态栏沉浸色-->
+        <item name="android:statusBarColor">@color/white</item>
+        <!-- 改变状态栏文字颜色， true黑色， false白色，API23可用-->
+        <item name="android:windowLightStatusBar">true</item>
         <!-- 跟随系统设置自动切换DarkMode-->
         <item name="android:forceDarkAllowed">true</item>
-        <!--        &lt;!&ndash;应用的主要色调,actionBar背景默认使用该颜色，Toolbar导航栏的底色&ndash;&gt;-->
-        <!--        <item name="colorPrimary">@color/purple_200</item>-->
-        <!--        &lt;!&ndash; 应用的主要暗色调,状态栏颜色 &ndash;&gt;-->
-        <!--        <item name="colorPrimaryDark">@color/purple_200</item>-->
-        <!--        &lt;!&ndash;选中色,焦点色,Preference组 文字色&ndash;&gt;-->
-        <!--        <item name="colorSecondary">@color/purple_200</item>-->
-        <!--        &lt;!&ndash; 标题栏字体颜色 &ndash;&gt;-->
-        <!--        <item name="actionBarTheme">@style/ActionBarLight</item>-->
-        <!--        &lt;!&ndash; 状态栏文字颜色,true黑色,false白色,API23可用&ndash;&gt;-->
-        <!--        <item name="android:windowLightStatusBar">false</item>-->
-        <!--        &lt;!&ndash;虚拟按键沉浸颜色&ndash;&gt;-->
-        <!--        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>-->
-        <!--        &lt;!&ndash; 跟随系统设置自动切换DarkMode&ndash;&gt;-->
-        <!--        <item name="android:forceDarkAllowed">true</item>-->
     </style>
-    <style name="Theme.Luckyzyx" parent="Theme.MaterialComponents.Light">
+
+    <style name="Theme.Luckyzyx.xx" parent="Theme.MaterialComponents.Light">
 
         <!--应用的主要色调,actionBar默认使用该颜色，Toolbar导航栏的底色-->
         <item name="colorPrimary">@color/white</item>
@@ -51,7 +72,7 @@
         <!-- 让底部虚拟按键变半透明灰色,覆盖在Activity之上（默认false，activity会居于底部导航栏顶部），如果设为true，activity会放置在标题栏下 -->
         <item name="android:windowTranslucentNavigation">false</item>
         <!--底部导航栏选中色-->
-        <item name="bottomNavigationStyle">@style/MyBottomNavigationStyle</item>
+        <item name="bottomNavigationStyle">@style/MyBottomNavigationStyleLight</item>
         <!--虚拟按键沉浸颜色-->
         <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
 
@@ -152,22 +173,29 @@
     <style name="ActionBarLight" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:titleTextColor">@color/white</item>
     </style>
-    <style name="MyBottomNavigationStyle" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
+    <style name="MyBottomNavigationStyleLight" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
+        <!--底部导航背景的颜色:默认颜色colorSurface用于表面底部导航,colorPrimary彩色底部导航-->
+<!--        <item name="backgroundTint">@color/white</item>-->
+        <!--itemTextColor/ itemIconTint:底部导航项目图标和标签的颜色-->
+        <!--对于表面底部导航和彩色底部导航:默认颜色为colorOnSurface/colorPrimary,选中colorOnPrimary-->
+<!--        <item name="itemTextColor">@color/gray</item>-->
+<!--        <item name="itemIconTint">@color/gray</item>-->
+        <!--选中色-->
         <item name="android:checkboxStyle">@color/black</item>
     </style>
     <style name="MyBottomNavigationStyleNight" parent="@style/Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="android:checkboxStyle">@color/white</item>
     </style>
     <!--确定按钮样式-->
-    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/white</item>
+    <style name="PositiveButtonStyle" parent="@style/Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/black</item>
     </style>
     <!--取消按钮样式-->
-    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/white</item>
+    <style name="NegativeButtonStyle" parent="@style/Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/black</item>
     </style>
     <!--中立按钮样式-->
-    <style name="NeutralButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/white</item>
+    <style name="NeutralButtonStyle" parent="@style/Widget.Material3.Button.TextButton.Dialog.Flush">
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>
