@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
@@ -6,6 +7,7 @@
         app:title="APP设置">
 
         <ListPreference
+            android:enabled="false"
             app:defaultValue="material"
             app:entries="@array/theme_option"
             app:entryValues="@array/theme_value"

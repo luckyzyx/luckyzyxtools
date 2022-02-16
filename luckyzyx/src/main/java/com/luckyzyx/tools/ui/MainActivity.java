@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationBarView;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
@@ -49,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         //设置默认选中item
         switchFragment(homeFragment);
+        //设置默认选中item
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
+        //设置选中动画
+        bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
     }
 
     //创建Menu菜单

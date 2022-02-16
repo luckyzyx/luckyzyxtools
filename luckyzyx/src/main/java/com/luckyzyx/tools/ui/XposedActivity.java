@@ -20,7 +20,7 @@ public class XposedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.CheckTheme(this);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.xposed_activity);
         //设置Toolbar
         setSupportActionBar(findViewById(R.id.topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -28,14 +28,13 @@ public class XposedActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.settings, new XposedFragment())
+                    .replace(R.id.xposed_fragment, new XposedFragment())
                     .commitNow();
         }
     }
 
     //创建Menu
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 

@@ -1,8 +1,6 @@
 <resources>
     <style name="Theme.Luckyzyx" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- 状态栏沉浸色-->
-<!--        <item name="android:statusBarColor">?attr/colorTertiary</item>-->
-        <!--虚拟按键沉浸颜色-->
-<!--        <item name="android:navigationBarColor">#ff1c1b1f</item>-->
+        <item name="android:statusBarColor">@color/black</item>
     </style>
 </resources>
