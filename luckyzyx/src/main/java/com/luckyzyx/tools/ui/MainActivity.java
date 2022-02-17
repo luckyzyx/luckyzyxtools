@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private OtherFragment otherFragment;
     private UserFragment userFragment;
 
+    public MainActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         //引用Toolbar menu文件
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         /*
          * add()方法的四个参数，依次是：
          * 1、组别，如果不分组的话就写Menu.NONE,
@@ -93,25 +96,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //NavigationItem被选择事件
+    @SuppressLint("NonConstantResourceId")
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @SuppressLint("NonConstantResourceId")
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()){
-                case R.id.nav_item_home:
-                    switchFragment(homeFragment);
-                    break;
-                case R.id.nav_item_other:
-                    switchFragment(otherFragment);
-                    break;
-                case R.id.nav_item_user:
-                    switchFragment(userFragment);
-                    break;
-            }
-            return true;
-        }
-    };
+            = item -> {
+                switch (item.getItemId()){
+                    case R.id.nav_item_home:
+                        switchFragment(homeFragment);
+                        break;
+                    case R.id.nav_item_other:
+                        switchFragment(otherFragment);
+                        break;
+                    case R.id.nav_item_user:
+                        switchFragment(userFragment);
+                        break;
+                }
+                return true;
+            };
+
     //跳转Fragment函数
     private void switchFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

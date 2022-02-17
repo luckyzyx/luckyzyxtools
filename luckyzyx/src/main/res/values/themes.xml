@@ -5,7 +5,8 @@
         <!-- 改变状态栏文字颜色,true黑色,false白色 -->
         <item name="android:windowLightStatusBar">true</item>
     </style>
-    <style name="Theme.Luckyzyx.a" parent="Theme.Material3.Light">
+
+    <style name="Theme.Luckyzyx.xx" parent="Theme.MaterialComponents.Light">
         <!--主题色,标题栏背景色-->
         <item name="colorPrimary">@color/white</item>
         <!--按钮Text颜色-->
@@ -21,36 +22,6 @@
         <item name="colorSurface">@color/white</item>
         <!--普通状态控件表面颜色:复选框,底部导航栏默认色-->
         <item name="colorOnSurface">@color/black</item>
-
-        <!--对话框按钮颜色-->
-        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
-        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
-
-        <!--底部导航栏布局:选中色-->
-        <item name ="bottomNavigationStyle">@style/MyBottomNavigationStyleLight</item>
-
-    <!--activity背景色-->
-<!--    <item name="android:colorBackground">@color/black</item>-->
-        <item name="colorOnBackground">#212121</item>
-        <!-- 状态栏沉浸色-->
-        <item name="android:statusBarColor">@color/white</item>
-        <!-- 改变状态栏文字颜色， true黑色， false白色，API23可用-->
-        <item name="android:windowLightStatusBar">true</item>
-        <!-- 跟随系统设置自动切换DarkMode-->
-        <item name="android:forceDarkAllowed">true</item>
-    </style>
-
-    <style name="Theme.Luckyzyx.xx" parent="Theme.MaterialComponents.Light">
-
-        <!--应用的主要色调,actionBar默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimary">@color/white</item>
-        <!-- 应用的主要暗色调,状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/white</item>
-        <!--主色上层的颜色,如按钮字体色-->
-        <item name="colorOnPrimary">@color/black</item>
-        <!--选中色,焦点色-->
-        <item name="colorSecondary">@color/black</item>
 
         <!-- 跟随系统设置自动切换DarkMode-->
         <item name="android:forceDarkAllowed">true</item>
@@ -86,91 +57,6 @@
 
         <!-- button 文字是否全部大写（默认true）-->
         <item name="android:textAllCaps">false</item>
-    </style>
-
-    <style name="Theme.Luckyzyx.red" parent="Theme.MaterialComponents.Light">
-        <!--应用的主要色调,actionBar背景默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimary">@color/red</item>
-        <!-- 应用的主要暗色调,状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/red</item>
-        <!--选中色,焦点色,Preference组 文字色-->
-        <item name="colorSecondary">@color/red</item>
-        <!-- 标题栏字体颜色 -->
-        <item name="actionBarTheme">@style/ActionBarLight</item>
-        <!-- 状态栏文字颜色,true黑色,false白色,API23可用-->
-        <item name="android:windowLightStatusBar">false</item>
-        <!--虚拟按键沉浸颜色-->
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <!-- 跟随系统设置自动切换DarkMode-->
-        <item name="android:forceDarkAllowed">true</item>
-    </style>
-
-    <style name="Theme.Luckyzyx.yellow" parent="Theme.MaterialComponents.Light">
-        <!--应用的主要色调,actionBar背景默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimary">@color/yellow</item>
-        <!-- 应用的主要暗色调,状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/yellow</item>
-        <!--选中色,焦点色,Preference组 文字色-->
-        <item name="colorSecondary">@color/yellow</item>
-        <!-- 标题栏字体颜色 -->
-        <item name="actionBarTheme">@style/ActionBarLight</item>
-        <!-- 状态栏文字颜色,true黑色,false白色,API23可用-->
-        <item name="android:windowLightStatusBar">false</item>
-        <!--虚拟按键沉浸颜色-->
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <!-- 跟随系统设置自动切换DarkMode-->
-        <item name="android:forceDarkAllowed">true</item>
-    </style>
-
-    <style name="Theme.Luckyzyx.orange" parent="Theme.MaterialComponents.Light">
-        <!--应用的主要色调,actionBar背景默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimary">@color/orange</item>
-        <!-- 应用的主要暗色调,状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/orange</item>
-        <!--选中色,焦点色,Preference组 文字色-->
-        <item name="colorSecondary">@color/orange</item>
-        <!-- 标题栏字体颜色 -->
-        <item name="actionBarTheme">@style/ActionBarLight</item>
-        <!-- 状态栏文字颜色,true黑色,false白色,API23可用-->
-        <item name="android:windowLightStatusBar">false</item>
-        <!--虚拟按键沉浸颜色-->
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <!-- 跟随系统设置自动切换DarkMode-->
-        <item name="android:forceDarkAllowed">true</item>
-    </style>
-
-    <style name="Theme.Luckyzyx.green" parent="Theme.MaterialComponents.Light">
-        <!--应用的主要色调,actionBar背景默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimary">@color/green</item>
-        <!-- 应用的主要暗色调,状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/green</item>
-        <!--选中色,焦点色,Preference组 文字色-->
-        <item name="colorSecondary">@color/green</item>
-        <!-- 标题栏字体颜色 -->
-        <item name="actionBarTheme">@style/ActionBarLight</item>
-        <!-- 状态栏文字颜色,true黑色,false白色,API23可用-->
-        <item name="android:windowLightStatusBar">false</item>
-        <!--虚拟按键沉浸颜色-->
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <!-- 跟随系统设置自动切换DarkMode-->
-        <item name="android:forceDarkAllowed">true</item>
-    </style>
-
-    <style name="Theme.Luckyzyx.purple" parent="Theme.MaterialComponents.Light">
-        <!--应用的主要色调,actionBar背景默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimary">@color/purple_200</item>
-        <!-- 应用的主要暗色调,状态栏颜色 -->
-        <item name="colorPrimaryDark">@color/purple_200</item>
-        <!--选中色,焦点色,Preference组 文字色-->
-        <item name="colorSecondary">@color/purple_200</item>
-        <!-- 标题栏字体颜色 -->
-        <item name="actionBarTheme">@style/ActionBarLight</item>
-        <!-- 状态栏文字颜色,true黑色,false白色,API23可用-->
-        <item name="android:windowLightStatusBar">false</item>
-        <!--虚拟按键沉浸颜色-->
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <!-- 跟随系统设置自动切换DarkMode-->
-        <item name="android:forceDarkAllowed">true</item>
     </style>
 
     <style name="ActionBarLight" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
