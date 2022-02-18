@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.luckyzyx.tools.BuildConfig;
@@ -54,8 +55,21 @@ public class HomeFragment extends Fragment {
         TextView condition_module = requireActivity().findViewById(R.id.condition_module);
         condition_module.setText(getModuleInfo());
 
-        TextView btn_magisk = requireActivity().findViewById(R.id.btn_magisk);
+        Button btn_magisk = requireActivity().findViewById(R.id.btn_magisk);
         btn_magisk.setOnClickListener(v -> MainActivity.alertdialog(requireActivity()));
+
+        TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
+        systeminfo.setText(getSystemInfo());
+    }
+
+    private String getSystemInfo() {
+        String[] str = {
+                "Product Model: \n" +
+                "型号"+android.os.Build.MODEL + "\n" +
+                "SDK API"+android.os.Build.VERSION.SDK + "\n" +
+                "Android版本: "+android.os.Build.VERSION.RELEASE
+        };
+        return str[0];
     }
 
     @Override
