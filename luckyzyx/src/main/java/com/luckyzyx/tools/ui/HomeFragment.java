@@ -6,10 +6,15 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,18 +29,22 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Toolbar toolbar = view.findViewById(R.id.topAppBar);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null){
+            activity.setSupportActionBar(toolbar);
+        }
+        return view;
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         CardView cardview = requireActivity().findViewById(R.id.cardview);
         cardview.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
@@ -47,7 +56,27 @@ public class HomeFragment extends Fragment {
 
         TextView btn_magisk = requireActivity().findViewById(R.id.btn_magisk);
         btn_magisk.setOnClickListener(v -> MainActivity.alertdialog(requireActivity()));
+    }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+        super.onCreateOptionsMenu(menu, menuInflater);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId()){
+            case R.id.refresh:
+                MainActivity.refreshmode(requireActivity());
+                break;
+            case R.id.settings:
+            startActivity(new Intent(requireActivity(), SettingsActivity.class));
+                break;
+        }
+        return true;
     }
 
     public String getAppInfo() {

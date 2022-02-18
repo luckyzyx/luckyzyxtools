@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private OtherFragment otherFragment;
     private UserFragment userFragment;
 
-    public MainActivity() {
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         CheckXposed();
         CheckTheme(this);
         setContentView(R.layout.activity_main);
-
-        //设置Toolbar
-        setSupportActionBar(findViewById(R.id.topAppBar));
 
         //底部导航栏
         homeFragment = new HomeFragment();
@@ -57,42 +51,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
         //设置选中动画
         bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
-    }
-
-    //创建Menu菜单
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        //引用Toolbar menu文件
-        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
-        /*
-         * add()方法的四个参数，依次是：
-         * 1、组别，如果不分组的话就写Menu.NONE,
-         * 2、Id，这个很重要，Android根据这个Id来确定不同的菜单
-         * 3、顺序，那个菜单现在在前面由这个参数的大小决定
-         * 4、文本，菜单的显示文本
-         */
-        // setIcon()方法为菜单设置图标，这里使用的是系统自带的图标
-        // 以android.R开头的资源是系统提供的，我们自己提供的资源是以R开头的
-
-//        menu.addSubMenu("一级菜单").add(0,0,0,"二级菜单");
-//        menu.add(0, 0, 0, "重启").setIcon(R.drawable.ic_baseline_refresh_24).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-//        menu.add(0, 1, 0, "设置").setIcon(R.drawable.ic_baseline_settings_24).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    // Toolbar菜单项被选择事件
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.refresh:
-                refreshmode();
-                break;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-        }
-        return true;
     }
 
     //NavigationItem被选择事件
@@ -122,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     //判断主题
     public static void CheckTheme(Context context){
-        context.setTheme(R.style.Theme_Luckyzyx);
+        context.setTheme(R.style.Theme_Luckyzyx_sakura);
 //        String theme = SPUtils.getString(context,"theme","material");
 //        switch (theme){
 //            default:
@@ -222,9 +180,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //关机菜单
-    public void refreshmode(){
+    public static void refreshmode(Context context){
         final String[] list = {"重启", "关机", "Recovery", "fastboot"};
-        new MaterialAlertDialogBuilder(this)
+        new MaterialAlertDialogBuilder(context)
                 .setCancelable(true)
                 .setItems(list, (dialog, which) -> {
                     switch (list[which]){
