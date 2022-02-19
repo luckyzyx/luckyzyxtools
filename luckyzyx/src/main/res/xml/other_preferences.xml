@@ -16,8 +16,8 @@
             android:defaultValue="false"
             android:key="disable_gamespace"
             android:title="禁用游戏空间"
-            app:iconSpaceReserved="false"
-            app:summary="原理：冻结游戏空间相关APP" />
+            app:summary="原理：冻结游戏空间相关APP"
+            app:iconSpaceReserved="false" />
 
         <Preference
             android:layout_width="wrap_content"
@@ -54,6 +54,13 @@
     <PreferenceCategory
         android:title="开发者模式相关"
         app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="wifi_adb"
+            android:title="远程adb调试"
+            app:summary="勿在公共场合开启,不适用时请及时关闭"
+            app:iconSpaceReserved="false" />
 
         <SwitchPreference
             android:defaultValue="false"

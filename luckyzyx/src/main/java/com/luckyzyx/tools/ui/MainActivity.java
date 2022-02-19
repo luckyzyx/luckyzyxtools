@@ -17,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.util.List;
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CheckBrand();
         CheckXposed();
         CheckTheme(this);
         setContentView(R.layout.activity_main);
@@ -46,9 +44,12 @@ public class MainActivity extends AppCompatActivity {
         //设置默认选中item
         switchFragment(homeFragment);
         //设置默认选中item
-        bottomNavigationView.getMenu().getItem(1).setChecked(true);
-        //设置选中动画
+        bottomNavigationView.setSelectedItemId(R.id.nav_item_home);
+        //设置选中显示label
         bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
+
+        //获取Root权限
+        ShellUtils.checkRootPermission();
     }
 
     //NavigationItem被选择事件
@@ -120,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //检测包名
-    //com.oplus.engineermode,com.oplus.engineermode
     public static boolean APPexist(@NonNull Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
         //获取手机系统的所有APP包名，然后进行比较
@@ -131,37 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
-    }
-
-    //检测机型实行方案
-    public void CheckBrand(){
-        boolean firststart = SPUtils.getBoolean(this,"Settings","firststart",true);
-        //若首次启动
-        if (firststart) {
-            boolean oppo = APPexist(this,"com.oppo.engineermode");
-            boolean oplus = APPexist(this,"com.oplus.engineermode");
-            if (oppo==oplus){
-                new MaterialAlertDialogBuilder(this)
-                        .setTitle("机型错误")
-                        .setMessage("本模块仅适用于ColorOS11+\n判断机型出错,点击确定联系作者")
-                        .setCancelable(false)
-                        .setPositiveButton("确定", (dialog, which) -> {
-                            ContactAuthor();
-                            System.exit(0);
-                        })
-                        .show();
-            }else {
-                new MaterialAlertDialogBuilder(this)
-                        .setTitle("欢迎使用")
-                        .setMessage("检测到是首次使用\n判断机型为: "+(oppo?"OPPO":"OnePlus")+"\n如若有误请务必联系作者")
-                        .setCancelable(false)
-                        .setPositiveButton("确定", (dialog, which) -> {
-                            SPUtils.putBoolean(this,"Settings","firststart",false);
-                            SPUtils.putString(this,"Settings","brand",oppo?"OPPO":"OnePlus");
-                        })
-                        .show();
-            }
-        }
     }
 
     //联系作者_跳转URL

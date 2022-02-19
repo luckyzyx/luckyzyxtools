@@ -1,8 +1,5 @@
 package com.luckyzyx.tools.utils;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -197,8 +194,11 @@ public class ShellUtils {
      * <ul>
      * <li>{@link CommandResult#result} means result of command, 0 means normal, else means error, same to excute in
      * linux shell</li>
+     * 表示命令的结果，0表示正常，否则1表示错误，执行linux shell也一样
      * <li>{@link CommandResult#successMsg} means success message of command result</li>
+     * 表示命令结果的成功消息
      * <li>{@link CommandResult#errorMsg} means error message of command result</li>
+     * 表示命令结果的错误信息
      * </ul>
      *
      * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-16

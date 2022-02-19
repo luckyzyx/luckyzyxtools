@@ -16,7 +16,7 @@
     <string name="fps">刷新率</string>
     <string name="btn_xposed_text">Xposed</string>
     <string name="btn_magisk_text">Magisk</string>
-    <string name="not_supported">请确保Xposed API >= 93,并且模块已勾选作用域,若上述已经完成,可尝试点击确定退出APP,然后重试</string>
+    <string name="not_supported">请确保Xposed API >= 93,并且模块已勾选作用域\n若上述已经完成,可尝试点击确定退出APP,然后重试</string>
     <string name="ignore">忽略</string>
     <string name="gamespace_text">禁用游戏空间</string>
 </resources>
