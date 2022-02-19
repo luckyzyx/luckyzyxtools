@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     //检测包名
     //com.oplus.engineermode,com.oplus.engineermode
-    public boolean Appexist(@NonNull Context context, String packageName) {
+    public static boolean APPexist(@NonNull Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
         //获取手机系统的所有APP包名，然后进行比较
         @SuppressLint("QueryPermissionsNeeded")
@@ -135,11 +135,11 @@ public class MainActivity extends AppCompatActivity {
 
     //检测机型实行方案
     public void CheckBrand(){
-        boolean firststart = SPUtils.getBoolean(this,"firststart",true);
+        boolean firststart = SPUtils.getBoolean(this,"Settings","firststart",true);
         //若首次启动
         if (firststart) {
-            boolean oppo = Appexist(this,"com.oppo.engineermode");
-            boolean oplus = Appexist(this,"com.oplus.engineermode");
+            boolean oppo = APPexist(this,"com.oppo.engineermode");
+            boolean oplus = APPexist(this,"com.oplus.engineermode");
             if (oppo==oplus){
                 new MaterialAlertDialogBuilder(this)
                         .setTitle("机型错误")
@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage("检测到是首次使用\n判断机型为: "+(oppo?"OPPO":"OnePlus")+"\n如若有误请务必联系作者")
                         .setCancelable(false)
                         .setPositiveButton("确定", (dialog, which) -> {
-                            SPUtils.putBoolean(this,"firststart",false);
-                            SPUtils.putString(this,"brand",oppo?"OPPO":"OnePlus");
+                            SPUtils.putBoolean(this,"Settings","firststart",false);
+                            SPUtils.putString(this,"Settings","brand",oppo?"OPPO":"OnePlus");
                         })
                         .show();
             }

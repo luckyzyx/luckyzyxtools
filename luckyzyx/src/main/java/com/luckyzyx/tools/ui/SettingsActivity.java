@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 //            Toast.makeText(requireActivity(), key+":"+sharedPreferences.getBoolean(key,false), Toast.LENGTH_SHORT).show();
             if ("theme".equals(key)){
-                SPUtils.putString(requireActivity(),"theme",sharedPreferences.getString(key,"default"));
+                SPUtils.putString(requireActivity(),"Settings","theme",sharedPreferences.getString(key,"default"));
                 MainActivity.reStart(requireActivity());
             }
         }

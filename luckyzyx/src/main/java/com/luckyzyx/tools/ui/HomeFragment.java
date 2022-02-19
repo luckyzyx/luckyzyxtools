@@ -2,6 +2,7 @@ package com.luckyzyx.tools.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -64,10 +65,12 @@ public class HomeFragment extends Fragment {
 
     private String getSystemInfo() {
         String[] str = {
-                "Product Model: \n" +
-                "型号"+android.os.Build.MODEL + "\n" +
-                "SDK API"+android.os.Build.VERSION.SDK + "\n" +
-                "Android版本: "+android.os.Build.VERSION.RELEASE
+                "系统厂商: "+ Build.BRAND+
+                "\n型号: "+Build.MODEL +
+                "\nAndroid版本: "+Build.VERSION.RELEASE+
+                "\nSDK API: "+Build.VERSION.SDK+
+                "\n设备参数: "+Build.DEVICE+
+                "\n版本号: "+Build.DISPLAY
         };
         return str[0];
     }

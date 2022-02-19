@@ -6,6 +6,16 @@
 <!--        <item>com.android.systemui</item>-->
     </string-array>
 
+    <string-array name="brand">
+        <item>OPPO</item>
+        <item>OnePlus</item>
+    </string-array>
+
+    <string-array name="coloros_version">
+        <item>ColorOS11</item>
+        <item>ColorOS12</item>
+    </string-array>
+
     <string-array name="network_speed_option">
         <item>1秒</item>
         <item>2秒</item>
