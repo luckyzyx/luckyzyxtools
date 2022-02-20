@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -18,9 +17,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
 
@@ -45,19 +48,37 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //Xposed
+        MaterialTextView xposed_title = requireActivity().findViewById(R.id.xposed_title);
+        xposed_title.setText( "忆清鸣、luckyzyx");
+        MaterialTextView xposed_info = requireActivity().findViewById(R.id.xposed_info);
+        xposed_info.setText( "版本: " + BuildConfig.VERSION_NAME+"\n版本号: " + BuildConfig.VERSION_CODE);
+        //Magisk
+        MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
+        magisk_title.setText( "忆清鸣、luckyzyx");
+        MaterialTextView magisk_info = requireActivity().findViewById(R.id.magisk_info);
+        magisk_info.setText( "版本: " + BuildConfig.VERSION_NAME+"\n版本号: " + BuildConfig.VERSION_CODE);
+        //Button
+        MaterialButton xposed = requireActivity().findViewById(R.id.xposed_btn);
+        xposed.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
+        MaterialButton magisk = requireActivity().findViewById(R.id.magisk_btn);
+        magisk.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
 
-        CardView cardview = requireActivity().findViewById(R.id.cardview);
-        cardview.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
+        //BottomSheet
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
+        bottomSheetDialog.setContentView(R.layout.updatelog_sheet);
+        View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
+        assert bottomSheetInternal != null;
+        BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
+        MaterialCardView updatelog_card = requireActivity().findViewById(R.id.updatelog_card);
+        updatelog_card.setOnClickListener(v -> bottomSheetDialog.show());
 
-        TextView condition_app = requireActivity().findViewById(R.id.condition_app);
-        condition_app.setText(getAppInfo());
-        TextView condition_module = requireActivity().findViewById(R.id.condition_module);
-        condition_module.setText(getModuleInfo());
-
-        Button btn_magisk = requireActivity().findViewById(R.id.btn_magisk);
-        btn_magisk.setOnClickListener(v -> MainActivity.alertdialog(requireActivity()));
+        MaterialTextView updatelog_text = bottomSheetDialog.findViewById(R.id.updatelog_text);
+        assert updatelog_text != null;
+//        updatelog_text.setText();
 
         TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
         systeminfo.setText(getSystemInfo());
@@ -65,7 +86,7 @@ public class HomeFragment extends Fragment {
 
     private String getSystemInfo() {
         String[] str = {
-                "系统厂商: "+ Build.BRAND+
+                "厂商: "+ Build.BRAND+
                 "\n型号: "+Build.MODEL +
                 "\nAndroid版本: "+Build.VERSION.RELEASE+
                 "\nSDK API: "+Build.VERSION.SDK+
@@ -96,17 +117,7 @@ public class HomeFragment extends Fragment {
         return true;
     }
 
-    public String getAppInfo() {
-        String appName = BuildConfig.APPLICATION_ID;
-        String versionName = BuildConfig.VERSION_NAME;
-        int versionCode = BuildConfig.VERSION_CODE;
-        String[] info ={
-                "App: "+appName+"\n"+
-                "内置版本: "+versionName+"\n"+
-                "内置版本号: " + versionCode
-        };
-        return info[0];
-    }
+
 
     public String getModuleInfo() {
         String moduleName = "luckyzyx_tools";

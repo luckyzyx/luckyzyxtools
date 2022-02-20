@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
@@ -14,10 +15,8 @@ import com.luckyzyx.tools.utils.ShellUtils;
 public class OtherFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        getPreferenceManager().setSharedPreferencesName("OtherSettings");
-        setPreferencesFromResource(R.xml.other_preferences, rootKey);
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         //进程管理
         Preference process_management = findPreference("process_management");
@@ -27,8 +26,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                 Intent process_management_oplus = new Intent().setClassName("com.android.settings", "com.oplus.settings.feature.process.RunningApplicationActivity");
                 if (requireActivity().getPackageManager().resolveActivity(process_management_oppo, 0) != null) {
                     ShellUtils.execCommand("am start -n com.android.settings/com.coloros.settings.feature.process.RunningApplicationActivity", true);
-                }
-                if (requireActivity().getPackageManager().resolveActivity(process_management_oplus, 0) != null) {
+                }else if (requireActivity().getPackageManager().resolveActivity(process_management_oplus, 0) != null) {
                     ShellUtils.execCommand("am start -n com.android.settings/com.oplus.settings.feature.process.RunningApplicationActivity", true);
                 }
                 return false;
@@ -43,8 +41,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             engineering_model.setOnPreferenceClickListener(preference -> {
                 if (engineermode_oppo) {
                     ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.aftersale.AfterSalePage", true);
-                }
-                if (engineermode_oplus) {
+                }else if (engineermode_oplus) {
                     ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.aftersale.AfterSalePage", true);
                 }
                 return false;
@@ -56,8 +53,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             power_test.setOnPreferenceClickListener(preference -> {
                 if (engineermode_oppo) {
                     ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.charge.modeltest.BatteryInfoShow", true);
-                }
-                if (engineermode_oplus) {
+                }else if (engineermode_oplus) {
                     ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.charge.modeltest.BatteryInfoShow", true);
                 }
                 return false;
@@ -87,7 +83,16 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                 }
             }
         }
+
     }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        getPreferenceManager().setSharedPreferencesName("OtherSettings");
+        setPreferencesFromResource(R.xml.other_preferences, rootKey);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -103,8 +108,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             if (oppo_ota){
                 if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand(disableota_oppo, true);
                 else ShellUtils.execCommand(enableota_oppo, true);
-            }
-            if (oplus_ota){
+            }else if (oplus_ota){
                 if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand(disableota_oplus, true);
                 else ShellUtils.execCommand(enableota_oplus, true);
             }
@@ -116,8 +120,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             if (oppo_gamespace){
                 if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("pm disable com.coloros.gamespaceui", true);
                 else ShellUtils.execCommand("pm enable com.coloros.gamespaceui", true);
-            }
-            if (oplus_gamespace){
+            }else if (oplus_gamespace){
                 if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("pm disable com.oplus.games", true);
                 else ShellUtils.execCommand("pm enable com.oplus.games", true);
             }

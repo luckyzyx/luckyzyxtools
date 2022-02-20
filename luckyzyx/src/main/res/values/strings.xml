@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">luckyzyx</string>
+    <string name="title_name">Luckyzyx Tools</string>
     <string name="todo" translatable="false" />
     <string name="button">Toast</string>
     <string name="button2">全局刷新率</string>
