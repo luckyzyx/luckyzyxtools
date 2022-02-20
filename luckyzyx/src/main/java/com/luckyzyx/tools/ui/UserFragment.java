@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 
 public class UserFragment extends Fragment {
@@ -39,6 +41,9 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        MaterialCardView user = requireActivity().findViewById(R.id.user);
+        user.setOnClickListener(v -> Snackbar.make(v, "不认识字? 还点?", Snackbar.LENGTH_SHORT).show());
     }
 
     @Override

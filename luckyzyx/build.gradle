@@ -18,7 +18,7 @@ android {
     defaultConfig {
         applicationId "com.luckyzyx.tools"
         versionCode currentVersionCode
-        versionName '2.0'
+        versionName 'v2.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
@@ -48,10 +48,10 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if ('release' == variant.buildType.name) {
-                outputFileName = "luckyzyx_v${variant.versionName}.apk"
+                outputFileName = "luckyzyx_${variant.versionName}.apk"
             }
             if ('debug' == variant.buildType.name) {
-                outputFileName = "luckyzyx_v${variant.versionName}_debug.apk"
+                outputFileName = "luckyzyx_${variant.versionName}_debug.apk"
             }
         }
     }

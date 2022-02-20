@@ -59,8 +59,16 @@
             android:defaultValue="false"
             android:key="wifi_adb"
             android:title="远程adb调试"
-            app:summary="勿在公共场合开启,不适用时请及时关闭"
+            app:summary="勿在公共场合开启,不使用时请及时关闭"
             app:iconSpaceReserved="false" />
+
+        <Preference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:iconSpaceReserved="false"
+            app:key="development"
+            app:title="开发者选项"
+            app:summary="进入开发者选项页面"/>
 
         <SwitchPreference
             android:defaultValue="false"

@@ -23,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
@@ -42,7 +43,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Toolbar toolbar = view.findViewById(R.id.topAppBar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity != null){
+        if (activity != null) {
             activity.setSupportActionBar(toolbar);
         }
         return view;
@@ -52,20 +53,29 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //Xposed
-        MaterialTextView xposed_title = requireActivity().findViewById(R.id.xposed_title);
-        xposed_title.setText( "忆清鸣、luckyzyx");
         MaterialTextView xposed_info = requireActivity().findViewById(R.id.xposed_info);
-        xposed_info.setText( "版本: " + BuildConfig.VERSION_NAME+"\n版本号: " + BuildConfig.VERSION_CODE);
+        xposed_info.setText("版本: " + BuildConfig.VERSION_NAME + "\n版本号: " + BuildConfig.VERSION_CODE);
         //Magisk
         MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
-        magisk_title.setText( "忆清鸣、luckyzyx");
         MaterialTextView magisk_info = requireActivity().findViewById(R.id.magisk_info);
-        magisk_info.setText( "版本: " + BuildConfig.VERSION_NAME+"\n版本号: " + BuildConfig.VERSION_CODE);
+
+        String moduleName = "luckyzyx_tools";
+        String moduleDir = "/data/adb/modules/" + moduleName;
+        String isinstall = "未安装";
+        if (!new File(moduleDir+"module.prop").exists()) {
+            magisk_title.setText(magisk_title.getText()+": "+isinstall);
+            magisk_info.setText("版本: " + isinstall + "\n版本号: " + isinstall);
+        }
+
         //Button
         MaterialButton xposed = requireActivity().findViewById(R.id.xposed_btn);
         xposed.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
         MaterialButton magisk = requireActivity().findViewById(R.id.magisk_btn);
         magisk.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
+        MaterialButton fps = requireActivity().findViewById(R.id.fps);
+        fps.setOnClickListener(v -> MainActivity.setfps(requireActivity()));
+        MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
+        checkupdate.setOnClickListener(v -> Snackbar.make(v, "检查个毛的更新!", Snackbar.LENGTH_SHORT).show());
 
         //BottomSheet
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
@@ -78,7 +88,7 @@ public class HomeFragment extends Fragment {
 
         MaterialTextView updatelog_text = bottomSheetDialog.findViewById(R.id.updatelog_text);
         assert updatelog_text != null;
-//        updatelog_text.setText();
+        updatelog_text.setText("在写了在写了!");
 
         TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
         systeminfo.setText(getSystemInfo());
@@ -86,12 +96,12 @@ public class HomeFragment extends Fragment {
 
     private String getSystemInfo() {
         String[] str = {
-                "厂商: "+ Build.BRAND+
-                "\n型号: "+Build.MODEL +
-                "\nAndroid版本: "+Build.VERSION.RELEASE+
-                "\nSDK API: "+Build.VERSION.SDK+
-                "\n设备参数: "+Build.DEVICE+
-                "\n版本号: "+Build.DISPLAY
+                "厂商: " + Build.BRAND +
+                        "\n型号: " + Build.MODEL +
+                        "\nAndroid版本: " + Build.VERSION.RELEASE +
+                        "\nSDK API: " + Build.VERSION.SDK +
+                        "\n设备参数: " + Build.DEVICE +
+                        "\n版本号: " + Build.DISPLAY
         };
         return str[0];
     }
@@ -106,32 +116,15 @@ public class HomeFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.refresh:
                 MainActivity.refreshmode(requireActivity());
                 break;
             case R.id.settings:
-            startActivity(new Intent(requireActivity(), SettingsActivity.class));
+                startActivity(new Intent(requireActivity(), SettingsActivity.class));
                 break;
         }
         return true;
     }
 
-
-
-    public String getModuleInfo() {
-        String moduleName = "luckyzyx_tools";
-        String moduleDir = "/data/adb/modules/"+moduleName;
-        String versionName = null;
-        int versionCode = 0;
-        if(!new File(moduleDir).exists()){
-            moduleName = versionName = "未安装";
-        }
-        String[] info ={
-                "Magisk: "+moduleName+"\n"+
-                "版本: "+versionName+"\n"+
-                "版本号: "+versionCode
-        };
-        return info[0];
-    }
 }

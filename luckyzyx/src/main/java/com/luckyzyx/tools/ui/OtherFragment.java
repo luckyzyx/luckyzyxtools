@@ -40,9 +40,9 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         if(engineering_model != null) {
             engineering_model.setOnPreferenceClickListener(preference -> {
                 if (engineermode_oppo) {
-                    ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.aftersale.AfterSalePage", true);
+                    ShellUtils.execCommand("am start -n com.oppo.engineermode/.aftersale.AfterSalePage", true);
                 }else if (engineermode_oplus) {
-                    ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.aftersale.AfterSalePage", true);
+                    ShellUtils.execCommand("am start -n com.oplus.engineermode/.aftersale.AfterSalePage", true);
                 }
                 return false;
             });
@@ -52,9 +52,9 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         if(power_test != null) {
             power_test.setOnPreferenceClickListener(preference -> {
                 if (engineermode_oppo) {
-                    ShellUtils.execCommand("am start -n com.oppo.engineermode/com.oppo.engineermode.charge.modeltest.BatteryInfoShow", true);
+                    ShellUtils.execCommand("am start -n com.oppo.engineermode/.charge.modeltest.BatteryInfoShow", true);
                 }else if (engineermode_oplus) {
-                    ShellUtils.execCommand("am start -n com.oplus.engineermode/com.oplus.engineermode.charge.modeltest.BatteryInfoShow", true);
+                    ShellUtils.execCommand("am start -n com.oplus.engineermode/.charge.modeltest.BatteryInfoShow", true);
                 }
                 return false;
             });
@@ -64,7 +64,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         Preference systemui_demomode = findPreference("systemui_demomode");
         if (systemui_demomode != null){
             systemui_demomode.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.android.systemui/com.android.systemui.DemoMode", true);
+                ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true);
                 return false;
             });
         }
@@ -83,6 +83,16 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                 }
             }
         }
+
+        //开发者模式
+        Preference development = findPreference("development");
+        if (development != null) {
+            development.setOnPreferenceClickListener(preference -> {
+                ShellUtils.execCommand("am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true);
+                return false;
+            });
+        }
+
 
     }
 

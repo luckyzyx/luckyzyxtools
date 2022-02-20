@@ -12,10 +12,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.ShellUtils;
 
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     //关机菜单
     public static void refreshmode(Context context){
-        final String[] list = {"重启", "关机", "Recovery", "fastboot"};
+        final String[] list = {"重启", "关机", "recovery", "fastboot"};
         new MaterialAlertDialogBuilder(context)
                 .setCancelable(true)
                 .setItems(list, (dialog, which) -> {
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         case "关机":
                             ShellUtils.execCommand("reboot -p",true);
                             break;
-                        case "Recovery":
+                        case "recovery":
                             ShellUtils.execCommand("reboot recovery",true);
                             break;
                         case "fastboot":
@@ -172,15 +175,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //对话框demo
-    public static void alertdialog(Context context){
+    public static void setfps(Context context){
         new MaterialAlertDialogBuilder(context)
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle("title")
-                .setMessage("message")
+                .setTitle("FPS")
+                .setMessage("强制全局刷新率\n例: 60Hz/90Hz\n最高即90Hz 最低即60Hz\n详情请根据系统选项")
                 .setCancelable(true)
-                .setPositiveButton("OK", (dialog, which) -> ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 1",true))
-                .setNegativeButton("Cancel", (dialog, which) -> ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 0",true))
-                .setNeutralButton("Neutral", (dialog, which) -> ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 3",true))
+                .setPositiveButton("最高", (dialog, which) -> {
+                    ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 1",true);
+                    Toast.makeText(context, "已将FPS设置为最高!", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("最低", (dialog, which) -> {
+                    ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 0",true);
+                            Toast.makeText(context, "已将FPS设置为最低!", Toast.LENGTH_SHORT).show();
+                        }
+                )
+                .setNeutralButton("恢复", (dialog, which) -> {
+                    ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 -1",true);
+                    Toast.makeText(context, "已将FPS设置为默认!", Toast.LENGTH_SHORT).show();
+                })
                 .show();
     }
 }
