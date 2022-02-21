@@ -170,6 +170,21 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/systeminfo"
                     android:padding="8dp"
+                    android:text="system info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/log"
+                    android:padding="8dp"
+                    android:text="log"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 

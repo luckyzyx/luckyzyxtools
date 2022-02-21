@@ -212,6 +212,8 @@ public class ShellUtils {
         /** error message of command result **/
         public String errorMsg;
 
+        public String allMsg;
+
         public CommandResult(int result) {
             this.result = result;
         }
@@ -220,6 +222,7 @@ public class ShellUtils {
             this.result = result;
             this.successMsg = successMsg;
             this.errorMsg = errorMsg;
+            this.allMsg = "result: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg;
         }
     }
 }

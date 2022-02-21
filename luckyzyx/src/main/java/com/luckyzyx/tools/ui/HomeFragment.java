@@ -27,8 +27,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
-
-import java.io.File;
+import com.luckyzyx.tools.utils.ShellUtils;
+import com.luckyzyx.tools.utils.Shellfun;
 
 public class HomeFragment extends Fragment {
 
@@ -55,17 +55,8 @@ public class HomeFragment extends Fragment {
         //Xposed
         MaterialTextView xposed_info = requireActivity().findViewById(R.id.xposed_info);
         xposed_info.setText("版本: " + BuildConfig.VERSION_NAME + "\n版本号: " + BuildConfig.VERSION_CODE);
-        //Magisk
-        MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
-        MaterialTextView magisk_info = requireActivity().findViewById(R.id.magisk_info);
 
-        String moduleName = "luckyzyx_tools";
-        String moduleDir = "/data/adb/modules/" + moduleName;
-        String isinstall = "未安装";
-        if (!new File(moduleDir+"module.prop").exists()) {
-            magisk_title.setText(magisk_title.getText()+": "+isinstall);
-            magisk_info.setText("版本: " + isinstall + "\n版本号: " + isinstall);
-        }
+        initMagisk();
 
         //Button
         MaterialButton xposed = requireActivity().findViewById(R.id.xposed_btn);
@@ -92,6 +83,38 @@ public class HomeFragment extends Fragment {
 
         TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
         systeminfo.setText(getSystemInfo());
+    }
+
+    //Magisk
+    @SuppressLint({"SetTextI18n", "SdCardPath"})
+    private void initMagisk() {
+        MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
+        MaterialTextView magisk_info = requireActivity().findViewById(R.id.magisk_info);
+
+        String moduleName = "luckyzyx_tools";
+        String moduleDir = "/data/adb/modules/luckyzyx_tools";
+        String moduleProp = "/data/adb/modules/luckyzyx_tools/module.prop";
+        String isinstall = "未安装";
+        String moduleinfo = "";
+
+        String[] magisk_version = {Shellfun.grep_prop(), "grep_prop version /data/adb/modules/luckyzyx_tools/module.prop"};
+        ShellUtils.CommandResult magisk_version_result = ShellUtils.execCommand(magisk_version,true,true);
+        String[] magisk_versioncode = {Shellfun.grep_prop(), "grep_prop versionCode /data/adb/modules/luckyzyx_tools/module.prop"};
+        ShellUtils.CommandResult magisk_versioncode_result = ShellUtils.execCommand(magisk_versioncode,true,true);
+
+        if (magisk_version_result.result==0 && magisk_versioncode_result.result==0){
+            magisk_title.setText(magisk_title.getText()+":已安装");
+            magisk_info.setText("版本: "+magisk_version_result.successMsg+"\n版本号: "+magisk_versioncode_result.successMsg);
+        }else{
+            magisk_title.setText(magisk_title.getText()+":未安装");
+            magisk_info.setText("版本: null\n版本号: null");
+        }
+
+//        String[] magisk = {Shellfun.grep_prop(), "grep_prop magisk /data/adb/modules/luckyzyx_tools/module.propp"};
+//        ShellUtils.CommandResult result = ShellUtils.execCommand(magisk,true,true);
+//
+//        MaterialTextView log = requireActivity().findViewById(R.id.log);
+//        log.setText(result.allMsg);
     }
 
     private String getSystemInfo() {

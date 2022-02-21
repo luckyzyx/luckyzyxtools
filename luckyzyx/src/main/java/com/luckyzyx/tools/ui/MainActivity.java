@@ -2,6 +2,7 @@ package com.luckyzyx.tools.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -12,13 +13,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.ShellUtils;
 
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CheckPermission();
         CheckXposed();
         CheckTheme(this);
         setContentView(R.layout.activity_main);
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         userFragment = new UserFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_item);
+        //设置监听方法
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         //设置默认选中item
         switchFragment(homeFragment);
@@ -123,6 +124,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void CheckPermission(){
+        final int REQUEST_EXTERNAL_STORAGE = 1;
+        String[] PERMISSIONS_STORAGE = {
+                "android.permission.READ_EXTERNAL_STORAGE",
+                "android.permission.WRITE_EXTERNAL_STORAGE" };
+        try {
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(this,
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     //检测包名
     public static boolean APPexist(@NonNull Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
