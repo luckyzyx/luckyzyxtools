@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
@@ -15,61 +14,12 @@ import com.luckyzyx.tools.utils.ShellUtils;
 public class OtherFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        getPreferenceManager().setSharedPreferencesName("OtherSettings");
+        setPreferencesFromResource(R.xml.other_preferences, rootKey);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-        //进程管理
-        Preference process_management = findPreference("process_management");
-        if (process_management != null) {
-            process_management.setOnPreferenceClickListener(preference -> {
-                Intent process_management_oppo = new Intent().setClassName("com.android.settings", "com.coloros.settings.feature.process.RunningApplicationActivity");
-                Intent process_management_oplus = new Intent().setClassName("com.android.settings", "com.oplus.settings.feature.process.RunningApplicationActivity");
-                if (requireActivity().getPackageManager().resolveActivity(process_management_oppo, 0) != null) {
-                    ShellUtils.execCommand("am start -n com.android.settings/com.coloros.settings.feature.process.RunningApplicationActivity", true);
-                }else if (requireActivity().getPackageManager().resolveActivity(process_management_oplus, 0) != null) {
-                    ShellUtils.execCommand("am start -n com.android.settings/com.oplus.settings.feature.process.RunningApplicationActivity", true);
-                }
-                return false;
-            });
-        }
-
-        //工程模式
-        boolean engineermode_oppo = MainActivity.APPexist(requireActivity(),"com.oppo.engineermode");
-        boolean engineermode_oplus = MainActivity.APPexist(requireActivity(),"com.oplus.engineermode");
-        Preference engineering_model = findPreference("engineering_model");
-        if(engineering_model != null) {
-            engineering_model.setOnPreferenceClickListener(preference -> {
-                if (engineermode_oppo) {
-                    ShellUtils.execCommand("am start -n com.oppo.engineermode/.aftersale.AfterSalePage", true);
-                }else if (engineermode_oplus) {
-                    ShellUtils.execCommand("am start -n com.oplus.engineermode/.aftersale.AfterSalePage", true);
-                }
-                return false;
-            });
-        }
-        //充电测试
-        Preference power_test = findPreference("power_test");
-        if(power_test != null) {
-            power_test.setOnPreferenceClickListener(preference -> {
-                if (engineermode_oppo) {
-                    ShellUtils.execCommand("am start -n com.oppo.engineermode/.charge.modeltest.BatteryInfoShow", true);
-                }else if (engineermode_oplus) {
-                    ShellUtils.execCommand("am start -n com.oplus.engineermode/.charge.modeltest.BatteryInfoShow", true);
-                }
-                return false;
-            });
-        }
-
-        //系统界面演示模式
-        Preference systemui_demomode = findPreference("systemui_demomode");
-        if (systemui_demomode != null){
-            systemui_demomode.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true);
-                return false;
-            });
-        }
-
-        //无线调试
+        //判断无线调试状态
         SwitchPreference wifi_adb = findPreference("wifi_adb");
         if (wifi_adb != null) {
             ShellUtils.CommandResult port = ShellUtils.execCommand("getprop service.adb.tcp.port",true,true);
@@ -84,25 +34,53 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             }
         }
 
-        //开发者模式
-        Preference development = findPreference("development");
-        if (development != null) {
-            development.setOnPreferenceClickListener(preference -> {
-                ShellUtils.execCommand("am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true);
-                return false;
-            });
-        }
-
-
     }
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        getPreferenceManager().setSharedPreferencesName("OtherSettings");
-        setPreferencesFromResource(R.xml.other_preferences, rootKey);
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-    }
+    public boolean onPreferenceTreeClick(Preference preference) {
 
+        //进程管理
+        if (preference.getKey().equals("process_management")) {
+            Intent process_management_oppo = new Intent().setClassName("com.android.settings", "com.coloros.settings.feature.process.RunningApplicationActivity");
+            Intent process_management_oplus = new Intent().setClassName("com.android.settings", "com.oplus.settings.feature.process.RunningApplicationActivity");
+            if (requireActivity().getPackageManager().resolveActivity(process_management_oppo, 0) != null) {
+                ShellUtils.execCommand("am start -n com.android.settings/com.coloros.settings.feature.process.RunningApplicationActivity", true);
+            }else if (requireActivity().getPackageManager().resolveActivity(process_management_oplus, 0) != null) {
+                ShellUtils.execCommand("am start -n com.android.settings/com.oplus.settings.feature.process.RunningApplicationActivity", true);
+            }
+        }
+
+        //工程模式
+        boolean engineermode_oppo = MainActivity.APPexist(requireActivity(),"com.oppo.engineermode");
+        boolean engineermode_oplus = MainActivity.APPexist(requireActivity(),"com.oplus.engineermode");
+        if(preference.getKey().equals("engineering_model")) {
+            if (engineermode_oppo) {
+                ShellUtils.execCommand("am start -n com.oppo.engineermode/.aftersale.AfterSalePage", true);
+            }else if (engineermode_oplus) {
+                ShellUtils.execCommand("am start -n com.oplus.engineermode/.aftersale.AfterSalePage", true);
+            }
+        }
+        //充电测试
+        if(preference.getKey().equals("power_test")) {
+            if (engineermode_oppo) {
+                ShellUtils.execCommand("am start -n com.oppo.engineermode/.charge.modeltest.BatteryInfoShow", true);
+            }else if (engineermode_oplus) {
+                ShellUtils.execCommand("am start -n com.oplus.engineermode/.charge.modeltest.BatteryInfoShow", true);
+            }
+        }
+
+        //系统界面演示模式
+        if (preference.getKey().equals("systemui_demomode")){
+            ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true);
+        }
+
+        //开发者模式
+        if (preference.getKey().equals("development")) {
+            ShellUtils.execCommand("am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true);
+        }
+
+        return super.onPreferenceTreeClick(preference);
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
