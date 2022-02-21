@@ -44,7 +44,7 @@ public class XposedActivity extends AppCompatActivity {
         if(item.getItemId() == android.R.id.home){
             finish();
         }
-        return true;
+        return false;
     }
 
     public static class XposedFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{

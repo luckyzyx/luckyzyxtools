@@ -64,6 +64,6 @@ public class UserFragment extends Fragment {
                 startActivity(new Intent(requireActivity(), SettingsActivity.class));
                 break;
         }
-        return true;
+        return false;
     }
 }

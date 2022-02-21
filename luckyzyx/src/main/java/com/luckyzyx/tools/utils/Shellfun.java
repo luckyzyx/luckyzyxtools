@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.utils;
 
 public class Shellfun {
+    //读取module.prop
     public static String grep_prop(){
         return "grep_prop() {\n" +
                 "  if [[ -z \"$2\" ]]; then\n" +

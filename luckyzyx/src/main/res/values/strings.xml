@@ -10,6 +10,7 @@
     <string name="exit">退出APP</string>
     <string name="title_activity_settings">设置</string>
     <string name="title_activity_xposed">Xposed</string>
+    <string name="title_activity_magisk">Magisk</string>
     <string name="nav_item_home">主页</string>
     <string name="nav_item_dashboard">其他</string>
     <string name="nav_item_user">我的</string>

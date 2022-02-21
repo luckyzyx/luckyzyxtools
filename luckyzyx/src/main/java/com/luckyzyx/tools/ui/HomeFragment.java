@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
         MaterialButton xposed = requireActivity().findViewById(R.id.xposed_btn);
         xposed.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
         MaterialButton magisk = requireActivity().findViewById(R.id.magisk_btn);
-        magisk.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
+        magisk.setOnClickListener(v -> startActivity(new Intent(requireActivity(), MagiskActivity.class)));
         MaterialButton fps = requireActivity().findViewById(R.id.fps);
         fps.setOnClickListener(v -> MainActivity.setfps(requireActivity()));
         MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
@@ -94,12 +94,10 @@ public class HomeFragment extends Fragment {
         String moduleName = "luckyzyx_tools";
         String moduleDir = "/data/adb/modules/luckyzyx_tools";
         String moduleProp = "/data/adb/modules/luckyzyx_tools/module.prop";
-        String isinstall = "未安装";
-        String moduleinfo = "";
 
-        String[] magisk_version = {Shellfun.grep_prop(), "grep_prop version /data/adb/modules/luckyzyx_tools/module.prop"};
+        String[] magisk_version = {Shellfun.grep_prop(), "grep_prop version "+moduleProp};
         ShellUtils.CommandResult magisk_version_result = ShellUtils.execCommand(magisk_version,true,true);
-        String[] magisk_versioncode = {Shellfun.grep_prop(), "grep_prop versionCode /data/adb/modules/luckyzyx_tools/module.prop"};
+        String[] magisk_versioncode = {Shellfun.grep_prop(), "grep_prop versionCode "+moduleProp};
         ShellUtils.CommandResult magisk_versioncode_result = ShellUtils.execCommand(magisk_versioncode,true,true);
 
         if (magisk_version_result.result==0 && magisk_versioncode_result.result==0){
@@ -147,7 +145,7 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(requireActivity(), SettingsActivity.class));
                 break;
         }
-        return true;
+        return false;
     }
 
 }

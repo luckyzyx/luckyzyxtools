@@ -10,10 +10,6 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/nav_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -148,17 +144,17 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/updatelog_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:id="@+id/updatelog_card"
-                android:layout_margin="8dp">
+                android:layout_margin="8dp"
+                android:clickable="true">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:padding="8dp"
-                    android:text="更新日志"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="更新日志" />
 
             </com.google.android.material.card.MaterialCardView>
 

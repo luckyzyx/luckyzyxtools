@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //存储权限
     private void CheckPermission(){
         final int REQUEST_EXTERNAL_STORAGE = 1;
         String[] PERMISSIONS_STORAGE = {

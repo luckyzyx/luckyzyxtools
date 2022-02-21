@@ -45,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         if(item.getItemId() == android.R.id.home){
             finish();
         }
-        return true;
+        return false;
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
