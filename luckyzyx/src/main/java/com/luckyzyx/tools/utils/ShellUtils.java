@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -121,7 +122,7 @@ public class ShellUtils {
     public static CommandResult execCommand(String[] commands, boolean isRoot, boolean isNeedResultMsg) {
         int result = -1;
         if (commands == null || commands.length == 0) {
-            return new CommandResult(result, null, null);
+            return new CommandResult(commands,result, null, null);
         }
 
         Process process = null;
@@ -185,7 +186,7 @@ public class ShellUtils {
                 process.destroy();
             }
         }
-        return new CommandResult(result, successMsg == null ? null : successMsg.toString(), errorMsg == null ? null
+        return new CommandResult(commands,result, successMsg == null ? null : successMsg.toString(), errorMsg == null ? null
                 : errorMsg.toString());
     }
 
@@ -212,17 +213,19 @@ public class ShellUtils {
         /** error message of command result **/
         public String errorMsg;
 
+        public String logMsg;
         public String allMsg;
 
         public CommandResult(int result) {
             this.result = result;
         }
 
-        public CommandResult(int result, String successMsg, String errorMsg) {
+        public CommandResult(String[] commands,int result, String successMsg, String errorMsg) {
             this.result = result;
             this.successMsg = successMsg;
             this.errorMsg = errorMsg;
-            this.allMsg = "result: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg;
+            this.logMsg = "\n-----\nresult: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg+"\n-----\n";
+            this.allMsg = "\n-----"+"\ncommand: \n"+ Arrays.toString(commands) +"\nresult: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg+"\n-----\n";
         }
     }
 }

@@ -19,4 +19,18 @@ public class Shellfun {
                 "  return 0\n" +
                 "}";
     }
+
+    //判断目录/文件类型
+    public static String ifexist(){
+        return "ifexist() {\n" +
+                "if [[ -d $1 ]]; then\n" +
+                "  return 1\n" +
+                "elif [[ -f $1 ]]; then\n" +
+                "  return 2\n" +
+                "else\n" +
+                "  return 0\n" +
+                "fi\n" +
+                "}";
+    }
+
 }

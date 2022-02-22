@@ -1,6 +1,5 @@
-plugins {
-    id 'com.android.application'
-}
+
+apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
@@ -30,7 +29,7 @@ android {
             debuggable false
             minifyEnabled true     //源代码混淆压缩
             shrinkResources true     //移除无用的resource文件
-            zipAlignEnabled true     //zipAlign优化
+            zipAlignEnabled true     //对APK包执行ZIP对齐优化，减小zip体积，增加运行效率
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -54,6 +53,9 @@ android {
             }
         }
     }
+    buildFeatures {
+        prefab true
+    }
 //    allprojects {
 //        gradle.projectsEvaluated {
 //            tasks.withType(JavaCompile) {
@@ -65,6 +67,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"
     //Material主题

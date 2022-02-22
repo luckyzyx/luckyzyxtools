@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".ui.UserFragment">
+    tools:context=".ui.fragment.UserFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -26,22 +26,29 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:id="@+id/user"
-            android:layout_margin="8dp">
+            android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:padding="8dp"
-                android:text="暂未施工"
-                android:gravity="center_horizontal"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="HardcodedText" />
+                android:clickable="true"
+                android:id="@+id/user"
+                android:layout_margin="8dp">
 
-        </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:padding="8dp"
+                    android:text="暂未施工"
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="HardcodedText" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 

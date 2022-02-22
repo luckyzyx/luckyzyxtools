@@ -1,4 +1,4 @@
-package com.luckyzyx.tools.ui;
+package com.luckyzyx.tools.ui.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 public class OtherFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{

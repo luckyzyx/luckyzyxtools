@@ -19,6 +19,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.ui.fragment.HomeFragment;
+import com.luckyzyx.tools.ui.fragment.OtherFragment;
+import com.luckyzyx.tools.ui.fragment.UserFragment;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.util.List;
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         //获取Root权限
         ShellUtils.checkRootPermission();
+
+//        startActivity(new Intent(this, MagiskActivity.class));
     }
 
     //NavigationItem被选择事件

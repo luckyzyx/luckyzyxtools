@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".ui.HomeFragment">
+    tools:context=".ui.fragment.HomeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -80,13 +80,11 @@
                             android:padding="12dp">
 
                             <TextView
-                                android:id="@+id/magisk_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Magisk"
                                 android:textAppearance="?attr/textAppearanceTitleMedium" />
                             <TextView
-                                android:id="@+id/magisk_info"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
@@ -108,7 +106,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Xposed"
-                            android:gravity="left|center_vertical"
+                            android:gravity="center"
                             android:layout_weight="1"
                             android:id="@+id/xposed_btn"
                             style="?attr/borderlessButtonStyle" />
@@ -116,7 +114,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Magisk"
-                            android:gravity="left|center_vertical"
+                            android:gravity="center"
                             android:layout_weight="1"
                             android:id="@+id/magisk_btn"
                             style="?attr/borderlessButtonStyle" />
@@ -124,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="FPS"
-                            android:gravity="center_vertical"
+                            android:gravity="center"
                             android:layout_weight="1"
                             android:id="@+id/fps"
                             style="?attr/borderlessButtonStyle" />
@@ -132,7 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="检查更新"
-                            android:gravity="center_horizontal|center_vertical"
+                            android:gravity="center"
                             android:layout_weight="1"
                             android:id="@+id/checkupdate"
                             style="?attr/borderlessButtonStyle" />

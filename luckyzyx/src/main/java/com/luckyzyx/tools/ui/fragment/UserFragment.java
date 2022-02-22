@@ -1,4 +1,4 @@
-package com.luckyzyx.tools.ui;
+package com.luckyzyx.tools.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.ui.MainActivity;
+import com.luckyzyx.tools.ui.SettingsActivity;
 
 public class UserFragment extends Fragment {
     @Override

@@ -1,4 +1,4 @@
-package com.luckyzyx.tools.ui;
+package com.luckyzyx.tools.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -27,8 +27,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.utils.ShellUtils;
-import com.luckyzyx.tools.utils.Shellfun;
+import com.luckyzyx.tools.ui.MagiskActivity;
+import com.luckyzyx.tools.ui.MainActivity;
+import com.luckyzyx.tools.ui.SettingsActivity;
+import com.luckyzyx.tools.ui.XposedActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -56,8 +58,6 @@ public class HomeFragment extends Fragment {
         MaterialTextView xposed_info = requireActivity().findViewById(R.id.xposed_info);
         xposed_info.setText("版本: " + BuildConfig.VERSION_NAME + "\n版本号: " + BuildConfig.VERSION_CODE);
 
-        initMagisk();
-
         //Button
         MaterialButton xposed = requireActivity().findViewById(R.id.xposed_btn);
         xposed.setOnClickListener(v -> startActivity(new Intent(requireActivity(), XposedActivity.class)));
@@ -70,49 +70,19 @@ public class HomeFragment extends Fragment {
 
         //BottomSheet
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
-        bottomSheetDialog.setContentView(R.layout.updatelog_sheet);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet);
         View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
         assert bottomSheetInternal != null;
         BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
         MaterialCardView updatelog_card = requireActivity().findViewById(R.id.updatelog_card);
         updatelog_card.setOnClickListener(v -> bottomSheetDialog.show());
 
-        MaterialTextView updatelog_text = bottomSheetDialog.findViewById(R.id.updatelog_text);
+        MaterialTextView updatelog_text = bottomSheetDialog.findViewById(R.id.log_text);
         assert updatelog_text != null;
         updatelog_text.setText("在写了在写了!");
 
         TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
         systeminfo.setText(getSystemInfo());
-    }
-
-    //Magisk
-    @SuppressLint({"SetTextI18n", "SdCardPath"})
-    private void initMagisk() {
-        MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
-        MaterialTextView magisk_info = requireActivity().findViewById(R.id.magisk_info);
-
-        String moduleName = "luckyzyx_tools";
-        String moduleDir = "/data/adb/modules/luckyzyx_tools";
-        String moduleProp = "/data/adb/modules/luckyzyx_tools/module.prop";
-
-        String[] magisk_version = {Shellfun.grep_prop(), "grep_prop version "+moduleProp};
-        ShellUtils.CommandResult magisk_version_result = ShellUtils.execCommand(magisk_version,true,true);
-        String[] magisk_versioncode = {Shellfun.grep_prop(), "grep_prop versionCode "+moduleProp};
-        ShellUtils.CommandResult magisk_versioncode_result = ShellUtils.execCommand(magisk_versioncode,true,true);
-
-        if (magisk_version_result.result==0 && magisk_versioncode_result.result==0){
-            magisk_title.setText(magisk_title.getText()+":已安装");
-            magisk_info.setText("版本: "+magisk_version_result.successMsg+"\n版本号: "+magisk_versioncode_result.successMsg);
-        }else{
-            magisk_title.setText(magisk_title.getText()+":未安装");
-            magisk_info.setText("版本: null\n版本号: null");
-        }
-
-//        String[] magisk = {Shellfun.grep_prop(), "grep_prop magisk /data/adb/modules/luckyzyx_tools/module.propp"};
-//        ShellUtils.CommandResult result = ShellUtils.execCommand(magisk,true,true);
-//
-//        MaterialTextView log = requireActivity().findViewById(R.id.log);
-//        log.setText(result.allMsg);
     }
 
     private String getSystemInfo() {
