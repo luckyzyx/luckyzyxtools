@@ -3,7 +3,6 @@ package com.luckyzyx.tools.ui.fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -79,7 +78,7 @@ public class ModuleInstallFragment extends Fragment {
         ShellUtils.CommandResult magisk_versioncode_result = ShellUtils.execCommand(magisk_versioncode,true,true);
 
         if (magisk_version_result.result==0 && magisk_versioncode_result.result==0){
-            magisk_title.setText("Magisk: 已安装");
+            magisk_title.setText("附加: 已安装");
             String magiskinfo =
                     "版本: "+magisk_version_result.successMsg+
                             "\n版本号: "+magisk_versioncode_result.successMsg+
@@ -95,7 +94,7 @@ public class ModuleInstallFragment extends Fragment {
                 install_btn.setText("安装/重刷");
             }
         }else{
-            magisk_title.setText("Magisk: 未安装");
+            magisk_title.setText("附加: 未安装");
             magisk_info.setText("版本: null\n版本号: null");
         }
 

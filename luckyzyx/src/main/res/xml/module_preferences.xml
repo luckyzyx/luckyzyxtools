@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="fingerprint_repair"
+        app:iconSpaceReserved="false"
+        android:title="指纹修复"
+        android:summary="修复Root后系统无法录入指纹"/>
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="statusbar_developer_warn"
+        app:iconSpaceReserved="false"
+        android:title="屏蔽状态栏开发者模式警告"
+        android:summary="C11可用,C12无法屏蔽"/>
+
+</PreferenceScreen>

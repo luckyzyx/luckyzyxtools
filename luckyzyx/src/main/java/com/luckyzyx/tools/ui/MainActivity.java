@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             getSharedPreferences("Settings", Context.MODE_WORLD_READABLE);
             getSharedPreferences("XposedSettings", Context.MODE_WORLD_READABLE);
             getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
+            getSharedPreferences("MagiskSettings", Context.MODE_WORLD_READABLE);
         } catch (SecurityException ignored) {
             new MaterialAlertDialogBuilder(this)
                     .setCancelable(false)
