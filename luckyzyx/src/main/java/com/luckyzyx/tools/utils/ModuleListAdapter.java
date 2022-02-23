@@ -58,12 +58,9 @@ public class ModuleListAdapter extends BaseAdapter {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        String moduleName = list.get(position).get("moduleName");
-        String moduleVersion = list.get(position).get("moduleVersion");
-        String moduleDescription = list.get(position).get("moduleDescription");
-        viewHolder.text_name.setText(moduleName);
-        viewHolder.text_version.setText(moduleVersion);
-        viewHolder.text_description.setText(moduleDescription);
+        viewHolder.text_name.setText(list.get(position).get("moduleName"));
+        viewHolder.text_version.setText(list.get(position).get("moduleVersion"));
+        viewHolder.text_description.setText(list.get(position).get("moduleDescription"));
         return convertView;
     }
 }

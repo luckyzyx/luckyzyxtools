@@ -18,10 +18,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 import com.luckyzyx.tools.utils.Shellfun;
 
 public class ModuleInstallFragment extends Fragment {
+
+    private static final String PREFERENCE_NAME = "MagiskSettings";
 
     String id = "luckyzyx_tools";
     String name = "luckyzyx Tools";
@@ -118,38 +121,74 @@ public class ModuleInstallFragment extends Fragment {
 
     //安装
     public void install(){
+        boolean fingerprint_repair = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"fingerprint_repair",false);
+        boolean statusbar_developer_warn = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"statusbar_developer_warn",false);
+
         String[] installcommands = {
                 //重建module目录
                 "if [[ -d "+moduleDir+" ]];then\n" +
-                        "    rm -rf "+moduleDir+"\n"+
-                        "    mkdir -p "+moduleSystemDir+"\n" +
-                        "fi",
+                "    rm -rf "+moduleDir+"\n"+
+                "    mkdir -p "+moduleSystemDir+"\n" +
+                "fi",
                 //重写module.prop
                 "    cat <<zyx >"+moduleProp+"\n" +
-                        "id="+ id +"\n" +
-                        "name="+ name +"\n" +
-                        "version="+ version +"\n" +
-                        "versionCode="+ versioncode +"\n" +
-                        "author="+ author +"\n" +
-                        "description="+ description +"\n"+
-                        "zyx",
+                "id="+ id +"\n" +
+                "name="+ name +"\n" +
+                "version="+ version +"\n" +
+                "versionCode="+ versioncode +"\n" +
+                "author="+ author +"\n" +
+                "description="+ description +"\n"+
+                "zyx",
                 //重写post-fs-data.sh
                 "    cat <<zyx >"+modulePostfsdata+"\n" +
-                        "MODDIR=\\${0%/*}\n"+
-                        "zyx",
+                "MODDIR=\\${0%/*}\n"+
+                "zyx",
                 //重写service.sh
                 "    cat <<zyx >"+moduleService+"\n" +
-                        "MODDIR=\\${0%/*}\n"+
-                        "zyx",
+                "MODDIR=\\${0%/*}\n"+
+                "zyx",
                 //重写uninstall.sh
                 "    cat <<zyx >"+moduleUninstall+"\n" +
-                        "rm -rf "+moduleDir+"\n"+
-                        "zyx",
+                "rm -rf "+moduleDir+"\n"+
+                "zyx",
                 //重写system.prop
                 "echo '' >"+modulesystemProp,
                 //设置权限
-                "chmod -Rf 777 "+moduleDir
+                "chmod -Rf 777 "+moduleDir,
+
+                //指纹修复
+                "if [[ "+fingerprint_repair+" == true ]]; then\n"+
+                "    cat <<zyx >>"+modulesystemProp+"\n" +
+                "ro.boot.flash.locked=0\n" +
+                "ro.boot.vbmeta.device_state=unlocked\n" +
+                "ro.boot.verifiedbootstate=orange\n" +
+                "zyx\n" +
+                "    cat <<zyx >>"+moduleService+"\n" +
+                "while [ \"\\$(getprop sys.boot_completed)\" != \"1\" ]; do\n" +
+                "  sleep 1\n" +
+                "done\n" +
+                "resetprop ro.boot.flash.locked 1\n" +
+                "resetprop ro.boot.vbmeta.device_state locked\n" +
+                "resetprop ro.boot.verifiedbootstate green\n" +
+                "zyx\n"+
+                "fi",
+                //开发者警告
+                "if [[ "+statusbar_developer_warn+" == true ]]; then\n"+
+                "    mkdir -p "+moduleSystemDir+"etc/permissions/\n"+
+                "    cat <<zyx >>"+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
+                "<permissions>\n" +
+                "    <feature name=\"oppo.systemui.highlight.nodeveloper\" />\n" +
+                "    <feature name=\"oppo.settings.verification.dialog.disallow\"/>\n" +
+                "    <feature name=\"oppo.settings.account.dialog.disallow\" />\n" +
+                "</permissions>\n" +
+                "zyx\n" +
+                "chmod -Rf 644 "+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
+                "else\n"+
+                "    rm -rf "+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
+                "fi"
+
         };
+
         ShellUtils.CommandResult installcommandslog = ShellUtils.execCommand(installcommands,true,true);
         if (installcommandslog.result==0){
             Snackbar.make(requireActivity().findViewById(R.id.coordinator),"安装完成!",Snackbar.LENGTH_SHORT).show();

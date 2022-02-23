@@ -3,6 +3,7 @@ package com.luckyzyx.tools.ui.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -105,11 +106,11 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
 
         if ("disable_gamespace".equals(key)) {
             boolean oppo_gamespace = MainActivity.APPexist(requireActivity(),"com.coloros.gamespaceui");
-            boolean oplus_gamespace = MainActivity.APPexist(requireActivity(),"com.oplus.games");
+//            boolean oplus_gamespace = MainActivity.APPexist(requireActivity(),"com.oplus.games");
             if (oppo_gamespace){
                 if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("pm disable com.coloros.gamespaceui", true);
                 else ShellUtils.execCommand("pm enable com.coloros.gamespaceui", true);
-            }else if (oplus_gamespace){
+            } else {
                 if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("pm disable com.oplus.games", true);
                 else ShellUtils.execCommand("pm enable com.oplus.games", true);
             }
