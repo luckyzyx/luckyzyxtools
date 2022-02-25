@@ -62,14 +62,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/modify_brand"
+                    android:id="@+id/modify_brand_btn"
                     android:text="修改机型"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/app_avatar"
+                    android:id="@+id/app_avatar_btn"
                     android:text="自定义应用分身"/>
 
             </LinearLayout>

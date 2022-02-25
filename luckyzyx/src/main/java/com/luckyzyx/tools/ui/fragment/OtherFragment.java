@@ -35,6 +35,8 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                 }else{
                     wifi_adb.setSummary(wifi_adb.getSummary()+"\nadb connect IP:"+port.successMsg);
                 }
+            }else{
+                wifi_adb.setChecked(false);
             }
         }
 

@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         //获取Root权限
         ShellUtils.checkRootPermission();
-
-//        startActivity(new Intent(this, MagiskActivity.class));
     }
 
     //NavigationItem被选择事件

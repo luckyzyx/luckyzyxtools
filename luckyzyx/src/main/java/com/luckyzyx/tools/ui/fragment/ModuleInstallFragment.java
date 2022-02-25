@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 import com.luckyzyx.tools.utils.Shellfun;
+
 
 public class ModuleInstallFragment extends Fragment {
 
@@ -49,7 +53,7 @@ public class ModuleInstallFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         initBottomSheet();
-        initMagisk();
+        initMagiskInstall();
     }
 
     @Override
@@ -68,10 +72,12 @@ public class ModuleInstallFragment extends Fragment {
 
     //初始化Magisk
     @SuppressLint("SetTextI18n")
-    private void initMagisk() {
+    private void initMagiskInstall() {
         MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
         MaterialTextView magisk_info = requireActivity().findViewById(R.id.magisk_info);
         MaterialButton install_btn = requireActivity().findViewById(R.id.install_btn);
+        MaterialButton modify_brand_btn = requireActivity().findViewById(R.id.modify_brand_btn);
+        MaterialButton app_avatar_btn = requireActivity().findViewById(R.id.app_avatar_btn);
 
         MaterialTextView log = requireActivity().findViewById(R.id.installlog);
 
@@ -114,7 +120,67 @@ public class ModuleInstallFragment extends Fragment {
         log.setOnClickListener(v -> {
             if (install_log.equals("")){
                 Snackbar.make(v,"没出错看什么日志!",Snackbar.LENGTH_SHORT).show();
+            }else {
+                bottomSheetDialog.show();
             }
+        });
+
+        //修改机型
+        modify_brand_btn.setOnClickListener(v -> {
+            AlertDialog modify_brand_dialog = new MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle("修改机型")
+                    .setMessage("机型信息请勿填写特殊符号!可能会导致系统读取出错!\n若以下各项都未填写,点击确定后将移除修改机型功能!\n以免冲突,确保其他机型模块已关闭或卸载!")
+                    .setView(R.layout.modify_brand)
+                    .show();
+
+            TextInputEditText brand_text = modify_brand_dialog.findViewById(R.id.brand_text);
+            TextInputEditText model_text = modify_brand_dialog.findViewById(R.id.model_text);
+            TextInputEditText name_text = modify_brand_dialog.findViewById(R.id.name_text);
+            TextInputEditText device_text = modify_brand_dialog.findViewById(R.id.device_text);
+            TextInputEditText manufacturer_text = modify_brand_dialog.findViewById(R.id.manufacturer_text);
+            MaterialButton write_btn = modify_brand_dialog.findViewById(R.id.write_btn);
+
+            assert write_btn != null;
+            write_btn.setOnClickListener(v1 -> {
+                Editable brand = brand_text != null ? brand_text.getText() : null;
+                Editable name = name_text != null ? name_text.getText() : null;
+                Editable model = model_text != null ? model_text.getText() : null;
+                Editable manufacturer = manufacturer_text != null ? manufacturer_text.getText() : null;
+                Editable device = device_text != null ? device_text.getText() : null;
+                boolean uninstall = brand.equals("") && name.equals("") && model.equals("") && manufacturer.equals("") && device.equals("");
+                String[] commands = {
+                        "if [[ -f "+modulesystemProp+" ]]; then\n"+
+                        "    if [[ ! "+uninstall+" ]]; then\n"+
+                        "        cat <<zyx >>"+modulesystemProp+"\n" +
+                        "ro.product.brand="+brand+"\n"+
+                        "ro.product.name="+name+"\n"+
+                        "ro.product.model="+model+"\n"+
+                        "ro.product.manufacturer="+manufacturer+"\n"+
+                        "ro.product.device="+device+"\n"+
+                        "zyx\n" +
+                        "    else\n"+
+                        "        sed -i -e '/ro.product.brand/d' "+modulesystemProp+"\n"+
+                        "        sed -i -e '/ro.product.name/d' "+modulesystemProp+"\n"+
+                        "        sed -i -e '/ro.product.model/d' "+modulesystemProp+"\n"+
+                        "        sed -i -e '/ro.product.manufacturer/d' "+modulesystemProp+"\n"+
+                        "        sed -i -e '/ro.product.device/d' "+modulesystemProp+"\n"+
+                        "    fi\n"+
+                        "fi"
+                };
+                ShellUtils.CommandResult modify_brand_Msg = ShellUtils.execCommand(commands,true,true);
+                if (modify_brand_Msg.result==0){
+                    modify_brand_dialog.dismiss();
+                    Snackbar.make(requireActivity().findViewById(R.id.coordinator),"机型修改成功!",Snackbar.LENGTH_SHORT).show();
+                }else{
+                    modify_brand_dialog.dismiss();
+                    Snackbar.make(requireActivity().findViewById(R.id.coordinator),"机型修改出错!",Snackbar.LENGTH_SHORT).show();
+                    install_log=modify_brand_Msg.allMsg;
+                    MaterialTextView log_text = bottomSheetDialog.findViewById(R.id.log_text);
+                    assert log_text != null;
+                    log_text.setText(install_log);
+                }
+            });
+
         });
 
     }
@@ -184,13 +250,12 @@ public class ModuleInstallFragment extends Fragment {
                 "zyx\n" +
                 "chmod -Rf 644 "+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
                 "fi"
-
         };
 
         ShellUtils.CommandResult installcommandslog = ShellUtils.execCommand(installcommands,true,true);
         if (installcommandslog.result==0){
             Snackbar.make(requireActivity().findViewById(R.id.coordinator),"安装完成!",Snackbar.LENGTH_SHORT).show();
-            initMagisk();
+            initMagiskInstall();
         }else{
             Snackbar.make(requireActivity().findViewById(R.id.coordinator),"安装错误!",Snackbar.LENGTH_SHORT).show();
             install_log=installcommandslog.allMsg;
