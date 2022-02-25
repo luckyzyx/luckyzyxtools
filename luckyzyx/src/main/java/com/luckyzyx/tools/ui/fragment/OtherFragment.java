@@ -3,7 +3,6 @@ package com.luckyzyx.tools.ui.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -11,19 +10,22 @@ import androidx.preference.SwitchPreference;
 
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MainActivity;
+import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 public class OtherFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
+    private static final String PREFERENCE_NAME = "OtherSettings";
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        getPreferenceManager().setSharedPreferencesName("OtherSettings");
+        getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
         setPreferencesFromResource(R.xml.other_preferences, rootKey);
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
         //判断无线调试状态
         SwitchPreference wifi_adb = findPreference("wifi_adb");
-        if (wifi_adb != null) {
+        if (wifi_adb != null && SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"wifi_adb")) {
             ShellUtils.CommandResult port = ShellUtils.execCommand("getprop service.adb.tcp.port",true,true);
             ShellUtils.CommandResult ip = ShellUtils.execCommand("ifconfig wlan0 | grep 'inet addr' | awk '{ print $2}' | awk -F: '{print $2}' 2>/dev/null",true,true);
             if (!port.successMsg.equals("")){

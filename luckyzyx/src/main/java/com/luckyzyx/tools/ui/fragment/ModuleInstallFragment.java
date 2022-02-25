@@ -183,8 +183,6 @@ public class ModuleInstallFragment extends Fragment {
                 "</permissions>\n" +
                 "zyx\n" +
                 "chmod -Rf 644 "+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
-                "else\n"+
-                "    rm -rf "+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
                 "fi"
 
         };
