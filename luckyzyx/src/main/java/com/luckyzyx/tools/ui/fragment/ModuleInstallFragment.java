@@ -25,6 +25,8 @@ import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 import com.luckyzyx.tools.utils.Shellfun;
 
+import java.util.Objects;
+
 
 public class ModuleInstallFragment extends Fragment {
 
@@ -53,7 +55,7 @@ public class ModuleInstallFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         initBottomSheet();
-        initMagiskInstall();
+        initInstall();
     }
 
     @Override
@@ -72,7 +74,7 @@ public class ModuleInstallFragment extends Fragment {
 
     //初始化Magisk
     @SuppressLint("SetTextI18n")
-    private void initMagiskInstall() {
+    private void initInstall() {
         MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
         MaterialTextView magisk_info = requireActivity().findViewById(R.id.magisk_info);
         MaterialButton install_btn = requireActivity().findViewById(R.id.install_btn);
@@ -87,14 +89,12 @@ public class ModuleInstallFragment extends Fragment {
         ShellUtils.CommandResult magisk_versioncode_result = ShellUtils.execCommand(magisk_versioncode,true,true);
 
         if (magisk_version_result.result==0 && magisk_versioncode_result.result==0){
-            magisk_title.setText("附加: 已安装");
+            magisk_title.setText("附加模块: 已安装 | 版本: "+magisk_version_result.successMsg+" | 版本号: "+magisk_versioncode_result.successMsg);
             String magiskinfo =
-                    "版本: "+magisk_version_result.successMsg+
-                            "\n版本号: "+magisk_versioncode_result.successMsg+
-                            "\n\n注: 务必在模块选项页面勾选需要的模块,点击安装/重刷后将应用新选项"+
-                            "\n\n模块安装 --> 安装模块"+
-                            "\n模块选项 --> 选择需要安装的内置模块"+
-                            "\n模块管理 --> 管理已安装的Magisk模块"
+                    "\n注: 务必在模块选项页面勾选需要的模块,点击安装/重刷后将应用新选项"+
+                    "\n\n模块安装 --> 安装模块"+
+                    "\n模块选项 --> 选择需要安装的内置模块"+
+                    "\n模块管理 --> 管理已安装的Magisk模块"
                     ;
             magisk_info.setText(magiskinfo);
             if (BuildConfig.VERSION_CODE>Integer.parseInt(magisk_versioncode_result.successMsg)){
@@ -103,8 +103,13 @@ public class ModuleInstallFragment extends Fragment {
                 install_btn.setText("安装/重刷");
             }
         }else{
-            magisk_title.setText("附加: 未安装");
-            magisk_info.setText("版本: null\n版本号: null");
+            magisk_title.setText("附加: 未安装 | 版本: null | 版本号: null");
+            String magiskinfo =
+                    "\n注: 务必在模块选项页面勾选需要的模块,点击安装/重刷后将应用新选项"+
+                            "\n\n模块安装 --> 安装模块"+
+                            "\n模块选项 --> 选择需要安装的内置模块"+
+                            "\n模块管理 --> 管理已安装的Magisk模块"
+                    ;
         }
 
         //点击安装监听
@@ -138,47 +143,39 @@ public class ModuleInstallFragment extends Fragment {
             TextInputEditText name_text = modify_brand_dialog.findViewById(R.id.name_text);
             TextInputEditText device_text = modify_brand_dialog.findViewById(R.id.device_text);
             TextInputEditText manufacturer_text = modify_brand_dialog.findViewById(R.id.manufacturer_text);
-            MaterialButton write_btn = modify_brand_dialog.findViewById(R.id.write_btn);
 
-            assert write_btn != null;
-            write_btn.setOnClickListener(v1 -> {
-                Editable brand = brand_text != null ? brand_text.getText() : null;
-                Editable name = name_text != null ? name_text.getText() : null;
-                Editable model = model_text != null ? model_text.getText() : null;
-                Editable manufacturer = manufacturer_text != null ? manufacturer_text.getText() : null;
-                Editable device = device_text != null ? device_text.getText() : null;
-                boolean uninstall = brand.equals("") && name.equals("") && model.equals("") && manufacturer.equals("") && device.equals("");
-                String[] commands = {
-                        "if [[ -f "+modulesystemProp+" ]]; then\n"+
-                        "    if [[ ! "+uninstall+" ]]; then\n"+
-                        "        cat <<zyx >>"+modulesystemProp+"\n" +
-                        "ro.product.brand="+brand+"\n"+
-                        "ro.product.name="+name+"\n"+
-                        "ro.product.model="+model+"\n"+
-                        "ro.product.manufacturer="+manufacturer+"\n"+
-                        "ro.product.device="+device+"\n"+
-                        "zyx\n" +
-                        "    else\n"+
-                        "        sed -i -e '/ro.product.brand/d' "+modulesystemProp+"\n"+
-                        "        sed -i -e '/ro.product.name/d' "+modulesystemProp+"\n"+
-                        "        sed -i -e '/ro.product.model/d' "+modulesystemProp+"\n"+
-                        "        sed -i -e '/ro.product.manufacturer/d' "+modulesystemProp+"\n"+
-                        "        sed -i -e '/ro.product.device/d' "+modulesystemProp+"\n"+
-                        "    fi\n"+
-                        "fi"
-                };
-                ShellUtils.CommandResult modify_brand_Msg = ShellUtils.execCommand(commands,true,true);
-                if (modify_brand_Msg.result==0){
-                    modify_brand_dialog.dismiss();
-                    Snackbar.make(requireActivity().findViewById(R.id.coordinator),"机型修改成功!",Snackbar.LENGTH_SHORT).show();
-                }else{
-                    modify_brand_dialog.dismiss();
-                    Snackbar.make(requireActivity().findViewById(R.id.coordinator),"机型修改出错!",Snackbar.LENGTH_SHORT).show();
-                    install_log=modify_brand_Msg.allMsg;
-                    MaterialTextView log_text = bottomSheetDialog.findViewById(R.id.log_text);
-                    assert log_text != null;
-                    log_text.setText(install_log);
-                }
+            MaterialButton demo_btn = modify_brand_dialog.findViewById(R.id.demo_btn);
+            MaterialButton write_btn = modify_brand_dialog.findViewById(R.id.write_btn);
+            MaterialButton read_btn = modify_brand_dialog.findViewById(R.id.read_btn);
+
+            //读取
+            Objects.requireNonNull(read_btn).setOnClickListener(v12 -> {
+                Objects.requireNonNull(brand_text).setText(SPUtils.getString(requireActivity(),PREFERENCE_NAME,"brand",""));
+                Objects.requireNonNull(name_text).setText(SPUtils.getString(requireActivity(),PREFERENCE_NAME,"name",""));
+                Objects.requireNonNull(model_text).setText(SPUtils.getString(requireActivity(),PREFERENCE_NAME,"model",""));
+                Objects.requireNonNull(device_text).setText(SPUtils.getString(requireActivity(),PREFERENCE_NAME,"device",""));
+                Objects.requireNonNull(manufacturer_text).setText(SPUtils.getString(requireActivity(),PREFERENCE_NAME,"manufacturer",""));
+            });
+            //写入
+            Objects.requireNonNull(write_btn).setOnClickListener(v1 -> {
+                //获取EditText数据
+                String brand = String.valueOf(Objects.requireNonNull(brand_text).getText());
+                String name = String.valueOf(Objects.requireNonNull(name_text).getText());
+                String model = String.valueOf(Objects.requireNonNull(model_text).getText());
+                String manufacturer = String.valueOf(Objects.requireNonNull(manufacturer_text).getText());
+                String device = String.valueOf(Objects.requireNonNull(device_text).getText());
+                //写入状态
+                SPUtils.putBoolean(requireActivity(),PREFERENCE_NAME,"modify_brand", !brand.equals("") || !name.equals("") || !model.equals("") || !manufacturer.equals("") || !device.equals(""));
+                //写入Preference
+                SPUtils.putString(requireActivity(),PREFERENCE_NAME,"brand", brand);
+                SPUtils.putString(requireActivity(),PREFERENCE_NAME,"name", name);
+                SPUtils.putString(requireActivity(),PREFERENCE_NAME,"model", model);
+                SPUtils.putString(requireActivity(),PREFERENCE_NAME,"device", device);
+                SPUtils.putString(requireActivity(),PREFERENCE_NAME,"manufacturer", manufacturer);
+                //调用安装
+                install();
+                //关闭窗口
+                modify_brand_dialog.dismiss();
             });
 
         });
@@ -189,6 +186,7 @@ public class ModuleInstallFragment extends Fragment {
     public void install(){
         boolean fingerprint_repair = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"fingerprint_repair",false);
         boolean statusbar_developer_warn = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"statusbar_developer_warn",false);
+        boolean modify_brand = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"modify_brand",false);
 
         String[] installcommands = {
                 //重建module目录
@@ -222,6 +220,22 @@ public class ModuleInstallFragment extends Fragment {
                 //设置权限
                 "chmod -Rf 777 "+moduleDir,
 
+                //修改机型
+                "if [[ "+modify_brand+" == true ]]; then\n"+
+                "    cat <<zyx >>"+modulesystemProp+"\n" +
+                "ro.product.brand="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"brand")+"\n"+
+                "ro.product.name="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"name")+"\n"+
+                "ro.product.model="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"model")+"\n"+
+                "ro.product.manufacturer="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"manufacturer")+"\n"+
+                "ro.product.device="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"device")+"\n"+
+                "zyx\n" +
+                "else\n"+
+                "    sed -i -e '/ro.product.brand/d' "+modulesystemProp+"\n"+
+                "    sed -i -e '/ro.product.name/d' "+modulesystemProp+"\n"+
+                "    sed -i -e '/ro.product.model/d' "+modulesystemProp+"\n"+
+                "    sed -i -e '/ro.product.manufacturer/d' "+modulesystemProp+"\n"+
+                "    sed -i -e '/ro.product.device/d' "+modulesystemProp+"\n"+
+                "fi",
                 //指纹修复
                 "if [[ "+fingerprint_repair+" == true ]]; then\n"+
                 "    cat <<zyx >>"+modulesystemProp+"\n" +
@@ -251,11 +265,11 @@ public class ModuleInstallFragment extends Fragment {
                 "chmod -Rf 644 "+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
                 "fi"
         };
-
+        //执行并获取命令信息
         ShellUtils.CommandResult installcommandslog = ShellUtils.execCommand(installcommands,true,true);
         if (installcommandslog.result==0){
             Snackbar.make(requireActivity().findViewById(R.id.coordinator),"安装完成!",Snackbar.LENGTH_SHORT).show();
-            initMagiskInstall();
+            initInstall();
         }else{
             Snackbar.make(requireActivity().findViewById(R.id.coordinator),"安装错误!",Snackbar.LENGTH_SHORT).show();
             install_log=installcommandslog.allMsg;
