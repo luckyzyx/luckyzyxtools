@@ -1,5 +1,6 @@
 package com.luckyzyx.tools.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,12 @@ import android.widget.TextView;
 
 import com.luckyzyx.tools.R;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ModuleListAdapter extends BaseAdapter {
 
-    private Context context;
+    private final Context context;
     List<Map<String, String>> list;
 
     public ModuleListAdapter(Context context,List<Map<String,String>> list) {
@@ -44,6 +44,7 @@ public class ModuleListAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;

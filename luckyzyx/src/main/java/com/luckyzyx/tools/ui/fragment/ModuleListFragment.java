@@ -9,10 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.ModuleListAdapter;
+import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +26,23 @@ public class ModuleListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initListview();
+//        initListview();
+        test();
     }
 
+    //test
+    public void test(){
+        String[] command = {
+                "ls /data/adb/modules/ | while read module ; do\n"+
+                "echo $module\\n\n"+
+                "done"
+        };
+        ShellUtils.CommandResult installcommandslog = ShellUtils.execCommand(command,true,true);
+        MaterialTextView log = requireActivity().findViewById(R.id.log);
+        log.setText(installcommandslog.allMsg);
+    }
+
+    //初始化ListView
     public void initListview(){
         String [] moduleName = {"1111","2222","3333","4444","5555","6666","7777"};
         String [] moduleVersion = {"11","22","33","44","55","66","77"};
@@ -43,7 +58,7 @@ public class ModuleListFragment extends Fragment {
             map.put("moduleDescription",moduleDescription[i]);
             list.add(map);
         }
-
+        //设置自定义适配器
         ModuleListAdapter moduleListAdapter = new ModuleListAdapter(requireActivity(),list);
         listView.setAdapter(moduleListAdapter);
     }

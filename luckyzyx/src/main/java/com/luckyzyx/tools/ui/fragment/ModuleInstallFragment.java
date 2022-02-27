@@ -6,11 +6,15 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.ListPopupWindow;
+import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -25,6 +29,10 @@ import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 import com.luckyzyx.tools.utils.Shellfun;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -68,8 +76,9 @@ public class ModuleInstallFragment extends Fragment {
         bottomSheetDialog = new BottomSheetDialog(requireActivity());
         bottomSheetDialog.setContentView(R.layout.bottom_sheet);
         View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-        assert bottomSheetInternal != null;
-        BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
+        if (bottomSheetInternal != null) {
+            BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
+        }
     }
 
     //初始化Magisk
@@ -110,6 +119,7 @@ public class ModuleInstallFragment extends Fragment {
                             "\n模块选项 --> 选择需要安装的内置模块"+
                             "\n模块管理 --> 管理已安装的Magisk模块"
                     ;
+            magisk_info.setText(magiskinfo);
         }
 
         //点击安装监听
@@ -132,6 +142,8 @@ public class ModuleInstallFragment extends Fragment {
 
         //修改机型
         modify_brand_btn.setOnClickListener(v -> {
+
+
             AlertDialog modify_brand_dialog = new MaterialAlertDialogBuilder(requireActivity())
                     .setTitle("修改机型")
                     .setMessage("机型信息请勿填写特殊符号!可能会导致系统读取出错!\n若以下各项都未填写,点击确定后将移除修改机型功能!\n以免冲突,确保其他机型模块已关闭或卸载!")
@@ -148,6 +160,38 @@ public class ModuleInstallFragment extends Fragment {
             MaterialButton write_btn = modify_brand_dialog.findViewById(R.id.write_btn);
             MaterialButton read_btn = modify_brand_dialog.findViewById(R.id.read_btn);
 
+            //模板
+            Objects.requireNonNull(demo_btn).setOnClickListener(v13 -> {
+                String[] brandlist = {"OPPO Find x3 Pro","OPPO Find x5 Pro","OnePlus 9RT"};
+
+                String[] brands = {"OPPO","OPPO","OnePlus"};
+                String[] names = {"OPPO PEEM00","OPPO PFEM10","OnePlus MT2110"};
+                String[] models = {"PEEM00","PFEM10","MT2110"};
+                String[] devices = {"PEEM00","PFEM10","OP5154L1"};
+                String[] manufacturers = {"OPPO","OPPO","OnePlus"};
+
+                ListPopupWindow listPopupWindow = new ListPopupWindow(modify_brand_dialog.getContext());
+                listPopupWindow.setAdapter(new ArrayAdapter<>(modify_brand_dialog.getContext(), android.R.layout.simple_list_item_1,brandlist));
+                int maxWidth = 0;
+                for (String str : brandlist) {
+                    TextView textView = (TextView) View.inflate(getContext(), android.R.layout.simple_list_item_1, null);
+                    textView.setText(str);
+                    textView.measure(0, 0);
+                    maxWidth = Math.max(maxWidth, textView.getMeasuredWidth());
+                }
+                listPopupWindow.setWidth(maxWidth);//item宽度自适应
+                listPopupWindow.setAnchorView(demo_btn);//设置ListPopupWindow的锚点,即关联PopupWindow的显示位置和这个锚点
+                listPopupWindow.setModal(true);//响应物理按键
+                listPopupWindow.setOnItemClickListener((parent, view, position, id) -> {
+                    Objects.requireNonNull(brand_text).setText(brands[position]);
+                    Objects.requireNonNull(name_text).setText(names[position]);
+                    Objects.requireNonNull(model_text).setText(models[position]);
+                    Objects.requireNonNull(device_text).setText(devices[position]);
+                    Objects.requireNonNull(manufacturer_text).setText(manufacturers[position]);
+                    listPopupWindow.dismiss();
+                });
+                listPopupWindow.show();
+            });
             //读取
             Objects.requireNonNull(read_btn).setOnClickListener(v12 -> {
                 Objects.requireNonNull(brand_text).setText(SPUtils.getString(requireActivity(),PREFERENCE_NAME,"brand",""));
