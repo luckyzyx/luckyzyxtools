@@ -6,21 +6,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.utils.SPUtils;
 
 import java.util.Objects;
 
-public class SettingsActivity extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.CheckTheme(this);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.about_activity);
         //设置Toolbar
         setSupportActionBar(findViewById(R.id.topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -28,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.settings_fragment, new SettingsFragment())
+                    .replace(R.id.about_fragment, new AboutFragment())
                     .commitNow();
         }
     }
@@ -48,21 +46,21 @@ public class SettingsActivity extends AppCompatActivity {
         return false;
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
+    public static class AboutFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             getPreferenceManager().setSharedPreferencesName("Settings");
-            setPreferencesFromResource(R.xml.settings_preferences, rootKey);
+            setPreferencesFromResource(R.xml.about_preferences, rootKey);
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 //            Toast.makeText(requireActivity(), key+":"+sharedPreferences.getBoolean(key,false), Toast.LENGTH_SHORT).show();
-            if ("theme".equals(key)){
-                SPUtils.putString(requireActivity(),"Settings","theme",sharedPreferences.getString(key,"default"));
-                MainActivity.reStart(requireActivity());
-            }
+//            if ("theme".equals(key)){
+//                SPUtils.putString(requireActivity(),"Settings","theme",sharedPreferences.getString(key,"default"));
+//                MainActivity.reStart(requireActivity());
+//            }
         }
         @Override
         public void onResume() {

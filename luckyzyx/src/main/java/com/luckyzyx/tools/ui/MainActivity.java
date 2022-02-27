@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     //判断主题
     public static void CheckTheme(Context context){
         context.setTheme(R.style.Theme_Luckyzyx_sakura);
+
 //        String theme = SPUtils.getString(context,"theme","material");
 //        switch (theme){
 //            default:
@@ -161,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //联系作者_跳转URL
-    @SuppressWarnings("unused")
     void ContactAuthor(){
         Uri uri = Uri.parse("http://www.coolapk.com/u/1930284");
         startActivity(new Intent().setAction("android.intent.action.VIEW").setData(uri));

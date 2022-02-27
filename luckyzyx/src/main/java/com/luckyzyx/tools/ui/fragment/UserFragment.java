@@ -20,7 +20,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MainActivity;
-import com.luckyzyx.tools.ui.SettingsActivity;
+import com.luckyzyx.tools.ui.AboutActivity;
 
 public class UserFragment extends Fragment {
     @Override
@@ -62,8 +62,8 @@ public class UserFragment extends Fragment {
             case R.id.refresh:
                 MainActivity.refreshmode(requireActivity());
                 break;
-            case R.id.settings:
-                startActivity(new Intent(requireActivity(), SettingsActivity.class));
+            case R.id.about:
+                startActivity(new Intent(requireActivity(), AboutActivity.class));
                 break;
         }
         return false;

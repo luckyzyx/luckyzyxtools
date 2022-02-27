@@ -29,7 +29,7 @@ import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MagiskActivity;
 import com.luckyzyx.tools.ui.MainActivity;
-import com.luckyzyx.tools.ui.SettingsActivity;
+import com.luckyzyx.tools.ui.AboutActivity;
 import com.luckyzyx.tools.ui.XposedActivity;
 
 public class HomeFragment extends Fragment {
@@ -111,8 +111,8 @@ public class HomeFragment extends Fragment {
             case R.id.refresh:
                 MainActivity.refreshmode(requireActivity());
                 break;
-            case R.id.settings:
-                startActivity(new Intent(requireActivity(), SettingsActivity.class));
+            case R.id.about:
+                startActivity(new Intent(requireActivity(), AboutActivity.class));
                 break;
         }
         return false;

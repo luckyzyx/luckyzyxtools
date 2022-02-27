@@ -8,7 +8,7 @@
     <string name="close">关闭activity</string>
     <string name="root">获取root</string>
     <string name="exit">退出APP</string>
-    <string name="title_activity_settings">设置</string>
+    <string name="title_activity_about">关于</string>
     <string name="title_activity_xposed">Xposed</string>
     <string name="title_activity_magisk">Magisk</string>
     <string name="nav_item_home">主页</string>

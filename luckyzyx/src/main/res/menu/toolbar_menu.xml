@@ -10,8 +10,8 @@
         tools:ignore="HardcodedText" />
 
     <item
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/about"
+        android:icon="@drawable/ic_baseline_info_24"
         app:showAsAction="ifRoom"
         android:title="settings"
         tools:ignore="HardcodedText" />

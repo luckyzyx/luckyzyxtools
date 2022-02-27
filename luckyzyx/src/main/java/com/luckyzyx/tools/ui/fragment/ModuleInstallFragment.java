@@ -28,10 +28,6 @@ import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 import com.luckyzyx.tools.utils.Shellfun;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -176,7 +172,7 @@ public class ModuleInstallFragment extends Fragment {
                 listPopupWindow.setAnchorView(demo_btn);//设置ListPopupWindow的锚点,即关联PopupWindow的显示位置和这个锚点
                 listPopupWindow.setModal(true);//响应物理按键
                 listPopupWindow.setOnItemClickListener((parent, view, position, id) -> {
-                    String[] brands = new String[0];
+                    String[] brands;
                     switch (position){
                         case 0:
                             brands = getResources().getStringArray(R.array.oppofindx3pro);
@@ -189,6 +185,7 @@ public class ModuleInstallFragment extends Fragment {
                             break;
                         default:
                             Toast.makeText(requireActivity(), "Error: Unexpected value : "+position, Toast.LENGTH_SHORT).show();
+                            return;
                     }
                     Objects.requireNonNull(brand_text).setText(brands[0]);
                     Objects.requireNonNull(name_text).setText(brands[1]);
