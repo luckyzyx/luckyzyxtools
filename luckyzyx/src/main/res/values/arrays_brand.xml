@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    修改机型模板列表-->
+    <string-array name="brandlist">
+        <item>OPPO Find x3 Pro</item>
+        <item>OPPO Find x5 Pro</item>
+        <item>OnePlus 9RT</item>
+    </string-array>
+
+<!--    brand,name,model,device,manufacturer-->
+    <string-array name="oppofindx3pro">
+        <item>OPPO</item>
+        <item>OPPO PEEM00</item>
+        <item>PEEM00</item>
+        <item>PEEM00</item>
+        <item>OPPO</item>
+    </string-array>
+
+ <!--    brand,name,model,device,manufacturer-->
+    <string-array name="oppofindx5pro">
+        <item>OPPO</item>
+        <item>OPPO PFEM10</item>
+        <item>PFEM10</item>
+        <item>PFEM10</item>
+        <item>OPPO</item>
+    </string-array>
+
+ <!--    brand,name,model,device,manufacturer-->
+    <string-array name="oneplus9rt">
+        <item>OPPO</item>
+        <item>OPPO MT2110</item>
+        <item>MT2110</item>
+        <item>OP5154L1</item>
+        <item>OPPO</item>
+    </string-array>
+
+</resources>

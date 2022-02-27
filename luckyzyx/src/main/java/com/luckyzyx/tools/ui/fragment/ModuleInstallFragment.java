@@ -6,15 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListPopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -162,13 +161,7 @@ public class ModuleInstallFragment extends Fragment {
 
             //模板
             Objects.requireNonNull(demo_btn).setOnClickListener(v13 -> {
-                String[] brandlist = {"OPPO Find x3 Pro","OPPO Find x5 Pro","OnePlus 9RT"};
-
-                String[] brands = {"OPPO","OPPO","OnePlus"};
-                String[] names = {"OPPO PEEM00","OPPO PFEM10","OnePlus MT2110"};
-                String[] models = {"PEEM00","PFEM10","MT2110"};
-                String[] devices = {"PEEM00","PFEM10","OP5154L1"};
-                String[] manufacturers = {"OPPO","OPPO","OnePlus"};
+                String[] brandlist = getResources().getStringArray(R.array.brandlist);
 
                 ListPopupWindow listPopupWindow = new ListPopupWindow(modify_brand_dialog.getContext());
                 listPopupWindow.setAdapter(new ArrayAdapter<>(modify_brand_dialog.getContext(), android.R.layout.simple_list_item_1,brandlist));
@@ -183,11 +176,25 @@ public class ModuleInstallFragment extends Fragment {
                 listPopupWindow.setAnchorView(demo_btn);//设置ListPopupWindow的锚点,即关联PopupWindow的显示位置和这个锚点
                 listPopupWindow.setModal(true);//响应物理按键
                 listPopupWindow.setOnItemClickListener((parent, view, position, id) -> {
-                    Objects.requireNonNull(brand_text).setText(brands[position]);
-                    Objects.requireNonNull(name_text).setText(names[position]);
-                    Objects.requireNonNull(model_text).setText(models[position]);
-                    Objects.requireNonNull(device_text).setText(devices[position]);
-                    Objects.requireNonNull(manufacturer_text).setText(manufacturers[position]);
+                    String[] brands = new String[0];
+                    switch (position){
+                        case 0:
+                            brands = getResources().getStringArray(R.array.oppofindx3pro);
+                            break;
+                        case 1:
+                            brands = getResources().getStringArray(R.array.oppofindx5pro);
+                            break;
+                        case 2:
+                            brands = getResources().getStringArray(R.array.oneplus9rt);
+                            break;
+                        default:
+                            Toast.makeText(requireActivity(), "Error: Unexpected value : "+position, Toast.LENGTH_SHORT).show();
+                    }
+                    Objects.requireNonNull(brand_text).setText(brands[0]);
+                    Objects.requireNonNull(name_text).setText(brands[1]);
+                    Objects.requireNonNull(model_text).setText(brands[2]);
+                    Objects.requireNonNull(device_text).setText(brands[3]);
+                    Objects.requireNonNull(manufacturer_text).setText(brands[4]);
                     listPopupWindow.dismiss();
                 });
                 listPopupWindow.show();
@@ -206,8 +213,8 @@ public class ModuleInstallFragment extends Fragment {
                 String brand = String.valueOf(Objects.requireNonNull(brand_text).getText());
                 String name = String.valueOf(Objects.requireNonNull(name_text).getText());
                 String model = String.valueOf(Objects.requireNonNull(model_text).getText());
-                String manufacturer = String.valueOf(Objects.requireNonNull(manufacturer_text).getText());
                 String device = String.valueOf(Objects.requireNonNull(device_text).getText());
+                String manufacturer = String.valueOf(Objects.requireNonNull(manufacturer_text).getText());
                 //写入状态
                 SPUtils.putBoolean(requireActivity(),PREFERENCE_NAME,"modify_brand", !brand.equals("") || !name.equals("") || !model.equals("") || !manufacturer.equals("") || !device.equals(""));
                 //写入Preference
@@ -270,15 +277,15 @@ public class ModuleInstallFragment extends Fragment {
                 "ro.product.brand="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"brand")+"\n"+
                 "ro.product.name="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"name")+"\n"+
                 "ro.product.model="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"model")+"\n"+
-                "ro.product.manufacturer="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"manufacturer")+"\n"+
                 "ro.product.device="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"device")+"\n"+
+                "ro.product.manufacturer="+SPUtils.getString(requireActivity(),PREFERENCE_NAME,"manufacturer")+"\n"+
                 "zyx\n" +
                 "else\n"+
                 "    sed -i -e '/ro.product.brand/d' "+modulesystemProp+"\n"+
                 "    sed -i -e '/ro.product.name/d' "+modulesystemProp+"\n"+
                 "    sed -i -e '/ro.product.model/d' "+modulesystemProp+"\n"+
-                "    sed -i -e '/ro.product.manufacturer/d' "+modulesystemProp+"\n"+
                 "    sed -i -e '/ro.product.device/d' "+modulesystemProp+"\n"+
+                "    sed -i -e '/ro.product.manufacturer/d' "+modulesystemProp+"\n"+
                 "fi",
                 //指纹修复
                 "if [[ "+fingerprint_repair+" == true ]]; then\n"+
