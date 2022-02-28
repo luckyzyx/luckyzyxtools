@@ -1,11 +1,11 @@
 package com.luckyzyx.tools.ui;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
@@ -46,32 +46,17 @@ public class AboutActivity extends AppCompatActivity {
         return false;
     }
 
-    public static class AboutFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
+    public static class AboutFragment extends PreferenceFragmentCompat{
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             getPreferenceManager().setSharedPreferencesName("Settings");
             setPreferencesFromResource(R.xml.about_preferences, rootKey);
-            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         }
 
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-//            Toast.makeText(requireActivity(), key+":"+sharedPreferences.getBoolean(key,false), Toast.LENGTH_SHORT).show();
-//            if ("theme".equals(key)){
-//                SPUtils.putString(requireActivity(),"Settings","theme",sharedPreferences.getString(key,"default"));
-//                MainActivity.reStart(requireActivity());
-//            }
-        }
-        @Override
-        public void onResume() {
-            super.onResume();
-            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        }
+        public boolean onPreferenceTreeClick(Preference preference) {
 
-        @Override
-        public void onPause() {
-            super.onPause();
-            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+            return super.onPreferenceTreeClick(preference);
         }
     }
 

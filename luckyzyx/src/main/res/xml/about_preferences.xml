@@ -14,6 +14,48 @@
                 android:data="https://github.com/luckyzyx"/>
         </Preference>
 
+        <Preference
+            android:title="源代码"
+            android:summary="Github Source"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/luckyzyx/luckyzyxtools"/>
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="开放源代码"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:title="Xposed"
+            android:summary="rovo89\nApache License 2.0"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/rovo89/Xposed"/>
+        </Preference>
+
+        <Preference
+            android:title="LSPosed"
+            android:summary="LSPosed\nGPL-3.0 License"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/LSPosed/LSPosed"/>
+        </Preference>
+
+        <Preference
+            android:title="ColorOSTool"
+            android:summary="Oosl\nGPL-3.0 License"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Oosl/ColorOSTool"/>
+        </Preference>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

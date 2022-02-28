@@ -12,12 +12,14 @@ android {
             v2SigningEnabled true
         }
     }
-
+    //获取最近一条commit信息
+    def cmd="git rev-parse --short HEAD"
+    def commitId=cmd.execute().text.trim()
     def currentVersionCode = getVersionCode()
     defaultConfig {
         applicationId "com.luckyzyx.tools"
         versionCode currentVersionCode
-        versionName 'v2.0'
+        versionName '2.0.'+versionCode
 
         signingConfig signingConfigs.release
         minSdkVersion 30
@@ -46,10 +48,10 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if ('release' == variant.buildType.name) {
-                outputFileName = "luckyzyx_${variant.versionName}.apk"
+                outputFileName = "luckyzyx_v${variant.versionName}.r${versionCode}.${commitId}.apk"
             }
             if ('debug' == variant.buildType.name) {
-                outputFileName = "luckyzyx_${variant.versionName}_debug.apk"
+                outputFileName = "luckyzyx_v${variant.versionName}.d${versionCode}.${commitId}.apk"
             }
         }
     }
@@ -67,8 +69,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
     //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"
     //Material主题
