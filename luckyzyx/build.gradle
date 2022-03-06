@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.luckyzyx.tools"
         versionCode currentVersionCode
-        versionName '2.0.'+versionCode
+        versionName '2.0'
 
         signingConfig signingConfigs.release
         minSdkVersion 30

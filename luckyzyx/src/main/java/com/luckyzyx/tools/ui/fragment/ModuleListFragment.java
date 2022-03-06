@@ -26,28 +26,39 @@ public class ModuleListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        initListview();
         test();
+//        initListview();
     }
 
     //test
     public void test(){
         String[] command = {
+                //获取已安装模块列表
                 "ls /data/adb/modules/ | while read module ; do\n"+
-                "echo $module\\n\n"+
-                "done"
+                "    echo -e $module\n"+
+                "done > "+requireActivity().getFilesDir().getPath()+"/modulelist.txt"
         };
         ShellUtils.CommandResult installcommandslog = ShellUtils.execCommand(command,true,true);
         MaterialTextView log = requireActivity().findViewById(R.id.log);
         log.setText(installcommandslog.allMsg);
+
+    }
+
+    //字符串插入字符串组
+    private static String[] insert(String[] arr, String str) {
+        int size = arr.length;
+        String[] tmp = new String[size + 1];
+        System.arraycopy(arr, 0, tmp, 0, size);
+        tmp[size] = str;
+        return tmp;
     }
 
     //初始化ListView
-    public void initListview(){
-        String [] moduleName = {"1111","2222","3333","4444","5555","6666","7777"};
+    public void initListview() {
+        String [] moduleName = {};
+
         String [] moduleVersion = {"11","22","33","44","55","66","77"};
         String [] moduleDescription = {"1","2","3","4","5","6","7"};
-
         ListView listView = requireActivity().findViewById(R.id.list_view);
         List<Map<String, String>> list = new ArrayList<>();
         for (int i=0;i<moduleName.length;i++)

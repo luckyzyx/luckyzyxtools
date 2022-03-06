@@ -31,6 +31,7 @@ import com.luckyzyx.tools.ui.MagiskActivity;
 import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.ui.AboutActivity;
 import com.luckyzyx.tools.ui.XposedActivity;
+import com.luckyzyx.tools.utils.ShellUtils;
 
 public class HomeFragment extends Fragment {
 
@@ -90,9 +91,10 @@ public class HomeFragment extends Fragment {
                 "厂商: " + Build.BRAND +
                         "\n型号: " + Build.MODEL +
                         "\nAndroid版本: " + Build.VERSION.RELEASE +
+                        "\n版本号: " + Build.DISPLAY+
                         "\nSDK API: " + Build.VERSION.SDK +
                         "\n设备参数: " + Build.DEVICE +
-                        "\n版本号: " + Build.DISPLAY
+                        "\n闪存厂商: "+ ShellUtils.execCommand("cat /sys/class/block/sda/device/inquiry",true,true).successMsg
         };
         return str[0];
     }

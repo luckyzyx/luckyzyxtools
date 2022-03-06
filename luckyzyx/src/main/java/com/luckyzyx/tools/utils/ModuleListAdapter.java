@@ -52,9 +52,9 @@ public class ModuleListAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.listview_item,null,true);
 
-            viewHolder.text_name = (TextView) convertView.findViewById(R.id.text_name);
-            viewHolder.text_version = (TextView) convertView.findViewById(R.id.text_version);
-            viewHolder.text_description = (TextView) convertView.findViewById(R.id.text_description);
+            viewHolder.text_name = convertView.findViewById(R.id.text_name);
+            viewHolder.text_version = convertView.findViewById(R.id.text_version);
+            viewHolder.text_description = convertView.findViewById(R.id.text_description);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();

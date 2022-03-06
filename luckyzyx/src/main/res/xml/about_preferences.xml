@@ -16,7 +16,7 @@
 
         <Preference
             android:title="源代码"
-            android:summary="Github Source"
+            android:summary="Github Source , GPL-3.0 License"
             app:iconSpaceReserved="false">
             <intent
                 android:action="android.intent.action.VIEW"
@@ -31,7 +31,7 @@
 
         <Preference
             android:title="Xposed"
-            android:summary="rovo89\nApache License 2.0"
+            android:summary="rovo89 , Apache License 2.0"
             app:iconSpaceReserved="false">
             <intent
                 android:action="android.intent.action.VIEW"
@@ -40,7 +40,7 @@
 
         <Preference
             android:title="LSPosed"
-            android:summary="LSPosed\nGPL-3.0 License"
+            android:summary="LSPosed , GPL-3.0 License"
             app:iconSpaceReserved="false">
             <intent
                 android:action="android.intent.action.VIEW"
@@ -49,7 +49,7 @@
 
         <Preference
             android:title="ColorOSTool"
-            android:summary="Oosl\nGPL-3.0 License"
+            android:summary="Oosl , GPL-3.0 License"
             app:iconSpaceReserved="false">
             <intent
                 android:action="android.intent.action.VIEW"

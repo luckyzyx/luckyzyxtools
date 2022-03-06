@@ -137,8 +137,6 @@ public class ModuleInstallFragment extends Fragment {
 
         //修改机型
         modify_brand_btn.setOnClickListener(v -> {
-
-
             AlertDialog modify_brand_dialog = new MaterialAlertDialogBuilder(requireActivity())
                     .setTitle("修改机型")
                     .setMessage("机型信息请勿填写特殊符号!可能会导致系统读取出错!\n若以下各项都未填写,点击确定后将移除修改机型功能!\n以免冲突,确保其他机型模块已关闭或卸载!")
@@ -182,6 +180,12 @@ public class ModuleInstallFragment extends Fragment {
                             break;
                         case 2:
                             brands = getResources().getStringArray(R.array.oneplus9rt);
+                            break;
+                        case 3:
+                            brands = getResources().getStringArray(R.array.oneplus10pro);
+                            break;
+                        case 4:
+                            brands = getResources().getStringArray(R.array.xiaomi12pro);
                             break;
                         default:
                             Toast.makeText(requireActivity(), "Error: Unexpected value : "+position, Toast.LENGTH_SHORT).show();

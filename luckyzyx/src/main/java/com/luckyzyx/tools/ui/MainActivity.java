@@ -146,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
     //检测包名
     public static boolean APPexist(@NonNull Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
