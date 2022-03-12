@@ -1,11 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/public/'
-        }
-        mavenCentral()
         google()
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+        maven { url "https://api.xposed.info/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'

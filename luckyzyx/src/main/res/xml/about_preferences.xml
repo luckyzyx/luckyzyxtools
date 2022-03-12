@@ -48,6 +48,15 @@
         </Preference>
 
         <Preference
+            android:title="YukiHookAPI"
+            android:summary="fankes , MIT License"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/LSPosed/LSPosed"/>
+        </Preference>
+
+        <Preference
             android:title="ColorOSTool"
             android:summary="Oosl , GPL-3.0 License"
             app:iconSpaceReserved="false">

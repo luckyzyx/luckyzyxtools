@@ -10,47 +10,23 @@
             android:layout_width="match_parent"
             android:defaultValue="false"
             android:key="hooktest"
-            android:summary="Hook2"
+            android:summary="Yuki Demo"
             app:iconSpaceReserved="false"
             android:title="Hook" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
         android:title="系统界面v12.0.0"
-        android:key="systemui"
-        android:summary="OnePlus">
+        android:key="systemui">
 
-        <ListPreference
-            android:defaultValue="4000"
-            android:entries="@array/network_speed_option"
-            android:entryValues="@array/network_speed_value"
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="network_speed"
-            android:title="状态栏网速刷新率"
             app:iconSpaceReserved="false"
-            app:useSimpleSummaryProvider="true"/>
+            android:title="状态栏网速刷新率" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="应用包安装程序v3.2.2426"
-        app:iconSpaceReserved="false"
-        android:key="packageinstaller">
-
-        <SwitchPreference
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            android:key="safe_install"
-            android:title="账号安全验证" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="warn_install"
-            app:iconSpaceReserved="false"
-            android:title="版本警告" />
-        <SwitchPreference
-            android:defaultValue="false"
-            app:iconSpaceReserved="false"
-            android:key="aosp_install"
-            android:title="原生安装器" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="好多动漫v5.1.1"

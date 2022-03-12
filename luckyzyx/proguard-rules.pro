@@ -32,11 +32,11 @@
 #忽略警告
 #-ignorewarnings
 #优化 0-7
--optimizationpasses 7
+-optimizationpasses 10
 #不要使用混合大小写的类名
 -dontusemixedcaseclassnames
 #不要优化
-#-dontoptimize
+-dontoptimize
 #冗长
 -verbose
 #不要预先验证

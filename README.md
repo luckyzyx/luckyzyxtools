@@ -9,6 +9,11 @@ Android从入门到入坟
 Xposed Test --> 测试APP  
 好多动漫 --> 开屏广告和下载原图  
 
+## Xposed API YukuHookAPI
+
+YukiHookAPI  
+<https://github.com/fankes/YukiHookAPI>  
+
 ## XSharedPreferences读取问题  
 
 Xposed API 93 New XSharedPreferences  

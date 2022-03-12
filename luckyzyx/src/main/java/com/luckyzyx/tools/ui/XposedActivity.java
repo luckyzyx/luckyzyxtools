@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
@@ -55,12 +54,9 @@ public class XposedActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.xposed_preferences, rootKey);
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-            //移除应用包安装程序xml
-            PreferenceCategory packageinstaller = findPreference("packageinstaller");
-            getPreferenceScreen().removePreference(packageinstaller);
-            //移除网速xml
-            PreferenceCategory systemui = findPreference("systemui");
-            getPreferenceScreen().removePreference(systemui);
+//            //移除网速xml
+//            PreferenceCategory systemui = findPreference("systemui");
+//            getPreferenceScreen().removePreference(systemui);
         }
 
         @Override

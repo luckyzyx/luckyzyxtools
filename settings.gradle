@@ -9,5 +9,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "luckyzyx"
-include ':xposedtest'
+include ':demo-app'
 include ':luckyzyx'
