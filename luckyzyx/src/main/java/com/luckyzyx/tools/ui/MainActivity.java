@@ -13,18 +13,24 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.HomeFragment;
 import com.luckyzyx.tools.ui.fragment.OtherFragment;
 import com.luckyzyx.tools.ui.fragment.UserFragment;
 import com.luckyzyx.tools.utils.ShellUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(R.id.nav_container,fragment).commitNow();
+    }
+
+    //检查更新
+    public static void CheckUpdate(View v){
+
+        Snackbar.make(v, "检查个毛的更新!", Snackbar.LENGTH_SHORT).show();
     }
 
     //判断主题
@@ -172,6 +184,66 @@ public class MainActivity extends AppCompatActivity {
         final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
+    }
+
+    //复制文件
+    public static void copyFile(String oldPath, String newPath) {
+        try {
+            File oldfile = new File(oldPath);
+            if (oldfile.exists()) { //文件存在时
+                FileInputStream inputStream = new FileInputStream(oldPath); //读入原文件
+                FileOutputStream outputStream = new FileOutputStream(newPath);
+                byte[] buffer = new byte[1024 * 10];
+                int byteread;
+                while ( (byteread = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, byteread);
+                }
+                inputStream.close();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("复制单个文件操作出错");
+            e.printStackTrace();
+        }
+    }
+
+    //复制整个文件夹
+    public void copyFolder(String oldPath, String newPath) {
+        try {
+            //noinspection ResultOfMethodCallIgnored
+            (new File(newPath)).mkdirs(); //如果文件夹不存在 则建立新文件夹
+            File a = new File(oldPath);
+            String[] file = a.list();
+            File temp;
+            for (int i = 0; i < Objects.requireNonNull(file).length; i++) {
+                if (oldPath.endsWith(File.separator)) {
+                    temp = new File(oldPath + file[i]);
+                } else {
+                    temp = new File(oldPath + File.separator + file[i]);
+                }
+
+                if (temp.isFile()) {
+                    FileInputStream input = new FileInputStream(temp);
+                    FileOutputStream output = new FileOutputStream(newPath + "/" +
+                            (temp.getName()).toString());
+                    byte[] b = new byte[1024 * 5];
+                    int len;
+                    while ((len = input.read(b)) != -1) {
+                        output.write(b, 0, len);
+                    }
+                    output.flush();
+                    output.close();
+                    input.close();
+                }
+                if (temp.isDirectory()) {//如果是子文件夹
+                    copyFolder(oldPath + "/" + file[i], newPath + "/" + file[i]);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("复制整个文件夹内容操作出错");
+            e.printStackTrace();
+
+        }
     }
 
     //关机菜单

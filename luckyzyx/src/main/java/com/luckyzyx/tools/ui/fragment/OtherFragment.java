@@ -75,6 +75,11 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             }
         }
 
+        //反馈工具箱
+        if (preference.getKey().equals("logkit")){
+            ShellUtils.execCommand("am start -n com.oplus.logkit/.activity.MainActivity", true);
+        }
+
         //系统界面演示模式
         if (preference.getKey().equals("systemui_demomode")){
             ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true);

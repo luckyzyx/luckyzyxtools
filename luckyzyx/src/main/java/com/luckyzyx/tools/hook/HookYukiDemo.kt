@@ -9,6 +9,7 @@ import com.highcapable.yukihookapi.hook.type.java.UnitType
 class HookYukiDemo : YukiBaseHooker() {
 
     override fun onHook() {
+
         findClass(name = "$packageName.ui.MainActivity").hook {
             // 替换返回值
             injectMember {

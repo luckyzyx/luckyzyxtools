@@ -18,13 +18,11 @@ android {
     //获取最近一条commit信息
     def cmd="git rev-parse --short HEAD"
     def commitId=cmd.execute().text.trim()
-
-    def currentVersionName = 'v2.0'
     def currentVersionCode = getVersionCode()
 
     defaultConfig {
         applicationId "com.luckyzyx.tools"
-        versionName currentVersionName +'.'+ currentVersionCode +'.'+ commitId
+        versionName '2.0'
         versionCode currentVersionCode
 
         signingConfig signingConfigs.release

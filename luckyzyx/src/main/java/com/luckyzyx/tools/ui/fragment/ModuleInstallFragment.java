@@ -24,10 +24,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
+import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 import com.luckyzyx.tools.utils.Shellfun;
 
+import java.io.File;
 import java.util.Objects;
 
 
@@ -76,7 +78,7 @@ public class ModuleInstallFragment extends Fragment {
         }
     }
 
-    //初始化Magisk
+    //初始化安装
     @SuppressLint("SetTextI18n")
     private void initInstall() {
         MaterialTextView magisk_title = requireActivity().findViewById(R.id.magisk_title);
@@ -87,13 +89,15 @@ public class ModuleInstallFragment extends Fragment {
 
         MaterialTextView log = requireActivity().findViewById(R.id.installlog);
 
+        //初始化读取已安装版本号
         String[] magisk_version = {Shellfun.grep_prop(), "grep_prop version "+moduleProp};
         ShellUtils.CommandResult magisk_version_result = ShellUtils.execCommand(magisk_version,true,true);
         String[] magisk_versioncode = {Shellfun.grep_prop(), "grep_prop versionCode "+moduleProp};
         ShellUtils.CommandResult magisk_versioncode_result = ShellUtils.execCommand(magisk_versioncode,true,true);
 
+        //正常读取
         if (magisk_version_result.result==0 && magisk_versioncode_result.result==0){
-            magisk_title.setText("附加模块: 已安装 | 版本: "+magisk_version_result.successMsg+" | 版本号: "+magisk_versioncode_result.successMsg);
+            magisk_title.setText("附加模块: 已安装 | 版本: "+magisk_version_result.successMsg);
             String magiskinfo =
                     "\n注: 务必在模块选项页面勾选需要的模块,点击安装/重刷后将应用新选项"+
                     "\n\n模块安装 --> 安装模块"+
@@ -107,7 +111,7 @@ public class ModuleInstallFragment extends Fragment {
                 install_btn.setText("安装/重刷");
             }
         }else{
-            magisk_title.setText("附加: 未安装 | 版本: null | 版本号: null");
+            magisk_title.setText("附加: 未安装\n版本: null");
             String magiskinfo =
                     "\n注: 务必在模块选项页面勾选需要的模块,点击安装/重刷后将应用新选项"+
                             "\n\n模块安装 --> 安装模块"+
@@ -232,13 +236,27 @@ public class ModuleInstallFragment extends Fragment {
 
         });
 
+        //自定义应用分身
+        app_avatar_btn.setOnClickListener(v -> {
+            String oldfile = "/system/system_ext/oplus/sys_multi_app_config.xml";
+            String newfile = requireActivity().getFilesDir().getPath()+"/sys_multi_app_config.xml";
+
+            File appxml = new File( "/system/system_ext/oplus/sys_multi_app_config.xml");
+            if (appxml.exists()){
+                //复制文件到file目录
+                MainActivity.copyFile(oldfile,newfile);
+            }
+
+        });
     }
 
-    //安装
+    //主要安装
     public void install(){
+        //读取状态
         boolean fingerprint_repair = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"fingerprint_repair",false);
         boolean statusbar_developer_warn = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"statusbar_developer_warn",false);
         boolean modify_brand = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"modify_brand",false);
+        boolean app_avatar = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"app_avatar",false);
 
         String[] installcommands = {
                 //重建module目录
@@ -250,7 +268,7 @@ public class ModuleInstallFragment extends Fragment {
                 "    cat <<zyx >"+moduleProp+"\n" +
                 "id="+ id +"\n" +
                 "name="+ name +"\n" +
-                "version="+ version +"\n" +
+                "version="+ version +"("+versioncode+")\n" +
                 "versionCode="+ versioncode +"\n" +
                 "author="+ author +"\n" +
                 "description="+ description +"\n"+

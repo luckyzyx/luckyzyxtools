@@ -26,8 +26,8 @@ public class ModuleListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        test();
-//        initListview();
+//        test();
+        initListview();
     }
 
     //test
@@ -55,10 +55,19 @@ public class ModuleListFragment extends Fragment {
 
     //初始化ListView
     public void initListview() {
-        String [] moduleName = {};
+        String[] command = {
+                //获取已安装模块列表
+                "ls /data/adb/modules/"
+        };
+//        ShellUtils.CommandResult connmandlog = ShellUtils.execCommand(command,true,true);
+//        List<String> testlist = Collections.singletonList(connmandlog.successMsg);
+//        String [] moduleName = (String[]) testlist.toArray();
 
+
+        String [] moduleName = {"11","22","33","44","55","66","77"};
         String [] moduleVersion = {"11","22","33","44","55","66","77"};
         String [] moduleDescription = {"1","2","3","4","5","6","7"};
+
         ListView listView = requireActivity().findViewById(R.id.list_view);
         List<Map<String, String>> list = new ArrayList<>();
         for (int i=0;i<moduleName.length;i++)

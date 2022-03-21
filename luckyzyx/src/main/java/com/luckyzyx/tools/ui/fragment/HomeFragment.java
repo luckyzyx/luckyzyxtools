@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //Xposed
         MaterialTextView xposed_info = requireActivity().findViewById(R.id.xposed_info);
-        xposed_info.setText("版本: " + BuildConfig.VERSION_NAME + "\n版本号: " + BuildConfig.VERSION_CODE);
+        xposed_info.setText("版本: " + BuildConfig.VERSION_NAME + "\n版本号: " + BuildConfig.VERSION_CODE/*+"\nXposed: "+XposedCheck*/);
 
         //Button
         MaterialButton xposed = requireActivity().findViewById(R.id.xposed_btn);
@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
         MaterialButton fps = requireActivity().findViewById(R.id.fps);
         fps.setOnClickListener(v -> MainActivity.setfps(requireActivity()));
         MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
-        checkupdate.setOnClickListener(v -> Snackbar.make(v, "检查个毛的更新!", Snackbar.LENGTH_SHORT).show());
+        checkupdate.setOnClickListener(MainActivity::CheckUpdate);
 
         //BottomSheet
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());

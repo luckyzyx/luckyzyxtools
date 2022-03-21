@@ -20,12 +20,10 @@
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:iconSpaceReserved="false"
             app:key="systemui_demomode"
-            app:title="系统界面演示模式"
-            app:summary="例:时钟显秒"/>
+            app:title="系统界面调节工具"
+            app:summary="状态栏图标隐藏"/>
 
         <Preference
             app:iconSpaceReserved="false"
@@ -34,20 +32,22 @@
             app:title="进程管理" />
 
         <Preference
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:iconSpaceReserved="false"
             app:key="engineering_model"
             app:title="工程模式"
-            app:summary="拨号*#899#"/>
+            app:summary="*#899#"/>
 
         <Preference
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:iconSpaceReserved="false"
             app:key="power_test"
             app:title="充电测试"
             app:summary="查看充电数据"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="logkit"
+            app:title="反馈工具箱"
+           app:summary="抓取log进行反馈"/>
 
     </PreferenceCategory>
 
@@ -63,8 +63,6 @@
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:iconSpaceReserved="false"
             app:key="development"
             app:title="开发者选项"
