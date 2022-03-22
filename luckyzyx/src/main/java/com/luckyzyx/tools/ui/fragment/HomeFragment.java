@@ -23,7 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
@@ -32,6 +31,8 @@ import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.ui.AboutActivity;
 import com.luckyzyx.tools.ui.XposedActivity;
 import com.luckyzyx.tools.utils.ShellUtils;
+
+import java.io.IOException;
 
 public class HomeFragment extends Fragment {
 
@@ -67,7 +68,13 @@ public class HomeFragment extends Fragment {
         MaterialButton fps = requireActivity().findViewById(R.id.fps);
         fps.setOnClickListener(v -> MainActivity.setfps(requireActivity()));
         MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
-        checkupdate.setOnClickListener(MainActivity::CheckUpdate);
+        checkupdate.setOnClickListener(v -> {
+            try {
+                MainActivity.CheckUpdate();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         //BottomSheet
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());

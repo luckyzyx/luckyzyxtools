@@ -13,13 +13,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.HomeFragment;
 import com.luckyzyx.tools.ui.fragment.OtherFragment;
@@ -29,8 +27,14 @@ import com.luckyzyx.tools.utils.ShellUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_item);
         //设置监听方法
+        //noinspection deprecation
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         //设置默认选中item
         switchFragment(homeFragment);
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //NavigationItem被选择事件
+    @SuppressWarnings("deprecation")
     @SuppressLint("NonConstantResourceId")
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
@@ -91,9 +97,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //检查更新
-    public static void CheckUpdate(View v){
-
-        Snackbar.make(v, "检查个毛的更新!", Snackbar.LENGTH_SHORT).show();
+    public static void CheckUpdate() throws IOException {
+        String url = "https://github.com/luckyzyx/luckyzyxtools/blame/main/luckyzyx/release/output-metadata.json";
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        new Thread(() -> {
+            try {
+                Response response = call.execute();
+                System.out.print("run: " + Objects.requireNonNull(response.body()).string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     //判断主题
@@ -124,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //初始化Xposed XSharedPreferences
+    @SuppressWarnings("deprecation")
     @SuppressLint("WorldReadableFiles")
     public void CheckXposed() {
         try {
