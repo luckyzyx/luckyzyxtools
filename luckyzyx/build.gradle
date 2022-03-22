@@ -89,7 +89,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.6'
     //Gson
     implementation 'com.google.code.gson:gson:2.9.0'
-
 }
 
 def getVersionCode() {

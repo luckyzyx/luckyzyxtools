@@ -13,15 +13,18 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.HomeFragment;
 import com.luckyzyx.tools.ui.fragment.OtherFragment;
 import com.luckyzyx.tools.ui.fragment.UserFragment;
+import com.luckyzyx.tools.utils.HttpUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.io.File;
@@ -32,8 +35,7 @@ import java.util.List;
 import java.util.Objects;
 
 import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
@@ -94,24 +96,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(R.id.nav_container,fragment).commitNow();
-    }
-
-    //检查更新
-    public static void CheckUpdate() throws IOException {
-        String url = "https://github.com/luckyzyx/luckyzyxtools/blame/main/luckyzyx/release/output-metadata.json";
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Call call = okHttpClient.newCall(request);
-        new Thread(() -> {
-            try {
-                Response response = call.execute();
-                System.out.print("run: " + Objects.requireNonNull(response.body()).string());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 
     //判断主题

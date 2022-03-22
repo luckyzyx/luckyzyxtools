@@ -2,7 +2,6 @@ package com.luckyzyx.tools.hook
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.type.java.LongType
-import com.luckyzyx.tools.utils.XSPUtils
 
 class HookSystemUI : YukiBaseHooker() {
 
@@ -16,7 +15,7 @@ class HookSystemUI : YukiBaseHooker() {
                     param(LongType)
                 }
                 beforeHook {
-                    if (XSPUtils.getBoolean("network_speed",false)) args().set(0x3e8)
+                    args().set(0x3e8)
                 }
             }
         }

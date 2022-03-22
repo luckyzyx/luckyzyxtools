@@ -18,21 +18,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MagiskActivity;
 import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.ui.AboutActivity;
 import com.luckyzyx.tools.ui.XposedActivity;
+import com.luckyzyx.tools.utils.HttpUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -68,13 +83,7 @@ public class HomeFragment extends Fragment {
         MaterialButton fps = requireActivity().findViewById(R.id.fps);
         fps.setOnClickListener(v -> MainActivity.setfps(requireActivity()));
         MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
-        checkupdate.setOnClickListener(v -> {
-            try {
-                MainActivity.CheckUpdate();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        checkupdate.setOnClickListener(this::CheckUpdate);
 
         //BottomSheet
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
@@ -87,7 +96,7 @@ public class HomeFragment extends Fragment {
 
         MaterialTextView updatelog_text = bottomSheetDialog.findViewById(R.id.log_text);
         assert updatelog_text != null;
-        updatelog_text.setText("在写了在写了!");
+        updatelog_text.setText("在写了在写了");
 
         TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
         systeminfo.setText(getSystemInfo());
@@ -104,6 +113,41 @@ public class HomeFragment extends Fragment {
                         "\n闪存厂商: "+ ShellUtils.execCommand("cat /sys/class/block/sda/device/inquiry",true,true).successMsg
         };
         return str[0];
+    }
+
+    //获取更新json
+    public void CheckUpdate(View view){
+        String url = "https://github.do/https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/luckyzyx/release/output-metadata.json";
+        HttpUtils.sendRequestWithOkhttp(url, new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
+                TextView aa = requireActivity().findViewById(R.id.log);
+                aa.setText(e.toString());
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                //得到服务器返回的具体内容
+                String responseData= Objects.requireNonNull(response.body()).string();
+                try {
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    String variantName=jsonObject.getString("variantName");
+                    TextView aa = requireActivity().findViewById(R.id.log);
+                    aa.setText(variantName);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    //解析json
+    public void parseJSONWithGSON(String jsonData) {
+        //使用轻量级的Gson解析得到的json
+        Gson gson = new Gson();
+        List<String> List = gson.fromJson(jsonData, new TypeToken<List<String>>() {}.getType());
     }
 
     @Override

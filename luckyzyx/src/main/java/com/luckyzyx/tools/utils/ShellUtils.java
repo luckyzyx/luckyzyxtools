@@ -39,7 +39,6 @@ public class ShellUtils {
     /**
      * check whether has root permission
      *
-     * @return
      */
     public static boolean checkRootPermission() {
         return execCommand("echo root", true, false).result == 0;
@@ -50,7 +49,6 @@ public class ShellUtils {
      *
      * @param command command
      * @param isRoot whether need to run with root
-     * @return
      * @see ShellUtils#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(String command, boolean isRoot) {
@@ -62,7 +60,6 @@ public class ShellUtils {
      *
      * @param commands command list
      * @param isRoot whether need to run with root
-     * @return
      * @see ShellUtils#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(List<String> commands, boolean isRoot) {
@@ -74,7 +71,6 @@ public class ShellUtils {
      *
      * @param commands command array
      * @param isRoot whether need to run with root
-     * @return
      * @see ShellUtils#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(String[] commands, boolean isRoot) {
@@ -87,7 +83,6 @@ public class ShellUtils {
      * @param command command
      * @param isRoot whether need to run with root
      * @param isNeedResultMsg whether need result msg
-     * @return
      * @see ShellUtils#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(String command, boolean isRoot, boolean isNeedResultMsg) {
@@ -100,7 +95,6 @@ public class ShellUtils {
      * @param commands command list
      * @param isRoot whether need to run with root
      * @param isNeedResultMsg whether need result msg
-     * @return
      * @see ShellUtils#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(List<String> commands, boolean isRoot, boolean isNeedResultMsg) {
@@ -163,8 +157,6 @@ public class ShellUtils {
                     errorMsg.append(s);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
