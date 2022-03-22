@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -139,17 +140,14 @@ public class HomeFragment extends Fragment {
                     String versionName = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionName");
                     String versionCode = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionCode");
                     if (Integer.parseInt(versionCode) > BuildConfig.VERSION_CODE){
+                        Looper.prepare();
                         new MaterialAlertDialogBuilder(requireActivity())
                                 .setTitle("检测到新版本!")
                                 .setMessage("新版本: "+versionName+"_"+versionCode+"\n当前版本: "+BuildConfig.VERSION_NAME+"_"+BuildConfig.VERSION_CODE)
-                                .setPositiveButton("更新", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Toast.makeText(requireActivity(), "点击了更新", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
+                                .setPositiveButton("更新", (dialog, which) -> Toast.makeText(requireActivity(), "点击了更新", Toast.LENGTH_SHORT).show())
                                 .setNegativeButton("取消",null)
                                 .show();
+                        Looper.loop();
                     }else{
                         Snackbar.make(view,"已是最新版本!",Snackbar.LENGTH_SHORT).show();
                     }
