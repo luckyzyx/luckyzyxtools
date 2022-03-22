@@ -3,6 +3,7 @@ package com.luckyzyx.tools.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -88,14 +89,12 @@ public class HomeFragment extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
         bottomSheetDialog.setContentView(R.layout.bottom_sheet);
         View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-        assert bottomSheetInternal != null;
-        BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
+        BottomSheetBehavior.from(Objects.requireNonNull(bottomSheetInternal)).setPeekHeight(400);
         MaterialCardView updatelog_card = requireActivity().findViewById(R.id.updatelog_card);
         updatelog_card.setOnClickListener(v -> bottomSheetDialog.show());
 
         MaterialTextView updatelog_text = bottomSheetDialog.findViewById(R.id.log_text);
-        assert updatelog_text != null;
-        updatelog_text.setText("在写了在写了");
+        Objects.requireNonNull(updatelog_text).setText("aaaa");
 
         TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
         systeminfo.setText(getSystemInfo());
@@ -107,7 +106,7 @@ public class HomeFragment extends Fragment {
                         "\n型号: " + Build.MODEL +
                         "\nAndroid版本: " + Build.VERSION.RELEASE +
                         "\n版本号: " + Build.DISPLAY+
-                        "\nSDK API: " + Build.VERSION.SDK +
+                        "\nSDK API: " + Build.VERSION.SDK_INT +
                         "\n设备参数: " + Build.DEVICE +
                         "\n闪存厂商: "+ ShellUtils.execCommand("cat /sys/class/block/sda/device/inquiry",true,true).successMsg
         };
@@ -117,8 +116,7 @@ public class HomeFragment extends Fragment {
 
     //获取更新json
     public void CheckUpdate(View view){
-        String url = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/";
-        String jsonurl = url+"output-metadata.json";
+        String jsonurl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/output-metadata.json";
 
         HttpUtils.sendRequestWithOkhttp(jsonurl, new Callback() {
             @Override
@@ -144,7 +142,10 @@ public class HomeFragment extends Fragment {
                         new MaterialAlertDialogBuilder(requireActivity())
                                 .setTitle("检测到新版本!")
                                 .setMessage("新版本: "+versionName+"_"+versionCode+"\n当前版本: "+BuildConfig.VERSION_NAME+"_"+BuildConfig.VERSION_CODE)
-                                .setPositiveButton("更新", (dialog, which) -> Toast.makeText(requireActivity(), "点击了更新", Toast.LENGTH_SHORT).show())
+                                .setPositiveButton("更新", (dialog, which) -> {
+                                    Uri uri = Uri.parse("https://luckyzyx.lanzouy.com/b05m8maoh");
+                                    startActivity(new Intent().setAction("android.intent.action.VIEW").setData(uri));
+                                })
                                 .setNegativeButton("取消",null)
                                 .show();
                         Looper.loop();
