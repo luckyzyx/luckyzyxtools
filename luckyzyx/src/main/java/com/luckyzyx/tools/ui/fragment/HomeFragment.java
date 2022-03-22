@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,11 +19,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.BuildConfig;
@@ -110,10 +113,13 @@ public class HomeFragment extends Fragment {
         return str[0];
     }
 
+
     //获取更新json
     public void CheckUpdate(View view){
-        String url = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/output-metadata.json";
-        HttpUtils.sendRequestWithOkhttp(url, new Callback() {
+        String url = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/";
+        String jsonurl = url+"output-metadata.json";
+
+        HttpUtils.sendRequestWithOkhttp(jsonurl, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
@@ -121,7 +127,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                //得到服务器返回的具体内容
                 String responseData = Objects.requireNonNull(response.body()).string();
                 try {
                     JSONObject jsonObject = new JSONObject(responseData);
@@ -130,13 +135,24 @@ public class HomeFragment extends Fragment {
                     String applicationId = jsonObject.getString("applicationId");
                     //构建类型
                     String variantName = jsonObject.getString("variantName");
-                    //版本,版本号,输出文件名
+                    //版本,版本号
                     String versionName = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionName");
                     String versionCode = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionCode");
-                    String outputFile = jsonObject.getJSONArray("elements").getJSONObject(0).getString("outputFile");
-
-                    Snackbar.make(view,"检查更新成功!"+versionName+"_"+versionCode,Snackbar.LENGTH_SHORT).show();
-
+                    if (Integer.parseInt(versionCode) > BuildConfig.VERSION_CODE){
+                        new MaterialAlertDialogBuilder(requireActivity())
+                                .setTitle("检测到新版本!")
+                                .setMessage("新版本: "+versionName+"_"+versionCode+"\n当前版本: "+BuildConfig.VERSION_NAME+"_"+BuildConfig.VERSION_CODE)
+                                .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(requireActivity(), "点击了更新", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton("取消",null)
+                                .show();
+                    }else{
+                        Snackbar.make(view,"已是最新版本!",Snackbar.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
