@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
 
     //获取更新json
     public void CheckUpdate(View view){
-        String url = "https://github.do/https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/luckyzyx/release/output-metadata.json";
+        String url = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/output-metadata.json";
         HttpUtils.sendRequestWithOkhttp(url, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment {
                     String versionCode = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionCode");
                     String outputFile = jsonObject.getJSONArray("elements").getJSONObject(0).getString("outputFile");
 
-                    Snackbar.make(view,"检查更新成功!",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view,"检查更新成功!"+versionName+"_"+versionCode,Snackbar.LENGTH_SHORT).show();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

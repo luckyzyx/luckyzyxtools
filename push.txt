@@ -1,5 +1,0 @@
-git remote add origin git@github.com:luckyzyx/luckyzyx.git
-git branch -M main
-git push -u origin main
-
-adb connect 192.168.0.100:33445
