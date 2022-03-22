@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -26,8 +25,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.luckyzyx.tools.BuildConfig;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MagiskActivity;
@@ -37,12 +34,10 @@ import com.luckyzyx.tools.ui.XposedActivity;
 import com.luckyzyx.tools.utils.HttpUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 import okhttp3.Call;
@@ -122,32 +117,32 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
-                TextView aa = requireActivity().findViewById(R.id.log);
-                aa.setText(e.toString());
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 //得到服务器返回的具体内容
-                String responseData= Objects.requireNonNull(response.body()).string();
+                String responseData = Objects.requireNonNull(response.body()).string();
                 try {
                     JSONObject jsonObject = new JSONObject(responseData);
-                    String variantName=jsonObject.getString("variantName");
-                    TextView aa = requireActivity().findViewById(R.id.log);
-                    aa.setText(variantName);
+
+                    //包名
+                    String applicationId = jsonObject.getString("applicationId");
+                    //构建类型
+                    String variantName = jsonObject.getString("variantName");
+                    //版本,版本号,输出文件名
+                    String versionName = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionName");
+                    String versionCode = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionCode");
+                    String outputFile = jsonObject.getJSONArray("elements").getJSONObject(0).getString("outputFile");
+
+                    Snackbar.make(view,"检查更新成功!",Snackbar.LENGTH_SHORT).show();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
         });
-    }
-
-    //解析json
-    public void parseJSONWithGSON(String jsonData) {
-        //使用轻量级的Gson解析得到的json
-        Gson gson = new Gson();
-        List<String> List = gson.fromJson(jsonData, new TypeToken<List<String>>() {}.getType());
     }
 
     @Override
