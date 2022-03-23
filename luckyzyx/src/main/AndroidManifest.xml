@@ -6,9 +6,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -46,7 +46,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="luckyzyx模块,写着玩玩" />
+            android:value="luckyzyx xposed + magisk" />
         <meta-data
             android:name="xposedminversion"
             android:value="93" />
