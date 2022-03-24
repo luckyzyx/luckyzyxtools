@@ -80,7 +80,7 @@ dependencies {
     //YukiHookAPI:KSP
     ksp 'com.highcapable.yukihookapi:ksp-xposed:1.0.6'
     //Material主题
-    implementation 'com.google.android.material:material:1.6.0-alpha02'
+    implementation 'com.google.android.material:material:1.6.0-beta01'
     //约束布局
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     //快速创建settings

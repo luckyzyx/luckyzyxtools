@@ -16,20 +16,16 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.BuildConfig;
-import com.luckyzyx.tools.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +47,6 @@ public class HttpUtils {
     private final String jsonurl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/output-metadata.json";
     private String newFileUrl;
 
-
     private String newPackageName;
     private String newVariantName;
 
@@ -60,11 +55,6 @@ public class HttpUtils {
     private String newFileName;
     private File newFile;
 
-    private AlertDialog update_dialog;
-    private ProgressBar progressBar;
-
-    private DownloadManager downloadManager;
-    private BroadcastReceiver broadcastReceiver;
     private long downloadid;
 
     public HttpUtils(Context context){
@@ -82,7 +72,7 @@ public class HttpUtils {
 
     //获取更新json
     public void CheckUpdate(View view){
-
+        Snackbar.make(view,"查询中...",Snackbar.LENGTH_SHORT).show();
         sendRequestWithOkhttp(jsonurl, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -103,11 +93,13 @@ public class HttpUtils {
                     newVersionName = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionName");
                     newVersionCode = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionCode");
                     newFileName = jsonObject.getJSONArray("elements").getJSONObject(0).getString("outputFile");
+                    newFileUrl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/"+newFileName;
+                    newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
 
                     //版本号不同
                     if (Integer.parseInt(newVersionCode) != BuildConfig.VERSION_CODE){
                         Looper.prepare();
-                        showDialog();
+                        showUpdateDialog();
                         Looper.loop();
                     }else{
                         Snackbar.make(view,"已是最新版本!",Snackbar.LENGTH_SHORT).show();
@@ -121,37 +113,22 @@ public class HttpUtils {
     }
 
     //显示更新对话框
-    private void showDialog(){
+    private void showUpdateDialog(){
         //对话框
-        update_dialog = new MaterialAlertDialogBuilder(context)
+        new MaterialAlertDialogBuilder(context)
                 .setTitle("检测到新版本!")
-                .setMessage("新版本: "+newVersionName+"_"+newVersionCode+"\n当前版本: "+BuildConfig.VERSION_NAME+"_"+BuildConfig.VERSION_CODE)
-                .setView(R.layout.update_dialog)
+                .setMessage("新版本: " + newVersionName + "_" + newVersionCode + "\n当前版本: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE)
+                .setPositiveButton("更新", (dialog, which) -> startUpdate())
+                .setNeutralButton("取消", null)
                 .show();
-        //按钮事件
-        MaterialButton cancelUpdate_btn = update_dialog.findViewById(R.id.cancelUpdate_btn);
-        Objects.requireNonNull(cancelUpdate_btn).setOnClickListener(v -> update_dialog.dismiss());
-        MaterialButton startUpdate_btn = update_dialog.findViewById(R.id.startUpdate_btn);
-        Objects.requireNonNull(startUpdate_btn).setOnClickListener(v -> {
-//            newFileUrl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/"+newFileName;
-            newFileUrl = "https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk";
-            newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
-
-            System.out.print("点击更新按钮");
-            if (newFile.exists()){
-                installApk();
-            }else {
-                checkPermission();
-            }
-
-            }
-        );
-        progressBar = update_dialog.findViewById(R.id.progressbar);
-
     }
 
     //开始下载
-    private void checkPermission() {
+    private void startUpdate() {
+        //判断文件
+        if (newFile.exists()){
+            installApk();
+        }
         //检查写入权限
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -163,8 +140,7 @@ public class HttpUtils {
 
     //下载
     private void DownloadApk() {
-        downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(newFileUrl));
         // 设置允许使用的网络类型，这里是移动网络和wifi都可以
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | android.app.DownloadManager.Request.NETWORK_WIFI);
@@ -204,7 +180,6 @@ public class HttpUtils {
         public void onReceive(Context context, Intent intent) {
             long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             if (reference == downloadid) {
-                Toast.makeText(context, "下载完成!", Toast.LENGTH_LONG).show();
                 installApk();
             }
         }
@@ -218,27 +193,26 @@ public class HttpUtils {
             long[] references = intent.getLongArrayExtra(extraID);
             for (long reference : references) {
                 if (reference == downloadid) {
-                    System.out.print("onReceive: clicked: " + downloadid);
+                    System.out.print("点击了广播: " + downloadid);
                 }
             }
         }
     };
 
-    //检查安装权限并安装
+    //检查安装权限并跳转安装
     @SuppressLint("ObsoleteSdkInt")
     private void installApk() {
         if (Build.VERSION.SDK_INT >= 26 && context.getPackageManager().canRequestPackageInstalls()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".FileProvider", newFile);
             intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }else{
             Toast.makeText(context, "请开启未知应用安装权限!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
-            Uri packageURI = Uri.parse("package:"+BuildConfig.APPLICATION_ID);
-            intent.setData(packageURI);
+            intent.setData(Uri.parse("package:"+BuildConfig.APPLICATION_ID));
             if (Build.VERSION.SDK_INT >= 26) {
                 intent.setAction(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
             }else {
@@ -247,6 +221,5 @@ public class HttpUtils {
             context.startActivity(intent);
         }
     }
-
-
 }
+
