@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -9,16 +10,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
+import android.provider.Settings;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -56,6 +61,7 @@ public class HttpUtils {
     private File newFile;
 
     private AlertDialog update_dialog;
+    private ProgressBar progressBar;
 
     private DownloadManager downloadManager;
     private BroadcastReceiver broadcastReceiver;
@@ -132,9 +138,16 @@ public class HttpUtils {
             newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
 
             System.out.print("点击更新按钮");
-            checkPermission();
+            if (newFile.exists()){
+                installApk();
+            }else {
+                checkPermission();
+            }
+
             }
         );
+        progressBar = update_dialog.findViewById(R.id.progressbar);
+
     }
 
     //开始下载
@@ -171,25 +184,69 @@ public class HttpUtils {
         request.setDestinationUri(Uri.fromFile(newFile));
         // 将下载请求放入队列
         downloadid = downloadManager.enqueue(request);
-        //执行下载任务时注册广播监听下载成功状态
-        listener(downloadid);
+        //注册广播监听下载状态
+        registBroadCast();
     }
 
-    //监听下载完成
-    private void listener(final long downloadID) {
+    //注册广播
+    private void registBroadCast() {
+        //注册下载完毕广播
+        IntentFilter filter_complete = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        context.registerReceiver(receiver_complete, filter_complete);
+        //注册下载过程中点击广播
+        IntentFilter filter_clicked = new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED);
+        context.registerReceiver(receiver_clicked, filter_clicked);
+    }
 
-        // 注册广播监听系统的下载完成事件。
-        IntentFilter intentFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long ID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (ID == downloadID) {
-                    Toast.makeText(context, "下载完成!", Toast.LENGTH_LONG).show();
+    // 注册广播监听系统的下载完成事件
+    BroadcastReceiver receiver_complete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            if (reference == downloadid) {
+                Toast.makeText(context, "下载完成!", Toast.LENGTH_LONG).show();
+                installApk();
+            }
+        }
+    };
+
+    //注册广播监听系统的下载点击事件
+    BroadcastReceiver receiver_clicked = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String extraID = DownloadManager.EXTRA_NOTIFICATION_CLICK_DOWNLOAD_IDS;
+            long[] references = intent.getLongArrayExtra(extraID);
+            for (long reference : references) {
+                if (reference == downloadid) {
+                    System.out.print("onReceive: clicked: " + downloadid);
                 }
             }
-        };
-        context.registerReceiver(broadcastReceiver, intentFilter);
+        }
+    };
+
+    //检查安装权限并安装
+    @SuppressLint("ObsoleteSdkInt")
+    private void installApk() {
+        if (Build.VERSION.SDK_INT >= 26 && context.getPackageManager().canRequestPackageInstalls()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".FileProvider", newFile);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }else{
+            Toast.makeText(context, "请开启未知应用安装权限!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            Uri packageURI = Uri.parse("package:"+BuildConfig.APPLICATION_ID);
+            intent.setData(packageURI);
+            if (Build.VERSION.SDK_INT >= 26) {
+                intent.setAction(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+            }else {
+                intent.setAction(Settings.ACTION_SECURITY_SETTINGS);
+            }
+            context.startActivity(intent);
+        }
     }
+
 
 }
