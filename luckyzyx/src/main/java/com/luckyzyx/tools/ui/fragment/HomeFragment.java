@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
         MaterialButton fps = requireActivity().findViewById(R.id.fps);
         fps.setOnClickListener(v -> MainActivity.setfps(requireActivity()));
         MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
-        checkupdate.setOnClickListener(v -> new HttpUtils(requireActivity()).CheckUpdate(v));
+        checkupdate.setOnClickListener(v -> new HttpUtils(requireActivity()).CheckUpdate(v,true));
 
         //BottomSheet
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());

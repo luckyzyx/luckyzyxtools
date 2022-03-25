@@ -4,14 +4,18 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.IBinder;
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
@@ -19,6 +23,8 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -32,6 +38,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.util.Objects;
 
 import okhttp3.Call;
@@ -40,7 +48,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class HttpUtils {
+public class HttpUtils extends Service {
 
     private final Context context;
 
@@ -71,12 +79,16 @@ public class HttpUtils {
     }
 
     //获取更新json
-    public void CheckUpdate(View view){
-        Snackbar.make(view,"查询中...",Snackbar.LENGTH_SHORT).show();
+    public void CheckUpdate(View view,boolean showToast){
+        if (showToast) {
+            Snackbar.make(view, "查询中...", Snackbar.LENGTH_SHORT).show();
+        }
         sendRequestWithOkhttp(jsonurl, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
+                if (showToast){
+                    Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -102,7 +114,9 @@ public class HttpUtils {
                         showUpdateDialog();
                         Looper.loop();
                     }else{
-                        Snackbar.make(view,"已是最新版本!",Snackbar.LENGTH_SHORT).show();
+                        if (showToast) {
+                            Snackbar.make(view,"已是最新版本!",Snackbar.LENGTH_SHORT).show();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -115,12 +129,15 @@ public class HttpUtils {
     //显示更新对话框
     private void showUpdateDialog(){
         //对话框
-        new MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder update_dialog = new MaterialAlertDialogBuilder(context)
                 .setTitle("检测到新版本!")
                 .setMessage("新版本: " + newVersionName + "_" + newVersionCode + "\n当前版本: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE)
-                .setPositiveButton("更新", (dialog, which) -> startUpdate())
-                .setNeutralButton("取消", null)
-                .show();
+                .setCancelable(false)
+                .setPositiveButton("更新",null)
+                .setNeutralButton("取消", null);
+        AlertDialog alterial = update_dialog.create();
+        update_dialog.show();
+        alterial.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> startUpdate());
     }
 
     //开始下载
@@ -128,6 +145,9 @@ public class HttpUtils {
         //判断文件
         if (newFile.exists()){
             installApk();
+        }else {
+            //删除Download目录
+            System.out.print(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete());
         }
         //检查写入权限
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -155,7 +175,7 @@ public class HttpUtils {
         //设置下载的标题信息
         request.setTitle(newFileName);
         //下载目录 Download + 文件名
-//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, outFileName);
+        //request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, outFileName);
         //Android/data/packageName/file/Download/name.apk
         request.setDestinationUri(Uri.fromFile(newFile));
         // 将下载请求放入队列
@@ -221,5 +241,11 @@ public class HttpUtils {
             context.startActivity(intent);
         }
     }
-}
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+
+        return null;
+    }
+}
