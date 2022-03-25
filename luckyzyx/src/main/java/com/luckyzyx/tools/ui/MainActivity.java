@@ -22,6 +22,7 @@ import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.HomeFragment;
 import com.luckyzyx.tools.ui.fragment.OtherFragment;
 import com.luckyzyx.tools.ui.fragment.UserFragment;
+import com.luckyzyx.tools.utils.HttpUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.io.File;
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CheckTheme(this);
         CheckPermission();
         CheckXposed();
-        CheckTheme(this);
+        new HttpUtils(this).CheckUpdate(null,false);
         setContentView(R.layout.activity_main);
 
         //底部导航栏
