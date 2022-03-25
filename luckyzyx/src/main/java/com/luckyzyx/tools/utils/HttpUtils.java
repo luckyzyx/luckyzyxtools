@@ -48,7 +48,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class HttpUtils extends Service {
+public class HttpUtils {
 
     private final Context context;
 
@@ -129,15 +129,13 @@ public class HttpUtils extends Service {
     //显示更新对话框
     private void showUpdateDialog(){
         //对话框
-        MaterialAlertDialogBuilder update_dialog = new MaterialAlertDialogBuilder(context)
+        new MaterialAlertDialogBuilder(context)
                 .setTitle("检测到新版本!")
                 .setMessage("新版本: " + newVersionName + "_" + newVersionCode + "\n当前版本: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE)
                 .setCancelable(false)
-                .setPositiveButton("更新",null)
-                .setNeutralButton("取消", null);
-        AlertDialog alterial = update_dialog.create();
-        update_dialog.show();
-        alterial.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> startUpdate());
+                .setPositiveButton("更新", (dialog, which) -> startUpdate())
+                .setNeutralButton("取消", null)
+                .show();
     }
 
     //开始下载
@@ -155,6 +153,7 @@ public class HttpUtils extends Service {
         } else {
             //启动服务
             DownloadApk();
+            Toast.makeText(context, "下载中请稍后!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -240,12 +239,5 @@ public class HttpUtils extends Service {
             }
             context.startActivity(intent);
         }
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-
-        return null;
     }
 }

@@ -245,6 +245,7 @@ public class ModuleInstallFragment extends Fragment {
             if (appxml.exists()){
                 //复制文件到file目录
                 MainActivity.copyFile(oldfile,newfile);
+                Toast.makeText(requireActivity(), "暂未施工", Toast.LENGTH_SHORT).show();
             }
 
         });
