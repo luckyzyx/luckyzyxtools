@@ -108,14 +108,17 @@ public class HttpUtils {
                     newFileUrl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/"+newFileName;
                     newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
 
-                    //版本号不同
-                    if (Integer.parseInt(newVersionCode) != BuildConfig.VERSION_CODE){
+                    //显示对话框
+                    if (showToast) {
                         Looper.prepare();
                         showUpdateDialog();
                         Looper.loop();
-                    }else{
-                        if (showToast) {
-                            Snackbar.make(view,"已是最新版本!",Snackbar.LENGTH_SHORT).show();
+                    }else {
+                        //版本号不同
+                        if (Integer.parseInt(newVersionCode) != BuildConfig.VERSION_CODE){
+                            Looper.prepare();
+                            showUpdateDialog();
+                            Looper.loop();
                         }
                     }
                 } catch (JSONException e) {
@@ -129,24 +132,22 @@ public class HttpUtils {
     //显示更新对话框
     private void showUpdateDialog(){
         //对话框
-        new MaterialAlertDialogBuilder(context)
+        AlertDialog update_dialog = new MaterialAlertDialogBuilder(context)
                 .setTitle("检测到新版本!")
                 .setMessage("新版本: " + newVersionName + "_" + newVersionCode + "\n当前版本: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE)
                 .setCancelable(false)
                 .setPositiveButton("更新", (dialog, which) -> startUpdate())
                 .setNeutralButton("取消", null)
                 .show();
+        if (Integer.parseInt(newVersionCode) == BuildConfig.VERSION_CODE){
+            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setText("重新下载");
+        }
     }
 
     //开始下载
     private void startUpdate() {
-        //判断文件
-        if (newFile.exists()){
-            installApk();
-        }else {
-            //删除Download目录
-            System.out.print(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete());
-        }
+        //下载前删除目录并输出删除状态
+        System.out.print(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete());
         //检查写入权限
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -221,6 +222,7 @@ public class HttpUtils {
     //检查安装权限并跳转安装
     @SuppressLint("ObsoleteSdkInt")
     private void installApk() {
+        //Android大于8.0并且开启了未知应用安装权限
         if (Build.VERSION.SDK_INT >= 26 && context.getPackageManager().canRequestPackageInstalls()) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

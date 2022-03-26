@@ -1,0 +1,8 @@
+{
+  "packagename": "com.luckyzyx.tools",
+  "versionname": "2.0",
+  "versioncode": 2135,
+  "outputfile": "luckyzyx_v2.0.r2135.9121700.apk",
+  "updatejson": "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/docs/update.json",
+  "changelog": "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/docs/changelog.md"
+}
