@@ -2,7 +2,6 @@
     <string name="app_name">luckyzyx</string>
     <string name="title_name">Luckyzyx Tools</string>
     <string name="checkupdate">检查更新</string>
-    <string name="updateUrl">https://github.do/https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/luckyzyx/release/</string>
     <string name="todo" translatable="false" />
     <string name="button">Toast</string>
     <string name="button2">全局刷新率</string>

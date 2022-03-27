@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,10 +11,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
-import android.os.IBinder;
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
@@ -23,7 +20,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -32,14 +28,13 @@ import androidx.core.content.FileProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.BuildConfig;
+import com.luckyzyx.tools.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.util.Objects;
 
 import okhttp3.Call;
@@ -50,20 +45,22 @@ import okhttp3.Response;
 
 public class HttpUtils {
 
-    private final Context context;
+    private Context context;
 
-    private final String jsonurl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/output-metadata.json";
-    private String newFileUrl;
+    @SuppressWarnings("ConstantConditions")
+    //gitee update.json
+    private final String jsonurl = context.getString(R.string.jsonurl);
 
-    private String newPackageName;
-    private String newVariantName;
+    private String updatejson = null;//updatejson url
 
-    private String newVersionName;
-    private String newVersionCode;
-    private String newFileName;
-    private File newFile;
+    private String newPackageName;//包名
+    private String newVersionName;//版本名
+    private String newVersionCode;//版本号
+    private String newFileName;//文件名
+    private String newFileUrl;//文件url链接
+    private File newFile;//本地File文件s路径
 
-    private long downloadid;
+    private long downloadid;//下载进程ID
 
     public HttpUtils(Context context){
         this.context = context;
@@ -72,40 +69,63 @@ public class HttpUtils {
     //Okhttp发送请求并回调
     public static void sendRequestWithOkhttp(String url,okhttp3.Callback callback) {
         new Thread(() -> {
-            OkHttpClient client=new OkHttpClient();
-            Request request=new Request.Builder().url(url).build();
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder().url(url).build();
             client.newCall(request).enqueue(callback);
         }).start();
     }
 
     //获取更新json
     public void CheckUpdate(View view,boolean showToast){
-        if (showToast) {
-            Snackbar.make(view, "查询中...", Snackbar.LENGTH_SHORT).show();
-        }
+        //通过gitee获取github json
         sendRequestWithOkhttp(jsonurl, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                updatejson = null;
+            }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                updatejson = Objects.requireNonNull(response.body()).string();
+            }
+        });
+        if (updatejson == null) {
+            if (showToast) {
+                Snackbar.make(view, "检查更新失败!", Snackbar.LENGTH_SHORT).show();
+            }
+            return;
+        }else {
+            try {
+                JSONObject jsonObject = new JSONObject(updatejson);
+                updatejson = jsonObject.getString("updatejson");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if (showToast) {
+            Snackbar.make(view, "查询中...", Snackbar.LENGTH_SHORT).show();
+        }
+        //OkHttp3获取json回调
+        sendRequestWithOkhttp(updatejson, new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                //连接错误
                 if (showToast){
                     Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                //连接成功
                 String responseData = Objects.requireNonNull(response.body()).string();
                 try {
                     JSONObject jsonObject = new JSONObject(responseData);
-
                     //包名
-                    newPackageName = jsonObject.getString("applicationId");
-                    //构建类型
-                    newVariantName = jsonObject.getString("variantName");
+                    newPackageName = jsonObject.getString("packagename");
                     //版本,版本号,输出文件名
-                    newVersionName = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionName");
-                    newVersionCode = jsonObject.getJSONArray("elements").getJSONObject(0).getString("versionCode");
-                    newFileName = jsonObject.getJSONArray("elements").getJSONObject(0).getString("outputFile");
-                    newFileUrl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/luckyzyx/release/"+newFileName;
+                    newVersionName = jsonObject.getString("versionname");
+                    newVersionCode = jsonObject.getString("versioncode");
+                    newFileName = jsonObject.getString("outputfile");
+                    newFileUrl = jsonObject.getString("outputfileurl");
                     newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
 
                     //显示对话框
@@ -133,8 +153,8 @@ public class HttpUtils {
     private void showUpdateDialog(){
         //对话框
         AlertDialog update_dialog = new MaterialAlertDialogBuilder(context)
-                .setTitle("检测到新版本!")
-                .setMessage("新版本: " + newVersionName + "_" + newVersionCode + "\n当前版本: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE)
+                .setTitle("检查更新!")
+                .setMessage("最新版本: " + newVersionName + "_" + newVersionCode + "\n当前版本: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE)
                 .setCancelable(false)
                 .setPositiveButton("更新", (dialog, which) -> startUpdate())
                 .setNeutralButton("取消", null)
@@ -154,7 +174,6 @@ public class HttpUtils {
         } else {
             //启动服务
             DownloadApk();
-            Toast.makeText(context, "下载中请稍后!", Toast.LENGTH_SHORT).show();
         }
     }
 
