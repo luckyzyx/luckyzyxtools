@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.provider.Settings;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -26,7 +25,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.BuildConfig;
 
 import org.json.JSONException;
@@ -46,11 +44,8 @@ public class HttpUtils {
 
     private final Context context;
 
-    //gitee update.json
     @SuppressWarnings("FieldCanBeLocal")
-    private final String jsonurl = "https://gitee.com/luckyzyx/luckyzyx/raw/master/luckyzyxtools/update.json";
-
-    private String updatejson;//updatejson url
+    private final String jsonurl = "https://raw.githubusercontentS.com/luckyzyx/luckyzyxtools/main/docs/update.json";
 
     private String newPackageName;//包名
     private String newVersionName;//版本名
@@ -67,43 +62,24 @@ public class HttpUtils {
 
     //Okhttp发送请求并回调
     public static void sendRequestWithOkhttp(String url,okhttp3.Callback callback) {
-        new Thread(() -> {
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder().url(url).build();
-            client.newCall(request).enqueue(callback);
-        }).start();
+            new Thread(() -> {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder().url(url).build();
+                client.newCall(request).enqueue(callback);
+            }).start();
     }
 
     //获取更新json
-    public void CheckUpdate(View view,boolean showToast){
+    public void CheckUpdate(boolean showToast){
         if (showToast) {
-            Snackbar.make(view, "查询中...", Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(context, "查询中...", Toast.LENGTH_SHORT).show();
         }
-        //通过gitee获取github json
+        //OkHttp3获取json回调
         sendRequestWithOkhttp(jsonurl, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                updatejson = null;
-                if (showToast) {
-                    Snackbar.make(view, "检查更新失败!", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                try {
-                    JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
-                    updatejson = jsonObject.getString("updatejson");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        //OkHttp3获取json回调
-        sendRequestWithOkhttp(updatejson, new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 if (showToast){
-                    Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(context, "检查更新失败!", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -166,6 +142,7 @@ public class HttpUtils {
         } else {
             //启动服务
             DownloadApk();
+            Toast.makeText(context, "下载中!", Toast.LENGTH_SHORT).show();
         }
     }
 

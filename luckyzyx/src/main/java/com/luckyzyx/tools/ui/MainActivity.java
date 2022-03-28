@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         CheckTheme(this);
         CheckPermission();
         CheckXposed();
-        new HttpUtils(this).CheckUpdate(getWindow().getDecorView().findViewById(R.id.coordinator),false);
+//        new HttpUtils(this).CheckUpdate(getWindow().getDecorView().findViewById(R.id.coordinator),false);
         setContentView(R.layout.activity_main);
 
         //底部导航栏
