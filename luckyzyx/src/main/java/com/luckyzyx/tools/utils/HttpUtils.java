@@ -28,7 +28,6 @@ import androidx.core.content.FileProvider;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.BuildConfig;
-import com.luckyzyx.tools.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,13 +44,13 @@ import okhttp3.Response;
 
 public class HttpUtils {
 
-    private Context context;
+    private final Context context;
 
-    @SuppressWarnings("ConstantConditions")
     //gitee update.json
-    private final String jsonurl = context.getString(R.string.jsonurl);
+    @SuppressWarnings("FieldCanBeLocal")
+    private final String jsonurl = "https://gitee.com/luckyzyx/luckyzyx/raw/master/luckyzyxtools/update.json";
 
-    private String updatejson = null;//updatejson url
+    private String updatejson;//updatejson url
 
     private String newPackageName;//包名
     private String newVersionName;//版本名
@@ -77,53 +76,46 @@ public class HttpUtils {
 
     //获取更新json
     public void CheckUpdate(View view,boolean showToast){
+        if (showToast) {
+            Snackbar.make(view, "查询中...", Snackbar.LENGTH_SHORT).show();
+        }
         //通过gitee获取github json
         sendRequestWithOkhttp(jsonurl, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 updatejson = null;
+                if (showToast) {
+                    Snackbar.make(view, "检查更新失败!", Snackbar.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                updatejson = Objects.requireNonNull(response.body()).string();
+                try {
+                    JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
+                    updatejson = jsonObject.getString("updatejson");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
-        if (updatejson == null) {
-            if (showToast) {
-                Snackbar.make(view, "检查更新失败!", Snackbar.LENGTH_SHORT).show();
-            }
-        }else {
-            try {
-                JSONObject jsonObject = new JSONObject(updatejson);
-                updatejson = jsonObject.getString("updatejson");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        if (showToast) {
-            Snackbar.make(view, "查询中...", Snackbar.LENGTH_SHORT).show();
-        }
         //OkHttp3获取json回调
         sendRequestWithOkhttp(updatejson, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                //连接错误
                 if (showToast){
                     Snackbar.make(view,"检查更新失败!",Snackbar.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                //连接成功
-                String responseData = Objects.requireNonNull(response.body()).string();
                 try {
-                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                     //包名
                     newPackageName = jsonObject.getString("packagename");
                     //版本,版本号,输出文件名
                     newVersionName = jsonObject.getString("versionname");
                     newVersionCode = jsonObject.getString("versioncode");
-                    newFileName = jsonObject.getString("outputfile");
+                    newFileName = jsonObject.getString("outputfilename");
                     newFileUrl = jsonObject.getString("outputfileurl");
                     newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
 
@@ -159,7 +151,8 @@ public class HttpUtils {
                 .setNeutralButton("取消", null)
                 .show();
         if (Integer.parseInt(newVersionCode) == BuildConfig.VERSION_CODE){
-            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setText("重新下载");
+            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setText("无需更新");
+            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(null);
         }
     }
 
