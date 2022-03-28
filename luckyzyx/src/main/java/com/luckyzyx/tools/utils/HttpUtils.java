@@ -92,7 +92,6 @@ public class HttpUtils {
             if (showToast) {
                 Snackbar.make(view, "检查更新失败!", Snackbar.LENGTH_SHORT).show();
             }
-            return;
         }else {
             try {
                 JSONObject jsonObject = new JSONObject(updatejson);
