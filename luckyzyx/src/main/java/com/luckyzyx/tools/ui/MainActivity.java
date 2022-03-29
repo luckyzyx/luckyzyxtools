@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         CheckTheme(this);
         CheckPermission();
         CheckXposed();
-//        new HttpUtils(this).CheckUpdate(getWindow().getDecorView().findViewById(R.id.coordinator),false);
+        new HttpUtils(this).CheckUpdate(false);
         setContentView(R.layout.activity_main);
 
         //底部导航栏
@@ -247,11 +247,15 @@ public class MainActivity extends AppCompatActivity {
 
     //关机菜单
     public static void refreshmode(Context context){
-        final String[] list = {"重启", "关机", "recovery", "fastboot"};
+        final String[] list = {"重启系统界面","重启", "关机", "recovery", "fastboot"};
         new MaterialAlertDialogBuilder(context)
                 .setCancelable(true)
                 .setItems(list, (dialog, which) -> {
                     switch (list[which]){
+                        case "重启系统界面":
+                            ShellUtils.CommandResult systemuipid = ShellUtils.execCommand("pgrep systemui", true, true);
+                            ShellUtils.execCommand("kill -9 "+systemuipid.successMsg, true);
+                            break;
                         case "重启":
                             ShellUtils.execCommand("reboot",true);
                             break;

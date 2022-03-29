@@ -128,7 +128,8 @@ public class HttpUtils {
                 .show();
         if (Integer.parseInt(newVersionCode) == BuildConfig.VERSION_CODE){
             update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setText("无需更新");
-            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(null);
+            update_dialog.setCancelable(true);
+            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> update_dialog.dismiss());
         }
     }
 
@@ -142,7 +143,7 @@ public class HttpUtils {
         } else {
             //启动服务
             DownloadApk();
-            Toast.makeText(context, "下载中!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "下载中...", Toast.LENGTH_SHORT).show();
         }
     }
 

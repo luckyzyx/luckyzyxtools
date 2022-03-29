@@ -64,7 +64,7 @@ class HookYukiDemo : YukiBaseHooker() {
                     name = "getDataText"
                     returnType = StringType
                 }
-                replaceTo(prefs.getString(key = "test_data", default = "Test data is nothing"))
+                replaceTo(prefs.getString(key = "test_data", value = "Test data is nothing"))
             }
         }
 

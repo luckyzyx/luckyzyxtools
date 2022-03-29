@@ -55,9 +55,9 @@ public class XposedActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.xposed_preferences, rootKey);
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-            //移除网速xml
-            PreferenceCategory systemui = findPreference("systemui");
-            getPreferenceScreen().removePreference(systemui);
+//            //移除网速xml_network_speed
+//            PreferenceCategory systemui = findPreference("systemui");
+//            getPreferenceScreen().removePreference(systemui);
         }
 
         @Override

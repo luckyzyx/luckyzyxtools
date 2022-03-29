@@ -27,6 +27,7 @@
 
     <PreferenceCategory
         android:title="开放源代码"
+        android:summary="从中获取到灵感或引导思路"
         app:iconSpaceReserved="false">
 
         <Preference
@@ -54,6 +55,15 @@
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/LSPosed/LSPosed"/>
+        </Preference>
+
+        <Preference
+            android:title="ColorOSNotifyIcon"
+            android:summary="fankes , AGPL-3.0 License"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/fankes/ColorOSNotifyIcon"/>
         </Preference>
 
         <Preference
