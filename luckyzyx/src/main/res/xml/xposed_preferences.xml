@@ -18,7 +18,7 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        android:title="系统界面v12.0.0"
+        android:title="系统界面"
         android:key="systemui">
 
         <SwitchPreference
@@ -31,11 +31,12 @@
             android:defaultValue="false"
             android:key="network_speed"
             app:iconSpaceReserved="false"
+            android:enabled="false"
             android:title="状态栏网速刷新率" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="好多动漫v5.1.1"
+    <PreferenceCategory android:title="好多动漫"
         app:iconSpaceReserved="false">
 
         <SwitchPreference

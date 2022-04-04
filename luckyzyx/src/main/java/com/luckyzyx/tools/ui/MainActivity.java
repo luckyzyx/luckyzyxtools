@@ -23,6 +23,7 @@ import com.luckyzyx.tools.ui.fragment.HomeFragment;
 import com.luckyzyx.tools.ui.fragment.OtherFragment;
 import com.luckyzyx.tools.ui.fragment.UserFragment;
 import com.luckyzyx.tools.utils.HttpUtils;
+import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.io.File;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         CheckTheme(this);
         CheckPermission();
         CheckXposed();
-        new HttpUtils(this).CheckUpdate(false);
+        startCheckUpdate();
         setContentView(R.layout.activity_main);
 
         //底部导航栏
@@ -159,7 +160,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //检测包名
+    //启动时检查更新
+    private void startCheckUpdate(){
+        if (SPUtils.getBoolean(this,"Settings","startCheckUpdate",false)){
+            new HttpUtils(this).CheckUpdate(false);
+        }
+    }
+    //检测包名是否存在
     public static boolean APPexist(@NonNull Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
         //获取手机系统的所有APP包名，然后进行比较
@@ -247,25 +254,24 @@ public class MainActivity extends AppCompatActivity {
 
     //关机菜单
     public static void refreshmode(Context context){
-        final String[] list = {"重启系统界面","重启", "关机", "recovery", "fastboot"};
+        final String[] list = {"重启系统界面","重启系统","关闭系统","Recovery","BootLoader"};
         new MaterialAlertDialogBuilder(context)
                 .setCancelable(true)
                 .setItems(list, (dialog, which) -> {
                     switch (list[which]){
                         case "重启系统界面":
-                            ShellUtils.CommandResult systemuipid = ShellUtils.execCommand("pgrep systemui", true, true);
-                            ShellUtils.execCommand("kill -9 "+systemuipid.successMsg, true);
+                            ShellUtils.execCommand("kill -9 `pgrep systemui`", true);
                             break;
-                        case "重启":
+                        case "重启系统":
                             ShellUtils.execCommand("reboot",true);
                             break;
-                        case "关机":
+                        case "关闭系统":
                             ShellUtils.execCommand("reboot -p",true);
                             break;
-                        case "recovery":
+                        case "Recovery":
                             ShellUtils.execCommand("reboot recovery",true);
                             break;
-                        case "fastboot":
+                        case "BootLoader":
                             ShellUtils.execCommand("reboot bootloader",true);
                             break;
                     }

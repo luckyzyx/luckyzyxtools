@@ -6,8 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
 
 import com.luckyzyx.tools.R;
 
@@ -55,9 +55,9 @@ public class XposedActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.xposed_preferences, rootKey);
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-//            //移除网速xml_network_speed
-//            PreferenceCategory systemui = findPreference("systemui");
-//            getPreferenceScreen().removePreference(systemui);
+            //移除网速xml_network_speed
+            SwitchPreference network_speed = findPreference("network_speed");
+            getPreferenceScreen().removePreference(network_speed);
         }
 
         @Override

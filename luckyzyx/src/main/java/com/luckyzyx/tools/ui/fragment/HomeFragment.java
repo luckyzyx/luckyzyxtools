@@ -17,9 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
@@ -31,8 +28,7 @@ import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.ui.XposedActivity;
 import com.luckyzyx.tools.utils.HttpUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
-
-import java.util.Objects;
+import com.luckyzyx.tools.utils.UpdateLog;
 
 public class HomeFragment extends Fragment {
 
@@ -53,7 +49,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "InflateParams"})
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //Xposed
@@ -70,16 +66,8 @@ public class HomeFragment extends Fragment {
         MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
         checkupdate.setOnClickListener(v -> new HttpUtils(requireActivity()).CheckUpdate(true));
 
-        //BottomSheet
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity());
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet);
-        View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-        BottomSheetBehavior.from(Objects.requireNonNull(bottomSheetInternal)).setPeekHeight(400);
         MaterialCardView updatelog_card = requireActivity().findViewById(R.id.updatelog_card);
-        updatelog_card.setOnClickListener(v -> bottomSheetDialog.show());
-
-        MaterialTextView updatelog_text = bottomSheetDialog.findViewById(R.id.log_text);
-        Objects.requireNonNull(updatelog_text).setText("aaaa");
+        updatelog_card.setOnClickListener(v -> new UpdateLog(requireActivity()).ShowUpdateLog());
 
         TextView systeminfo = requireActivity().findViewById(R.id.systeminfo);
         systeminfo.setText(getSystemInfo());

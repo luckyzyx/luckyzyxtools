@@ -30,7 +30,7 @@ import android.content.SharedPreferences;
  */
 public class SPUtils {
 
-    private SPUtils(Context context,String PREFERENCE_NAME) {
+    private SPUtils() {
         throw new AssertionError();
     }
 

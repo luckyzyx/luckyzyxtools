@@ -71,7 +71,7 @@ public class ModuleInstallFragment extends Fragment {
     //初始化BottomSheet
     public void initBottomSheet(){
         bottomSheetDialog = new BottomSheetDialog(requireActivity());
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet);
+        bottomSheetDialog.setContentView(R.layout.update_log_dialog_layout);
         View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
         if (bottomSheetInternal != null) {
             BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);

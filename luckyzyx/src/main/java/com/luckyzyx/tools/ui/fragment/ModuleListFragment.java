@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.utils.ModuleListAdapter;
+import com.luckyzyx.tools.utils.adapter.ModuleListAdapter;
 import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.util.ArrayList;

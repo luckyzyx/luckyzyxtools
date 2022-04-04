@@ -5,9 +5,8 @@ buildscript {
         mavenCentral()
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+        maven { url 'https://jitpack.io' }
         maven { url "https://api.xposed.info/" }
-        // MavenCentral 有 2 小时缓存，若无法集成最新版本请添加此地址
-        maven { url "https://s01.oss.sonatype.org/content/repositories/releases" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'

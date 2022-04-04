@@ -73,6 +73,13 @@ public class HttpUtils {
     public void CheckUpdate(boolean showToast){
         if (showToast) {
             Toast.makeText(context, "查询中...", Toast.LENGTH_SHORT).show();
+        }else {
+            try {
+                //延迟
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         //OkHttp3获取json回调
         sendRequestWithOkhttp(jsonurl, new Callback() {
