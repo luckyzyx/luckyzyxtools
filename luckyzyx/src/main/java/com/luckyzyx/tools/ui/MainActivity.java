@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         CheckTheme(this);
         CheckPermission();
         CheckXposed();
-        startCheckUpdate();
         setContentView(R.layout.activity_main);
 
         //底部导航栏
@@ -65,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         //获取Root权限
         ShellUtils.checkRootPermission();
+        //启动时检查更新
+        startCheckUpdate();
     }
 
     //NavigationItem被选择事件

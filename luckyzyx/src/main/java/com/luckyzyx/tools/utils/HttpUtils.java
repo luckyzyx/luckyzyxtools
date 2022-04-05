@@ -73,13 +73,6 @@ public class HttpUtils {
     public void CheckUpdate(boolean showToast){
         if (showToast) {
             Toast.makeText(context, "查询中...", Toast.LENGTH_SHORT).show();
-        }else {
-            try {
-                //延迟
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
         //OkHttp3获取json回调
         sendRequestWithOkhttp(jsonurl, new Callback() {
@@ -135,7 +128,7 @@ public class HttpUtils {
                 .setPositiveButton("更新", (dialog, which) -> startUpdate())
                 .setNeutralButton("取消", null)
                 .show();
-        if (Integer.parseInt(newVersionCode) < BuildConfig.VERSION_CODE){
+        if (Integer.parseInt(newVersionCode) <= BuildConfig.VERSION_CODE){
             update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setText("无需更新");
             update_dialog.setCancelable(true);
             update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> update_dialog.dismiss());

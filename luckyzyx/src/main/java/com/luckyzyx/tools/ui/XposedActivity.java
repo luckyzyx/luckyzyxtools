@@ -53,29 +53,19 @@ public class XposedActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             getPreferenceManager().setSharedPreferencesName("XposedSettings");
             setPreferencesFromResource(R.xml.xposed_preferences, rootKey);
-            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-            //移除网速xml_network_speed
             SwitchPreference network_speed = findPreference("network_speed");
             Objects.requireNonNull(network_speed).setEnabled(false);
+            network_speed.setChecked(false);
+            SwitchPreference packages = findPreference("package");
+            Objects.requireNonNull(packages).setEnabled(false);
+            packages.setChecked(false);
 //            getPreferenceScreen().removePreference(network_speed);
         }
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 //            Toast.makeText(requireActivity(), key+":"+sharedPreferences.getBoolean(key,false), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onResume() {
-            super.onResume();
-            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
         }
     }
 

@@ -32,6 +32,7 @@ class MainHook : YukiHookXposedInitProxy {
             if (prefs(PrefsFile).getBoolean("vip", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookVip())
             if (prefs(PrefsFile).getBoolean("developer_mode",false)) loadApp(name = "com.android.systemui", HookSystemUI.HookDeveloper())
 //            if (prefs(PrefsFile).getBoolean("network_speed",false)) loadApp(name = "com.android.systemui", HookSystemUI.HookNetWorkSpeed())
+//            if (prefs(PrefsFile).getBoolean("package",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller())
         }
     }
 }

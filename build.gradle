@@ -6,7 +6,6 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
         maven { url 'https://jitpack.io' }
-        maven { url "https://api.xposed.info/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.2'

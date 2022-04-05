@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2206", "移除启动时检查更新的延迟\nYuki API 更新\n修改版本号判断"));
         logslist.add(new UpdateLogBean("2.0.2186", "修复检查更新失败后的崩溃\n添加设置页面\n设置添加启动时检查选项\n优化代码结构与命名"));
         logslist.add(new UpdateLogBean("2.0.2186", "优化更新日志"));
         logslist.add(new UpdateLogBean("2.0.2181", "添加更新日志功能\n修复Xposed页面bug"));

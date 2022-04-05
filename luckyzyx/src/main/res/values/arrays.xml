@@ -2,6 +2,7 @@
     <string-array name="xposed_scope">
         <item>android</item>
         <item>com.android.systemui</item>
+        <item>com.android.packageinstaller</item>
         <item>com.luckyzyx.yuki</item>
         <item>com.east2d.everyimage</item>
     </string-array>

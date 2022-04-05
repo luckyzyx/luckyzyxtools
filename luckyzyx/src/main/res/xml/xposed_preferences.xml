@@ -35,6 +35,19 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        android:title="应用包安装程序v3.5.2453"
+        android:key="packageinstaller">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="package"
+            app:iconSpaceReserved="false"
+            android:title="Hook" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="好多动漫"
         app:iconSpaceReserved="false">
 

@@ -2,6 +2,7 @@ package com.luckyzyx.tools.hook
 
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.type.java.LongType
 
 class HookSystemUI {
 
@@ -12,6 +13,7 @@ class HookSystemUI {
                 injectMember {
                     method {
                         name = "postUpdateNetworkSpeedDelay"
+                        param(LongType)
                     }
                     beforeHook {
                         args().set(1000L)
