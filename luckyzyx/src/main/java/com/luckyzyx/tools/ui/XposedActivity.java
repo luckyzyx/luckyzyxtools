@@ -19,7 +19,7 @@ public class XposedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.CheckTheme(this);
-        setContentView(R.layout.xposed_activity);
+        setContentView(R.layout.activity_xposed);
         //设置Toolbar
         setSupportActionBar(findViewById(R.id.topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -57,7 +57,8 @@ public class XposedActivity extends AppCompatActivity {
 
             //移除网速xml_network_speed
             SwitchPreference network_speed = findPreference("network_speed");
-            getPreferenceScreen().removePreference(network_speed);
+            Objects.requireNonNull(network_speed).setEnabled(false);
+//            getPreferenceScreen().removePreference(network_speed);
         }
 
         @Override

@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:title="设置"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="startCheckUpdate"
+            app:title="启动时检查更新"
+            app:summary="启动时自动检查更新(有更新时提示)"
+            app:iconSpaceReserved="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

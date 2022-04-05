@@ -18,7 +18,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.CheckTheme(this);
-        setContentView(R.layout.about_activity);
+        setContentView(R.layout.activity_about);
         //设置Toolbar
         setSupportActionBar(findViewById(R.id.topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

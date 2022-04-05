@@ -15,7 +15,7 @@ class MainHook : YukiHookXposedInitProxy {
             // 全局调试用的 TAG
             debugTag = "YukiHook"
             // 是否开启调试模式,开启后模块将会向 Logcat 和 XposedBridge.log 打印详细的 Hook 日志，关闭后仅会打印 E 级别的日志
-            isDebug = false
+            isDebug = true
             // 是否启用调试日志的输出功能,关闭后将会停用 YukiHookAPI 对全部日志的输出.但是不影响当你手动调用日志方法输出日志
             isAllowPrintingLogs = true
             // 是否启用 [YukiHookModulePrefs] 的键值缓存功能

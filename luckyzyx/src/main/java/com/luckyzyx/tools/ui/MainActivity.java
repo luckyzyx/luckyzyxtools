@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
             new HttpUtils(this).CheckUpdate(false);
         }
     }
+
     //检测包名是否存在
     public static boolean APPexist(@NonNull Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
@@ -279,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    //对话框demo
+    //全局刷新率
     public static void setfps(Context context){
         new MaterialAlertDialogBuilder(context)
                 .setTitle("FPS")

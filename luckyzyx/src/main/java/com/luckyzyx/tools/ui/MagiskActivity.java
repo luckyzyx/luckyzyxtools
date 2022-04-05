@@ -27,7 +27,7 @@ public class MagiskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.CheckTheme(this);
-        setContentView(R.layout.magisk_activity);
+        setContentView(R.layout.activity_magisk);
         //设置Toolbar
         setSupportActionBar(findViewById(R.id.topAppBar));
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

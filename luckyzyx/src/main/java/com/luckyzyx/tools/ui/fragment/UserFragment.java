@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.ui.AboutActivity;
+import com.luckyzyx.tools.ui.SettingsActivity;
 
 public class UserFragment extends Fragment {
     @Override
@@ -46,6 +47,12 @@ public class UserFragment extends Fragment {
 
         MaterialCardView user = requireActivity().findViewById(R.id.user);
         user.setOnClickListener(v -> Snackbar.make(v, "不认识字? 还点?", Snackbar.LENGTH_SHORT).show());
+
+        MaterialCardView settings = requireActivity().findViewById(R.id.settings_card);
+        settings.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingsActivity.class)));
+
+        MaterialCardView about = requireActivity().findViewById(R.id.about_card);
+        about.setOnClickListener(v -> startActivity(new Intent(getActivity(), AboutActivity.class)));
     }
 
     @Override

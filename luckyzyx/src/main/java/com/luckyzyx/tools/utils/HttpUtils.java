@@ -86,7 +86,9 @@ public class HttpUtils {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 if (showToast){
+                    Looper.prepare();
                     Toast.makeText(context, "检查更新失败!", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
                 }
             }
             @Override
@@ -109,7 +111,7 @@ public class HttpUtils {
                         Looper.loop();
                     }else {
                         //版本号不同
-                        if (Integer.parseInt(newVersionCode) != BuildConfig.VERSION_CODE){
+                        if (Integer.parseInt(newVersionCode) > BuildConfig.VERSION_CODE){
                             Looper.prepare();
                             showUpdateDialog();
                             Looper.loop();
@@ -133,7 +135,7 @@ public class HttpUtils {
                 .setPositiveButton("更新", (dialog, which) -> startUpdate())
                 .setNeutralButton("取消", null)
                 .show();
-        if (Integer.parseInt(newVersionCode) == BuildConfig.VERSION_CODE){
+        if (Integer.parseInt(newVersionCode) < BuildConfig.VERSION_CODE){
             update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setText("无需更新");
             update_dialog.setCancelable(true);
             update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> update_dialog.dismiss());
