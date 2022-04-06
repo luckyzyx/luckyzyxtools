@@ -22,6 +22,7 @@ import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.ui.AboutActivity;
 import com.luckyzyx.tools.ui.SettingsActivity;
+import com.luckyzyx.tools.utils.HttpUtils;
 
 public class UserFragment extends Fragment {
     @Override
@@ -47,6 +48,9 @@ public class UserFragment extends Fragment {
 
         MaterialCardView user = requireActivity().findViewById(R.id.user);
         user.setOnClickListener(v -> Snackbar.make(v, "不认识字? 还点?", Snackbar.LENGTH_SHORT).show());
+
+        MaterialCardView checkupdate_card = requireActivity().findViewById(R.id.checkupdate_card);
+        checkupdate_card.setOnClickListener(v -> new HttpUtils(requireActivity()).CheckUpdate(true));
 
         MaterialCardView settings = requireActivity().findViewById(R.id.settings_card);
         settings.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingsActivity.class)));

@@ -57,9 +57,9 @@ public class XposedActivity extends AppCompatActivity {
             SwitchPreference network_speed = findPreference("network_speed");
             Objects.requireNonNull(network_speed).setEnabled(false);
             network_speed.setChecked(false);
-            SwitchPreference packages = findPreference("package");
-            Objects.requireNonNull(packages).setEnabled(false);
-            packages.setChecked(false);
+//            SwitchPreference packages = findPreference("package");
+//            Objects.requireNonNull(packages).setEnabled(false);
+//            packages.setChecked(false);
 //            getPreferenceScreen().removePreference(network_speed);
         }
 

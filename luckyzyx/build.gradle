@@ -52,10 +52,10 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if ('release' == variant.buildType.name) {
-                outputFileName = "luckyzyx_v${variant.versionName}.r${versionCode}.apk"
+                outputFileName = "luckyzyx_v${variant.versionName}.${versionCode}.apk"
             }
             if ('debug' == variant.buildType.name) {
-                outputFileName = "luckyzyx_v${variant.versionName}.d${versionCode}.apk"
+                outputFileName = "luckyzyx_v${variant.versionName}.${versionCode}.apk"
             }
         }
     }

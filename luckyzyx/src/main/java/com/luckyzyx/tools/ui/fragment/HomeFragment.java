@@ -63,8 +63,6 @@ public class HomeFragment extends Fragment {
         magisk.setOnClickListener(v -> startActivity(new Intent(requireActivity(), MagiskActivity.class)));
         MaterialButton fps = requireActivity().findViewById(R.id.fps);
         fps.setOnClickListener(v -> MainActivity.setfps(requireActivity()));
-        MaterialButton checkupdate = requireActivity().findViewById(R.id.checkupdate);
-        checkupdate.setOnClickListener(v -> new HttpUtils(requireActivity()).CheckUpdate(true));
 
         MaterialCardView updatelog_card = requireActivity().findViewById(R.id.updatelog_card);
         updatelog_card.setOnClickListener(v -> new UpdateLog(requireActivity()).ShowUpdateLog());

@@ -124,14 +124,6 @@
                             android:layout_weight="1"
                             android:id="@+id/fps"
                             style="?attr/borderlessButtonStyle" />
-                        <com.google.android.material.button.MaterialButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="检查更新"
-                            android:gravity="center"
-                            android:layout_weight="1"
-                            android:id="@+id/checkupdate"
-                            style="?attr/borderlessButtonStyle" />
 
                     </LinearLayout>
 

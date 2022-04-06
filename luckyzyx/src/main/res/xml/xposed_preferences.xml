@@ -18,7 +18,7 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        android:title="系统界面"
+        android:title="系统界面(逐步适配)"
         android:key="systemui">
 
         <SwitchPreference
@@ -37,16 +37,24 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        android:title="应用包安装程序v3.5.2453"
+        android:title="应用包安装程序(逐步适配)"
         android:key="packageinstaller">
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="package"
+            android:key="replacePackageInstaller"
             app:iconSpaceReserved="false"
-            android:title="Hook" />
+            app:title="一键开启"
+            app:summary="移除安装包检查或扫描,版本弹窗,界面净化等"/>
 
-    </PreferenceCategory>
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="replaceInstaller"
+            app:iconSpaceReserved="false"
+            app:title="替换应用包安装程序"
+            app:summary="切换原生安装器"/>
+
+   </PreferenceCategory>
 
     <PreferenceCategory android:title="好多动漫"
         app:iconSpaceReserved="false">
