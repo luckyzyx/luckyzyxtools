@@ -1,6 +1,5 @@
 <resources>
     <string-array name="xposed_scope">
-        <item>android</item>
         <item>com.android.systemui</item>
         <item>com.android.packageinstaller</item>
         <item>com.luckyzyx.yuki</item>

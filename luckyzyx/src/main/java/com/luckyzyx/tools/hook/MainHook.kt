@@ -27,6 +27,7 @@ class MainHook : YukiHookXposedInitProxy {
 
     override fun onHook() {
         encase {
+            loadApp(name = "android",HookAndroid())
             if (prefs(PrefsFile).getBoolean("hooktest", false)) loadApp(name = "com.luckyzyx.yuki", HookYukiDemo())
             if (prefs(PrefsFile).getBoolean("ad", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookAd())
             if (prefs(PrefsFile).getBoolean("vip", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookVip())

@@ -2,6 +2,7 @@ package com.luckyzyx.tools.hook
 
 import android.app.AlertDialog
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.log.loggerI
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.StringType
 import com.highcapable.yukihookapi.hook.type.java.UnitType
@@ -9,7 +10,6 @@ import com.highcapable.yukihookapi.hook.type.java.UnitType
 class HookYukiDemo : YukiBaseHooker() {
 
     override fun onHook() {
-
         findClass(name = "$packageName.ui.MainActivity").hook {
             // 替换返回值
             injectMember {

@@ -79,7 +79,9 @@ public class HttpUtils {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 if (showToast){
+                    Looper.prepare();
                     Toast.makeText(context, "检查更新失败!", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
                 }
             }
             @Override
@@ -110,6 +112,9 @@ public class HttpUtils {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Looper.prepare();
+                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+                    Looper.loop();
                 }
 
             }
