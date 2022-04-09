@@ -28,9 +28,9 @@
 #############################################
 
 #不要警告
-#-dontwarn
+-dontwarn
 #忽略警告
-#-ignorewarnings
+-ignorewarnings
 #优化 0-7
 -optimizationpasses 10
 #不要使用混合大小写的类名
@@ -58,15 +58,18 @@
 #不要跳过非公共library class members
 #-dontskipnonpubliclibraryclassmembers
 #保持反射
--keepattributes EnclosingMethod
+#-keepattributes EnclosingMethod
 #保留注释
--keepattributes *Annotation*,InnerClasses
+#-keepattributes *Annotation*,InnerClasses
 #保持泛型
--keepattributes Signature
+#-keepattributes Signature
 #保留行号,异常
 -keepattributes SourceFile,LineNumberTable,Exceptions
 #混淆时采用的算法
--optimizations !code/simplification/cast,!field/*,!class/merging/*
+#-optimizations !code/simplification/cast,!field/*,!class/merging/*
+
+#重命名源文件属性
+-renamesourcefileattribute P
 
 #############################################
 #
@@ -75,18 +78,18 @@
 #############################################
 
 # 保持哪些类不被混淆
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Appliction
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
--keep public class * extends android.view.View
--keep class android.support.** {*;}
--keep class **.R$* {*;}
--keep public class * extends android.app.Fragment
--keep public class com.android.vending.licensing.ILicensingService
+#-keep public class * extends android.app.Activity
+#-keep public class * extends android.app.Appliction
+#-keep public class * extends android.app.Service
+#-keep public class * extends android.content.BroadcastReceiver
+#-keep public class * extends android.content.ContentProvider
+#-keep public class * extends android.app.backup.BackupAgentHelper
+#-keep public class * extends android.preference.Preference
+#-keep public class * extends android.view.View
+#-keep class android.support.** {*;}
+#-keep class **.R$* {*;}
+#-keep public class * extends android.app.Fragment
+#-keep public class com.android.vending.licensing.ILicensingService
 
 #-keep class * implements de.robv.android.xposed.IXposedHookLoadPackage {
 #    public void *(de.robv.android.xposed.callbacks.XC_LoadPackage$LoadPackageParam);

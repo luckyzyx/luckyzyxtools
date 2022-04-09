@@ -40,6 +40,15 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             }
         }
 
+        new Thread(() -> {
+            //判断状态栏显秒状态
+            SwitchPreference clock_seconds = findPreference("clock_seconds");
+            if (clock_seconds != null){
+                ShellUtils.CommandResult clock = ShellUtils.execCommand("settings get secure clock_seconds",true,true);
+                clock_seconds.setChecked(clock.successMsg.equals("1"));
+            }
+        }).start();
+
     }
 
     @Override
@@ -90,6 +99,18 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             ShellUtils.execCommand("am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true);
         }
 
+        //打开快捷页面
+        if (preference.getKey().equals("coloros_quick")) {
+            getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
+            setPreferencesFromResource(R.xml.coloros_preferences,null);
+        }
+
+        //返回上一页
+        if (preference.getKey().equals("back_page")) {
+            getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
+            setPreferencesFromResource(R.xml.other_preferences,null);
+        }
+
         return super.onPreferenceTreeClick(preference);
     }
 
@@ -135,7 +156,12 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             }
         }
 
-        if ("touches".equals(key)) {
+        if ("clock_seconds".equals(key)) {
+            if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("settings put secure clock_seconds 1", true);
+            else ShellUtils.execCommand("settings put secure clock_seconds 0", true);
+        }
+
+        if ("show_touches".equals(key)) {
             if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("settings put system show_touches 1", true);
             else ShellUtils.execCommand("settings put system show_touches 0", true);
         }

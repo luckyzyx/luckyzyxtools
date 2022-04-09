@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         ShellUtils.checkRootPermission();
         //启动时检查更新
         startCheckUpdate();
+        //初始化Hook APP
+        initHookAPP();
     }
 
     //NavigationItem被选择事件
@@ -301,5 +303,21 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(context, "已将FPS设置为默认!", Toast.LENGTH_SHORT).show();
                 })
                 .show();
+    }
+
+    //初始化Hook APP信息
+    public void initHookAPP() {
+        SPUtils.putString(this,"XposedSettings","PackageInstallCommit",getVersionCommit("com.android.packageinstaller"));
+    }
+
+    //获取APP versionCommit
+    public String getVersionCommit(String packageName) {
+        try {
+            PackageManager packageManager = getPackageManager();
+            return packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData.getString("versionCommit");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "error";
+        }
     }
 }

@@ -19,35 +19,17 @@
             app:summary="原理：冻结游戏空间相关APP"
             app:iconSpaceReserved="false" />
 
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="systemui_demomode"
-            app:title="系统界面调节工具"
-            app:summary="状态栏图标隐藏"/>
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="clock_seconds"
+            android:title="状态栏时钟显秒"
+            app:iconSpaceReserved="false" />
 
         <Preference
             app:iconSpaceReserved="false"
-            app:key="process_management"
-            app:summary="ColorOS进程管理"
-            app:title="进程管理" />
-
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="engineering_model"
-            app:title="工程模式"
-            app:summary="*#899#"/>
-
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="power_test"
-            app:title="充电测试"
-            app:summary="查看充电数据"/>
-
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="logkit"
-            app:title="反馈工具箱"
-           app:summary="抓取log进行反馈"/>
+            app:title="ColorOS快捷入口"
+            app:summary="快捷入口以及隐藏页面"
+            app:key="coloros_quick"/>
 
     </PreferenceCategory>
 
@@ -70,7 +52,7 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:key="touches"
+            android:key="show_touches"
             android:title="显示触摸操作"
             app:iconSpaceReserved="false"
             app:summary="触摸屏幕时显示小圆点" />

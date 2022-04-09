@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.hook
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
@@ -11,16 +12,32 @@ class HookPackageInstaller {
     class ReplaceHook : YukiBaseHooker() {
 
         override fun onHook() {
+            val packageInstallCommit = prefs("XposedSettings").getString("PackageInstallCommit")
+            val methodName = arrayOfNulls<String>(6)
+            val fieldName = arrayOfNulls<String>(2)
+            if(packageInstallCommit == "a222497"){
+                    methodName[0] = "M"
+                    methodName[1] = "E"
+                    methodName[2] = "j"
+                    methodName[3] = "S"
+                    methodName[4] = "T"
+                    methodName[5] = "Q"
+                    fieldName[0] = "aN"
+                    fieldName[1] = "d"
+            }
             findClass(name = "com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
                 //跳过检查安全应用跳转商店
+                //isStartAppDetail
                 //search -> count_canceled_by_app_detail -4
-                injectMember {
-                    method {
-                        name = "M"
-                        returnType = BooleanType
-                    }
-                    afterHook {
-                        resultFalse()
+                if (!methodName.equals(null)) {
+                    injectMember {
+                        method {
+                            name = methodName[0].toString()
+                            returnType = BooleanType
+                        }
+                        afterHook {
+                            resultFalse()
+                        }
                     }
                 }
 
@@ -30,66 +47,73 @@ class HookPackageInstaller {
                 //替换调用方法
                 //initiateInstall
                 //search -> "button_type", "install_old_version_button" -11
-                injectMember {
-                    method {
-                        name = "E"
-                    }
-                    replaceUnit {
+                if (!methodName[1].equals(null)) {
+                    injectMember {
                         method {
-                            name = "j"
-                        }.get(instance).call()
+                            name = methodName[1].toString()
+                        }
+                        replaceUnit {
+                            method {
+                                name = methodName[2].toString()
+                            }.get(instance).call()
+                        }
                     }
                 }
 
                 //方法 checkAppSuggest
                 //search -> "PackageInstaller", "startAppdetail: " -7
-                injectMember {
-                    method {
-                        name = "S"
-                        returnType = UnitType
-                    }
-                    replaceUnit {
-                        resultNull()
+                if (!methodName[3].equals(null)) {
+                    injectMember {
+                        method {
+                            name = methodName[3].toString()
+                            returnType = UnitType
+                        }
+                        replaceUnit {
+                            resultNull()
+                        }
                     }
                 }
                 //方法 checkGameSuggest
                 //search -> "PackageInstaller", "don't recommend : -2
-                injectMember {
-                    method {
-                        name = "T"
-                        returnType = UnitType
-                    }
-                    replaceUnit {
-                        resultNull()
+                if (!methodName[4].equals(null)) {
+                    injectMember {
+                        method {
+                            name = methodName[4].toString()
+                            returnType = UnitType
+                        }
+                        replaceUnit {
+                            resultNull()
+                        }
                     }
                 }
-
                 //mIsOPPOMarketExists
                 //search -> "oppo_market"
-                injectMember {
-                    method {
-                        name = "onCreate"
-                        param(BundleClass)
-                    }
-                    afterHook {
-                        field {
-                            name = "aN"
-                            type = BooleanType
-                        }.get(instance).set(false)
+                if (!fieldName[0].equals(null)) {
+                    injectMember {
+                        method {
+                            name = "onCreate"
+                            param(BundleClass)
+                        }
+                        afterHook {
+                            field {
+                                name = fieldName[0].toString()
+                                type = BooleanType
+                            }.get(instance).set(false)
+                        }
                     }
                 }
-
                 //低版本相同版本警告
                 //search ->  ? 1 : 0;
-                injectMember {
-                    method {
-                        name = "Q"
-                        returnType = BooleanType
+                if (!methodName[5].equals(null)) {
+                    injectMember {
+                        method {
+                            name = methodName[5].toString()
+                            returnType = BooleanType
+                        }
+                        replaceToFalse()
                     }
-                    replaceToFalse()
                 }
             }
-
             //uncheck app_suggest_option as default 取消选中默认应用建议选项
             //search -> CompoundButton.SavedState{
             findClass(name = "com.coui.appcompat.widget.COUICheckBox").hook {
@@ -107,20 +131,50 @@ class HookPackageInstaller {
             }
 
             //安装成功时隐藏建议布局
-//            findClass(name = "com.android.packageinstaller.oplus.InstallAppProgress").hook {
+            //private LinearLayout mSuggestLayoutA;
+            //***************
+            //private RelativeLayout mSuggestLayoutATitle;
+            //private LinearLayout mSuggestLayoutB;
+            //private LinearLayout mSuggestLayoutC;
+
+            //WYZ LinearLayout
+            //X RelativeLayout
+//            findClass(name = "com.android.packageinstaller.oplus.b").hook {
 //                injectMember {
 //                    method {
-//                        name = "a"
+//                        name = "handleMessage"
 //                    }
 //                    afterHook {
-//                        findClass(name = "com.android.packageinstaller.oplus.InstallAppProgress").hook {
-//                            field {
-//                                name = "W"
-//                            }.get().self
+//                        "com.android.packageinstaller.oplus.InstallAppProgress".clazz.hook {
+//                            method {
+//                                name = "a"
+//                            }
+//                            afterHook {
+//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
+//                                    name = "W"
+//                                }.get(instance).setNull()
+//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
+//                                    name = "Y"
+//                                }.get(instance).setNull()
+//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
+//                                    name = "Z"
+//                                }.get(instance).setNull()
+//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
+//                                    name = "X"
+//                                }.get(instance).setNull()
+//                            }
 //                        }
 //                    }
 //                }
 //            }
+
+            //hooklog
+            //search -> OppoLog, isQELogOn =
+            if(!fieldName[1].equals(null)){
+                "com.android.packageinstaller.oplus.common.k".clazz.field {
+                    name = fieldName[1].toString()
+                }.get().set(true)
+            }
         }
     }
 
@@ -128,19 +182,27 @@ class HookPackageInstaller {
     //search -> DeleteStagedFileOnResult
     class ReplaceInstaller : YukiBaseHooker() {
         override fun onHook() {
+            val packageInstallCommit = prefs("XposedSettings").getString("PackageInstallCommit")
+            var methodName = ""
+            var fieldName = ""
+            if(packageInstallCommit == "a222497"){
+                methodName = "com.android.packageinstaller.oplus.common.j"
+                fieldName = "f"
+            }else if (packageInstallCommit == "104bacb"){
+                methodName = "com.android.packageinstaller.oplus.common.FeatureOption"
+                fieldName = "sIsClosedSuperFirewall"
+            }
             findClass(name = "com.android.packageinstaller.DeleteStagedFileOnResult").hook {
-                injectMember {
-                    method {
-                        name = "onCreate"
-                        param(BundleClass)
-                    }
-                    beforeHook {
-                        findClass(name = "com.android.packageinstaller.oplus.common.j").hook {
-                            injectMember {
-                                field {
-                                    name = "f"
-                                }.get().set(true)
-                            }
+                if(!fieldName.equals(null)){
+                    injectMember {
+                        method {
+                            name = "onCreate"
+                            param(BundleClass)
+                        }
+                        beforeHook {
+                            methodName.clazz.field {
+                                name = fieldName
+                            }.get().set(true)
                         }
                     }
                 }

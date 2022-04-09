@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android' version '1.6.10'
-    id 'com.google.devtools.ksp' version '1.6.10-1.0.4'
+    id 'org.jetbrains.kotlin.android' version '1.6.20'
+    id 'com.google.devtools.ksp' version '1.6.20-1.0.5'
 }
 
 android {
@@ -71,14 +71,14 @@ android {
 //    }
 
 }
-
+def YukiVersion = "1.0.72"
 dependencies {
     //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"
     //YukiHookAPI
-    implementation 'com.highcapable.yukihookapi:api:1.0.71'
+    implementation "com.highcapable.yukihookapi:api:"+YukiVersion
     //YukiHookAPI:KSP
-    ksp 'com.highcapable.yukihookapi:ksp-xposed:1.0.71'
+    ksp "com.highcapable.yukihookapi:ksp-xposed:"+YukiVersion
     //Material主题
     implementation 'com.google.android.material:material:1.6.0-beta01'
     //约束布局

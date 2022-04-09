@@ -45,7 +45,7 @@
             android:key="replacePackageInstaller"
             app:iconSpaceReserved="false"
             app:title="一键开启"
-            app:summary="移除安装包检查或扫描,版本弹窗,界面净化等"/>
+            app:summary="移除Apk检查/扫描,版本弹窗,界面净化等"/>
 
         <SwitchPreference
             android:defaultValue="false"

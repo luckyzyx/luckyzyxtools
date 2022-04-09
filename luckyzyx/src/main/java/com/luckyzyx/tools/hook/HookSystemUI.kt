@@ -2,6 +2,7 @@ package com.luckyzyx.tools.hook
 
 import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.java.LongType
 
 class HookSystemUI {
@@ -9,14 +10,12 @@ class HookSystemUI {
     class HookNetWorkSpeed : YukiBaseHooker(){
         override fun onHook() {
             findClass(name = "com.oplusos.systemui.statusbar.controller.NetworkSpeedController").hook {
-                // 拦截方法传入形参
                 injectMember {
                     method {
-                        name = "postUpdateNetworkSpeedDelay"
-                        param(LongType)
+                        name = "updateNetworkSpeed"
                     }
                     beforeHook {
-                        args().set(1000L)
+                        resultFalse()
                     }
                 }
             }
