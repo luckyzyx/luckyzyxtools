@@ -28,7 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
-        logslist.add(new UpdateLogBean("2.0.2259", "修复Hook系统框架的报错\n修复启动时的偶尔闪屏"));
+        logslist.add(new UpdateLogBean("2.0.2287", "添加Hook时的包名日志打印\n采用R8混淆"));
         logslist.add(new UpdateLogBean("2.0.2253", "更新Yuki API\n优化混淆\n添加时钟显秒\n优化其他页面卡顿"));
         logslist.add(new UpdateLogBean("2.0.2224", "检查更新移至我的页面\n添加Hook 应用包安装程序(适配ing)"));
         logslist.add(new UpdateLogBean("2.0.2206", "移除启动时检查更新的延迟\nYuki API 更新\n修改版本号判断"));

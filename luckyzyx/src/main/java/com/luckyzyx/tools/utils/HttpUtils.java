@@ -102,13 +102,11 @@ public class HttpUtils {
                         Looper.prepare();
                         showUpdateDialog();
                         Looper.loop();
-                    }else {
+                    }else if (Integer.parseInt(newVersionCode) > BuildConfig.VERSION_CODE){
                         //版本号不同
-                        if (Integer.parseInt(newVersionCode) > BuildConfig.VERSION_CODE){
-                            Looper.prepare();
-                            showUpdateDialog();
-                            Looper.loop();
-                        }
+                        Looper.prepare();
+                        showUpdateDialog();
+                        Looper.loop();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
