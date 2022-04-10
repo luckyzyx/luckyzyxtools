@@ -39,18 +39,19 @@ public class MainActivity extends AppCompatActivity {
     private final OtherFragment otherFragment = new OtherFragment();
     private final UserFragment userFragment = new UserFragment();
 
+    private boolean CheckXposed = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CheckTheme(this);
         CheckPermission();
         CheckXposed();
+        InitHookAPP();
         startCheckUpdate();
         setContentView(R.layout.activity_main);
 
         //初始化BottomNavigationView底部导航栏
         initBottomNavigationView();
-
         //获取Root权限
         ShellUtils.checkRootPermission();
     }
@@ -131,12 +132,30 @@ public class MainActivity extends AppCompatActivity {
             getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
             getSharedPreferences("MagiskSettings", Context.MODE_WORLD_READABLE);
         } catch (SecurityException ignored) {
+            CheckXposed = false;
             new MaterialAlertDialogBuilder(this)
                     .setCancelable(false)
                     .setMessage(getString(R.string.not_supported))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> System.exit(0))
                     //.setNegativeButton(R.string.ignore, null)
                     .show();
+        }
+    }
+
+    //初始化Hook APP
+    private void InitHookAPP(){
+        if(CheckXposed){
+            String PackageInstaller = "com.android.packageinstaller";
+            SPUtils.putString(this,"XposedSettings","PackageInstallCommit",getAppCommit(PackageInstaller));
+        }
+   }
+
+    private String getAppCommit(String packageName) {
+        try {
+            PackageManager packageManager = this.getPackageManager();
+            return packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData.getString("versionCommit");
+        } catch (Exception exception) {
+            return "Error";
         }
     }
 

@@ -1,22 +1,19 @@
 package com.luckyzyx.tools.hook
 
-import android.content.pm.PackageManager
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.UnitType
+import com.luckyzyx.tools.utils.SPUtils
 
 class HookPackageInstaller {
 
     class ReplaceHook : YukiBaseHooker() {
 
         override fun onHook() {
-            val packageInstallCommit = appContext.packageManager.getApplicationInfo(
-                packageName,
-                PackageManager.GET_META_DATA
-            ).metaData.getString("versionCommit")
+            val packageInstallCommit = SPUtils.getString(null,"XposedSettings","PackageInstallCommit","a222497")
             val methodName = arrayOfNulls<String>(6)
             val fieldName = arrayOfNulls<String>(2)
             if(packageInstallCommit == "a222497"){
@@ -186,10 +183,7 @@ class HookPackageInstaller {
     //search -> DeleteStagedFileOnResult
     class ReplaceInstaller : YukiBaseHooker() {
         override fun onHook() {
-            val packageInstallCommit = appContext.packageManager.getApplicationInfo(
-                packageName,
-                PackageManager.GET_META_DATA
-            ).metaData.getString("versionCommit")
+            val packageInstallCommit = SPUtils.getString(null,"XposedSettings","PackageInstallCommit","a222497")
             var methodName = ""
             var fieldName = ""
             if(packageInstallCommit == "a222497"){
