@@ -23,6 +23,11 @@
                 android:data="https://github.com/luckyzyx/luckyzyxtools"/>
         </Preference>
 
+        <Preference
+            app:title="权限说明"
+            app:summary="短信: 并未使用,出现原因未知\n存储空间: 用于下载更新APP和存储临时文件\n读取应用列表: 用于ADB无线调试"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
