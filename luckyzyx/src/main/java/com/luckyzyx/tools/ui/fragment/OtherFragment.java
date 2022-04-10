@@ -39,16 +39,6 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                 wifi_adb.setChecked(false);
             }
         }
-
-        new Thread(() -> {
-            //判断状态栏显秒状态
-            SwitchPreference clock_seconds = findPreference("clock_seconds");
-            if (clock_seconds != null){
-                ShellUtils.CommandResult clock = ShellUtils.execCommand("settings get secure clock_seconds",true,true);
-                clock_seconds.setChecked(clock.successMsg.equals("1"));
-            }
-        }).start();
-
     }
 
     @Override

@@ -26,7 +26,6 @@ import com.luckyzyx.tools.ui.AboutActivity;
 import com.luckyzyx.tools.ui.MagiskActivity;
 import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.ui.XposedActivity;
-import com.luckyzyx.tools.utils.HttpUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 import com.luckyzyx.tools.utils.UpdateLog;
 
@@ -74,12 +73,12 @@ public class HomeFragment extends Fragment {
     private String getSystemInfo() {
         String[] str = {
                 "厂商: " + Build.BRAND +
-                        "\n型号: " + Build.MODEL +
-                        "\nAndroid版本: " + Build.VERSION.RELEASE +
-                        "\n版本号: " + Build.DISPLAY+
-                        "\nSDK API: " + Build.VERSION.SDK_INT +
-                        "\n设备参数: " + Build.DEVICE +
-                        "\n闪存厂商: "+ ShellUtils.execCommand("cat /sys/class/block/sda/device/inquiry",true,true).successMsg
+                "\n型号: " + Build.MODEL +
+                "\nAndroid版本: " + Build.VERSION.RELEASE +
+                "\n版本号: " + Build.DISPLAY+
+                "\nSDK API: " + Build.VERSION.SDK_INT +
+                "\n设备参数: " + Build.DEVICE +
+                "\n闪存厂商: "+ ShellUtils.execCommand("cat /sys/class/block/sda/device/inquiry",true,true).successMsg
         };
         return str[0];
     }

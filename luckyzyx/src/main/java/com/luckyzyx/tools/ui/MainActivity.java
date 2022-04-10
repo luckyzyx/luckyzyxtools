@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
 import com.luckyzyx.tools.R;
@@ -39,16 +38,17 @@ public class MainActivity extends AppCompatActivity {
     private final OtherFragment otherFragment = new OtherFragment();
     private final UserFragment userFragment = new UserFragment();
 
-    private boolean CheckXposed = false;
+    private boolean CheckXposed = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CheckTheme(this);
+        setContentView(R.layout.activity_main);
         CheckPermission();
         CheckXposed();
         InitHookAPP();
         startCheckUpdate();
-        setContentView(R.layout.activity_main);
 
         //初始化BottomNavigationView底部导航栏
         initBottomNavigationView();
@@ -57,36 +57,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //初始化BottomNavigationView底部导航栏
+    @SuppressLint("NonConstantResourceId")
     private void initBottomNavigationView(){
-        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_item);
-        //设置监听方法
-        //noinspection deprecation
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        NavigationBarView navigationBarView = findViewById(R.id.nav_item);
+        //设置监听方法_NavigationItem被选择事件
+        navigationBarView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.nav_item_home:
+                    switchFragment(homeFragment);
+                    break;
+                case R.id.nav_item_other:
+                    switchFragment(otherFragment);
+                    break;
+                case R.id.nav_item_user:
+                    switchFragment(userFragment);
+                    break;
+            }
+            return true;
+        });
         //设置默认选中item
         switchFragment(homeFragment);
         //设置默认选中item
-        bottomNavigationView.setSelectedItemId(R.id.nav_item_home);
+        navigationBarView.setSelectedItemId(R.id.nav_item_home);
         //设置选中显示label
-        bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
+        navigationBarView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
     }
-    //NavigationItem被选择事件
-    @SuppressWarnings("deprecation")
-    @SuppressLint("NonConstantResourceId")
-    private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
-            = item -> {
-                switch (item.getItemId()){
-                    case R.id.nav_item_home:
-                        switchFragment(homeFragment);
-                        break;
-                    case R.id.nav_item_other:
-                        switchFragment(otherFragment);
-                        break;
-                    case R.id.nav_item_user:
-                        switchFragment(userFragment);
-                        break;
-                }
-                return true;
-            };
+
 
     //跳转Fragment函数
     private void switchFragment(Fragment fragment){
@@ -252,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 if (temp.isFile()) {
                     FileInputStream input = new FileInputStream(temp);
                     FileOutputStream output = new FileOutputStream(newPath + "/" +
-                            (temp.getName()).toString());
+                            (temp.getName()));
                     byte[] b = new byte[1024 * 5];
                     int len;
                     while ((len = input.read(b)) != -1) {
