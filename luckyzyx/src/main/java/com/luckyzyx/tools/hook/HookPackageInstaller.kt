@@ -1,5 +1,6 @@
 package com.luckyzyx.tools.hook
 
+import android.content.pm.PackageManager
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
@@ -12,7 +13,10 @@ class HookPackageInstaller {
     class ReplaceHook : YukiBaseHooker() {
 
         override fun onHook() {
-            val packageInstallCommit = prefs("XposedSettings").getString("PackageInstallCommit")
+            val packageInstallCommit = appContext.packageManager.getApplicationInfo(
+                packageName,
+                PackageManager.GET_META_DATA
+            ).metaData.getString("versionCommit")
             val methodName = arrayOfNulls<String>(6)
             val fieldName = arrayOfNulls<String>(2)
             if(packageInstallCommit == "a222497"){
@@ -182,7 +186,10 @@ class HookPackageInstaller {
     //search -> DeleteStagedFileOnResult
     class ReplaceInstaller : YukiBaseHooker() {
         override fun onHook() {
-            val packageInstallCommit = prefs("XposedSettings").getString("PackageInstallCommit")
+            val packageInstallCommit = appContext.packageManager.getApplicationInfo(
+                packageName,
+                PackageManager.GET_META_DATA
+            ).metaData.getString("versionCommit")
             var methodName = ""
             var fieldName = ""
             if(packageInstallCommit == "a222497"){

@@ -47,6 +47,7 @@ public class HttpUtils {
     @SuppressWarnings("FieldCanBeLocal")
     private final String jsonurl = "https://raw.githubusercontentS.com/luckyzyx/luckyzyxtools/main/docs/update.json";
 
+    @SuppressWarnings("unused")
     private String newPackageName;//包名
     private String newVersionName;//版本名
     private String newVersionCode;//版本号
@@ -110,9 +111,6 @@ public class HttpUtils {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Looper.prepare();
-                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-                    Looper.loop();
                 }
 
             }

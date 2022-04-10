@@ -34,9 +34,10 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private HomeFragment homeFragment;
-    private OtherFragment otherFragment;
-    private UserFragment userFragment;
+    //底部导航栏
+    private final HomeFragment homeFragment = new HomeFragment();
+    private final OtherFragment otherFragment = new OtherFragment();
+    private final UserFragment userFragment = new UserFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,18 @@ public class MainActivity extends AppCompatActivity {
         CheckTheme(this);
         CheckPermission();
         CheckXposed();
+        startCheckUpdate();
         setContentView(R.layout.activity_main);
 
-        //底部导航栏
-        homeFragment = new HomeFragment();
-        otherFragment = new OtherFragment();
-        userFragment = new UserFragment();
+        //初始化BottomNavigationView底部导航栏
+        initBottomNavigationView();
 
+        //获取Root权限
+        ShellUtils.checkRootPermission();
+    }
+
+    //初始化BottomNavigationView底部导航栏
+    private void initBottomNavigationView(){
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_item);
         //设置监听方法
         //noinspection deprecation
@@ -61,15 +67,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.nav_item_home);
         //设置选中显示label
         bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_SELECTED);
-
-        //获取Root权限
-        ShellUtils.checkRootPermission();
-        //启动时检查更新
-        startCheckUpdate();
-        //初始化Hook APP
-        initHookAPP();
     }
-
     //NavigationItem被选择事件
     @SuppressWarnings("deprecation")
     @SuppressLint("NonConstantResourceId")
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     .setCancelable(false)
                     .setMessage(getString(R.string.not_supported))
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> System.exit(0))
-//                    .setNegativeButton(R.string.ignore, null)
+                    //.setNegativeButton(R.string.ignore, null)
                     .show();
         }
     }
@@ -303,21 +301,5 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(context, "已将FPS设置为默认!", Toast.LENGTH_SHORT).show();
                 })
                 .show();
-    }
-
-    //初始化Hook APP信息
-    public void initHookAPP() {
-        SPUtils.putString(this,"XposedSettings","PackageInstallCommit",getVersionCommit("com.android.packageinstaller"));
-    }
-
-    //获取APP versionCommit
-    public String getVersionCommit(String packageName) {
-        try {
-            PackageManager packageManager = getPackageManager();
-            return packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData.getString("versionCommit");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return "error";
-        }
     }
 }

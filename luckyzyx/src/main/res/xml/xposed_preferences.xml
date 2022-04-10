@@ -38,6 +38,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         android:title="应用包安装程序(逐步适配)"
+        app:summary="强行停止后生效"
         android:key="packageinstaller">
 
         <SwitchPreference
