@@ -18,6 +18,27 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        android:title="系统框架(逐步适配)"
+        android:key="android">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="disable_flag_secure"
+            app:iconSpaceReserved="false"
+            android:title="禁用FLAG_SECURE"
+            app:summary="在不允许截图的APP中允许截图"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="statusbar_top_notification"
+            app:iconSpaceReserved="false"
+            android:title="移除状态栏上层警告"
+            app:summary="移除状态栏“此应用在其他应用上层显示”"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
         android:title="系统界面(逐步适配)"
         android:key="systemui">
 

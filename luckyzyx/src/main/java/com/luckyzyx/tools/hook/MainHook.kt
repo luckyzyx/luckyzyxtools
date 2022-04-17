@@ -32,6 +32,8 @@ class MainHook : YukiHookXposedInitProxy {
             if (prefs(PrefsFile).getBoolean("hooktest", false)) loadApp(name = "com.luckyzyx.yuki", HookYukiDemo())
             if (prefs(PrefsFile).getBoolean("ad", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookAd())
             if (prefs(PrefsFile).getBoolean("vip", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookVip())
+            if (prefs(PrefsFile).getBoolean("disable_flag_secure", false)) loadApp(name = "android", HookAndroid.DisableFlagSecure())
+            if (prefs(PrefsFile).getBoolean("statusbar_top_notification", false)) loadApp(name = "android", HookAndroid.HookTopNotification())
             if (prefs(PrefsFile).getBoolean("developer_mode",false)) loadApp(name = "com.android.systemui", HookSystemUI.HookDeveloper())
 //            if (prefs(PrefsFile).getBoolean("network_speed",false)) loadApp(name = "com.android.systemui", HookSystemUI.HookNetWorkSpeed())
             if (prefs(PrefsFile).getBoolean("replacePackageInstaller",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.ReplaceHook())
