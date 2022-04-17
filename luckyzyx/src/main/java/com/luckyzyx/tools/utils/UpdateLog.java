@@ -28,7 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
-        logslist.add(new UpdateLogBean("2.0.2333", "添加Xposed Hook功能"));
+        logslist.add(new UpdateLogBean("2.0.2334", "添加Xposed Hook功能"));
 
         logslist.add(new UpdateLogBean("2.0.2326", "优化代码逻辑\n修复部分可能导致闪退的bug"));
         logslist.add(new UpdateLogBean("2.0.2305", "优化获取APP Commit\n关于页面添加权限说明"));
