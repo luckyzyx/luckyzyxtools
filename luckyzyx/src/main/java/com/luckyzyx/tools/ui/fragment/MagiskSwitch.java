@@ -6,7 +6,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
 
-public class ModuleSwitchFragment extends PreferenceFragmentCompat {
+public class MagiskSwitch extends PreferenceFragmentCompat {
 
     private static final String PREFERENCE_NAME = "MagiskSettings";
 

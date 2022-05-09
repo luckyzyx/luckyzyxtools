@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:title="应用包安装程序"
+            app:summary="点击停止此作用域"
+            app:key="packageinstaller" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="replacePackageInstaller"
+            app:iconSpaceReserved="false"
+            app:title="一键开启"
+            app:summary="移除Apk检查/扫描,版本弹窗,界面净化等"/>
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="replaceInstaller"
+            app:iconSpaceReserved="false"
+            app:title="替换应用包安装程序"
+            app:summary="切换原生安装器"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="launcher"
+        app:title="启动器"
+        app:iconSpaceReserved="false" >
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="unlock_task_locks"
+            app:title="解锁最近任务限制" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="app_update_dot"
+            app:iconSpaceReserved="false"
+            app:title="移除APP更新蓝点" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+
+        <Preference
+            app:key="more_anime"
+            app:title="好多动漫"
+            app:summary="点击停止此作用域"
+            app:iconSpaceReserved="false" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="ad"
+            app:title="跳过启动广告" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="vip"
+            app:iconSpaceReserved="false"
+            app:title="下载原图" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

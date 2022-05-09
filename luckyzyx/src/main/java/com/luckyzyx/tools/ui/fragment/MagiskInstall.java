@@ -33,7 +33,7 @@ import java.io.File;
 import java.util.Objects;
 
 
-public class ModuleInstallFragment extends Fragment {
+public class MagiskInstall extends Fragment {
 
     private static final String PREFERENCE_NAME = "MagiskSettings";
 

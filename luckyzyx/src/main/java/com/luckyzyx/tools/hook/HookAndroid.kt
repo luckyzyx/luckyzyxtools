@@ -19,20 +19,4 @@ class HookAndroid {
             }
         }
     }
-
-    class DisableFlagSecure : YukiBaseHooker() {
-
-        override fun onHook() {
-            findClass(name = "com.android.server.wm.WindowState").hook {
-                injectMember {
-                    method {
-                        name = "isSecureLocked"
-                    }
-                    beforeHook {
-                        resultFalse()
-                    }
-                }
-            }
-        }
-    }
 }

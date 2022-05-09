@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android' version '1.6.20'
-    id 'com.google.devtools.ksp' version '1.6.20-1.0.5'
+    id 'org.jetbrains.kotlin.android' version '1.6.21'
+    id 'com.google.devtools.ksp' version '1.6.21-1.0.5'
 }
 
 android {
@@ -45,8 +45,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
     }
     compileSdk 31
     applicationVariants.all { variant ->
@@ -71,7 +74,7 @@ android {
 //    }
 
 }
-def YukiVersion = "1.0.73"
+def YukiVersion = "1.0.86"
 dependencies {
     //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"
@@ -86,7 +89,7 @@ dependencies {
     //快速创建settings
     implementation 'androidx.preference:preference:1.1.1'
     //OkHttp3
-    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.6'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.7'
     //一个强大并且灵活的RecyclerViewAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
 }

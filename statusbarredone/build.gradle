@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' version '1.6.21'
+    id 'com.google.devtools.ksp' version '1.6.21-1.0.5'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.luckyzyx.statusbarredone"
+        minSdk 30
+        targetSdk 32
+        versionCode 7
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true     //源代码混淆压缩
+            shrinkResources true     //移除无用的resource文件
+            zipAlignEnabled true     //对APK包执行ZIP对齐优化，减小zip体积，增加运行效率
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+def YukiVersion = "1.0.86"
+dependencies {
+    compileOnly "de.robv.android.xposed:api:82"
+    implementation "com.highcapable.yukihookapi:api:"+YukiVersion
+    ksp "com.highcapable.yukihookapi:ksp-xposed:"+YukiVersion
+    implementation 'com.google.android.material:material:1.5.0'
+}

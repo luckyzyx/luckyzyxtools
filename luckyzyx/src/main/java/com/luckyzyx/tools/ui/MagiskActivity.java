@@ -13,9 +13,9 @@ import android.view.MenuItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.ui.fragment.ModuleInstallFragment;
-import com.luckyzyx.tools.ui.fragment.ModuleListFragment;
-import com.luckyzyx.tools.ui.fragment.ModuleSwitchFragment;
+import com.luckyzyx.tools.ui.fragment.MagiskInstall;
+import com.luckyzyx.tools.ui.fragment.MagiskList;
+import com.luckyzyx.tools.ui.fragment.MagiskSwitch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +40,9 @@ public class MagiskActivity extends AppCompatActivity {
         String[] titles = {"模块安装", "模块选项","模块管理"};
         List<Fragment> fragmentList = new ArrayList<>();
 
-        fragmentList.add(new ModuleInstallFragment());
-        fragmentList.add(new ModuleSwitchFragment());
-        fragmentList.add(new ModuleListFragment());
+        fragmentList.add(new MagiskInstall());
+        fragmentList.add(new MagiskSwitch());
+        fragmentList.add(new MagiskList());
         TabLayout tabs = findViewById(R.id.tabs);
         ViewPager2 viewPager2 = findViewById(R.id.view_page2);
         viewPager2.setAdapter(new FragmentStateAdapter(this) {

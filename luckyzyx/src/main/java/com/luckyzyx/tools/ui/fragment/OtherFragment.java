@@ -21,7 +21,6 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
         setPreferencesFromResource(R.xml.other_preferences, rootKey);
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
         //判断无线调试状态
         SwitchPreference wifi_adb = findPreference("wifi_adb");
@@ -155,17 +154,5 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("settings put system show_touches 1", true);
             else ShellUtils.execCommand("settings put system show_touches 0", true);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 }

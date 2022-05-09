@@ -32,7 +32,7 @@
 
     <PreferenceCategory
         android:title="开放源代码"
-        android:summary="从中获取到灵感或引导思路"
+        android:summary="从中获取到灵感或引导思路,排名不分先后"
         app:iconSpaceReserved="false">
 
         <Preference
@@ -78,6 +78,15 @@
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/Oosl/ColorOSTool"/>
+        </Preference>
+
+        <Preference
+            android:title="WooBoxForColorOS"
+            android:summary="Simplicity-Team , GPL-3.0 License"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Simplicity-Team/WooBoxForColorOS"/>
         </Preference>
 
     </PreferenceCategory>

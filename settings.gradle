@@ -12,3 +12,4 @@ rootProject.name = "luckyzyx"
 include ':YukiDemo'
 include ':luckyzyx'
 include ':xposdedemo'
+include ':statusbarredone'

@@ -26,9 +26,9 @@ class HookPackageInstaller {
                     fieldName[1] = "d"
             }
             findClass(name = "com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
-                //跳过检查安全应用跳转商店
+                //跳过apk扫描
                 //isStartAppDetail
-                //search -> count_canceled_by_app_detail -4
+                //search -> count_canceled_by_app_detail -4 -> MethodName
                 if (!methodName.equals(null)) {
                     injectMember {
                         method {
@@ -41,7 +41,7 @@ class HookPackageInstaller {
                     }
                 }
 
-                //跳过apk病毒扫描
+                //检查扫描风险
                 //checkToScanRisk
                 //search -> "button_type", "install_old_version_button" -5
                 //替换调用方法
@@ -97,13 +97,12 @@ class HookPackageInstaller {
                         afterHook {
                             field {
                                 name = fieldName[0].toString()
-                                type = BooleanType
-                            }.get(instance).set(false)
+                            }.get(instance).setFalse()
                         }
                     }
                 }
                 //低版本相同版本警告
-                //search ->  ? 1 : 0;
+                //search ->  ? 1 : 0; -> this Method
                 if (!methodName[5].equals(null)) {
                     injectMember {
                         method {
@@ -124,7 +123,7 @@ class HookPackageInstaller {
                     }
                     beforeHook {
                         if (args().equals(2)) {
-                            args().set(0)
+                            args(0).set(0)
                         }
                     }
                 }
@@ -173,7 +172,7 @@ class HookPackageInstaller {
             if(!fieldName[1].equals(null)){
                 "com.android.packageinstaller.oplus.common.k".clazz.field {
                     name = fieldName[1].toString()
-                }.get().set(true)
+                }.get().setTrue()
             }
         }
     }
@@ -202,7 +201,7 @@ class HookPackageInstaller {
                         beforeHook {
                             methodName.clazz.field {
                                 name = fieldName
-                            }.get().set(true)
+                            }.get().setTrue()
                         }
                     }
                 }

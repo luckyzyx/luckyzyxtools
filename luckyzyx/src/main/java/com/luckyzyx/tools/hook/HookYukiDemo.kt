@@ -2,7 +2,6 @@ package com.luckyzyx.tools.hook
 
 import android.app.AlertDialog
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.log.loggerI
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.StringType
 import com.highcapable.yukihookapi.hook.type.java.UnitType
@@ -41,7 +40,7 @@ class HookYukiDemo : YukiBaseHooker() {
                 }
                 beforeHook {
                     // 设置 0 号 param
-                    args().set("I am hook method param")
+                    args(0).set("I am hook method param")
                 }
             }
             // 拦截替换整个方法
@@ -74,7 +73,7 @@ class HookYukiDemo : YukiBaseHooker() {
                 constructor { param(StringType) }
                 beforeHook {
                     // 设置 0 号 param
-                    args().set("I am hook constructor param")
+                    args(0).set("I am hook constructor param")
                 }
             }
         }
