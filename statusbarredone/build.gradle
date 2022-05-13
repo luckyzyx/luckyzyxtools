@@ -30,6 +30,7 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+    namespace 'com.luckyzyx.statusbarredone'
 }
 
 def YukiVersion = "1.0.86"

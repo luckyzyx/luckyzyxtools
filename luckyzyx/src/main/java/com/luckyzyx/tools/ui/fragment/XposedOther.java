@@ -27,6 +27,9 @@ public class XposedOther extends PreferenceFragmentCompat implements SharedPrefe
         if (preference.getKey().equals("more_anime")){
             ShellUtils.execCommand("killall com.east2d.everyimage",true);
         }
+        if (preference.getKey().equals("launcher")){
+            ShellUtils.execCommand("killall com.android.launcher",true);
+        }
         return super.onPreferenceTreeClick(preference);
     }
 

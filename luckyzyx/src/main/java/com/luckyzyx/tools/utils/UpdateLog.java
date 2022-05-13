@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2429", "添加显示刷新率"));
         logslist.add(new UpdateLogBean("2.0.2420", "添加更多功能(WooBox)"));
         logslist.add(new UpdateLogBean("2.0.2336", "更新Yuki API"));
         logslist.add(new UpdateLogBean("2.0.2335", "添加Xposed Hook功能"));
