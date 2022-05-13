@@ -21,13 +21,13 @@
             app:defaultValue="false"
             app:key="statusbar_clock_second"
             app:iconSpaceReserved="false"
-            app:title="下拉状态栏时钟显秒" />
+            app:title="设置下拉状态栏时钟显秒" />
 
         <SwitchPreference
             app:defaultValue="false"
             app:key="developer_mode"
             app:iconSpaceReserved="false"
-            app:title="状态栏开发者选项警告" />
+            app:title="移除状态栏开发者选项警告" />
 
         <SwitchPreference
             app:defaultValue="false"
@@ -39,7 +39,7 @@
             app:defaultValue="false"
             app:key="network_speed"
             app:iconSpaceReserved="false"
-            app:title="状态栏网速刷新率" />
+            app:title="状态栏网速刷新率1s" />
 
         <SwitchPreference
             app:defaultValue="false"

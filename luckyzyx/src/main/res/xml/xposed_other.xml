@@ -25,10 +25,13 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:key="launcher"
-        app:title="启动器"
-        app:iconSpaceReserved="false" >
+    <PreferenceCategory>
+
+        <Preference
+            app:summary="点击停止此作用域"
+            app:key="launcher"
+            app:title="启动器"
+            app:iconSpaceReserved="false" />
 
         <SwitchPreference
             app:defaultValue="false"

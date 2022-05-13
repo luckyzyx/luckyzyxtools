@@ -65,6 +65,7 @@ android {
     buildFeatures {
         prefab true
     }
+    namespace 'com.luckyzyx.tools'
 //    allprojects {
 //        gradle.projectsEvaluated {
 //            tasks.withType(JavaCompile) {

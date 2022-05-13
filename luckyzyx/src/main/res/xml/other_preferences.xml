@@ -52,6 +52,13 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="show_fps"
+            android:title="显示刷新频率"
+            app:iconSpaceReserved="false"
+            app:summary="显示当前刷新频率上限" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="show_touches"
             android:title="显示触摸操作"
             app:iconSpaceReserved="false"

@@ -31,8 +31,6 @@ class MainHook : IYukiHookXposedInit {
     }
 
     override fun onHook() = encase {
-//        loggerD(msg = "This PackageName is $packageName")
-
         if (prefs(PrefsFile).getBoolean("ad", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookAd())
         if (prefs(PrefsFile).getBoolean("vip", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookVip())
 
