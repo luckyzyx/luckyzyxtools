@@ -151,8 +151,8 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         }
 
         if ("show_fps".equals(key)) {
-            if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("su -c service call SurfaceFlinger 1034 i32 1", true);
-            else ShellUtils.execCommand("su -c service call SurfaceFlinger 1034 i32 0", true);
+            if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("service call SurfaceFlinger 1034 i32 1", true);
+            else ShellUtils.execCommand("service call SurfaceFlinger 1034 i32 0", true);
         }
 
         if ("show_touches".equals(key)) {
