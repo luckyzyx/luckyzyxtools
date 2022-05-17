@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2454", "优化Xposed代码"));
         logslist.add(new UpdateLogBean("2.0.2436", "修复其他页面选项不生效问题"));
         logslist.add(new UpdateLogBean("2.0.2430", "添加显示刷新率"));
         logslist.add(new UpdateLogBean("2.0.2420", "添加更多功能(WooBox)"));

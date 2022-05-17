@@ -4,175 +4,71 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
-import com.highcapable.yukihookapi.hook.type.java.IntType
-import com.highcapable.yukihookapi.hook.type.java.UnitType
 
 class HookPackageInstaller {
 
-    class ReplaceHook : YukiBaseHooker() {
-
+    class SkipScan : YukiBaseHooker() {
         override fun onHook() {
-            val packageInstallCommit = prefs("XposedSettings").getString("PackageInstallCommit","a222497")
-            val methodName = arrayOfNulls<String>(6)
-            val fieldName = arrayOfNulls<String>(2)
-            if(packageInstallCommit == "a222497"){
-                    methodName[0] = "M"
-                    methodName[1] = "E"
-                    methodName[2] = "j"
-                    methodName[3] = "S"
-                    methodName[4] = "T"
-                    methodName[5] = "Q"
-                    fieldName[0] = "aN"
-                    fieldName[1] = "d"
+            val list: Array<String> = when(prefs("XposedSettings").getString("PackageInstallCommit","null")){
+            "7bc7db7","e1a2c58" -> { arrayOf("L","C","K") }
+            "75fe984","532ffef" -> { arrayOf("L","D","i") }
+            "38477f0" -> { arrayOf("M","D","k") }
+            "a222497" -> { arrayOf("M","E","j") }
+            //d132ce2
+            else -> { arrayOf("isStartAppDetail","checkToScanRisk","initiateInstall") }
             }
-            findClass(name = "com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
-                //跳过apk扫描
-                //isStartAppDetail
-                //search -> count_canceled_by_app_detail -4 -> MethodName
-                if (!methodName.equals(null)) {
-                    injectMember {
-                        method {
-                            name = methodName[0].toString()
-                            returnType = BooleanType
-                        }
-                        afterHook {
-                            resultFalse()
-                        }
-                    }
-                }
 
-                //检查扫描风险
-                //checkToScanRisk
-                //search -> "button_type", "install_old_version_button" -5
-                //替换调用方法
-                //initiateInstall
-                //search -> "button_type", "install_old_version_button" -11
-                if (!methodName[1].equals(null)) {
-                    injectMember {
-                        method {
-                            name = methodName[1].toString()
-                        }
-                        replaceUnit {
-                            method {
-                                name = methodName[2].toString()
-                            }.get(instance).call()
-                        }
-                    }
-                }
-
-                //方法 checkAppSuggest
-                //search -> "PackageInstaller", "startAppdetail: " -7
-                if (!methodName[3].equals(null)) {
-                    injectMember {
-                        method {
-                            name = methodName[3].toString()
-                            returnType = UnitType
-                        }
-                        replaceUnit {
-                            resultNull()
-                        }
-                    }
-                }
-                //方法 checkGameSuggest
-                //search -> "PackageInstaller", "don't recommend : -2
-                if (!methodName[4].equals(null)) {
-                    injectMember {
-                        method {
-                            name = methodName[4].toString()
-                            returnType = UnitType
-                        }
-                        replaceUnit {
-                            resultNull()
-                        }
-                    }
-                }
-                //mIsOPPOMarketExists
-                //search -> "oppo_market"
-                if (!fieldName[0].equals(null)) {
-                    injectMember {
-                        method {
-                            name = "onCreate"
-                            param(BundleClass)
-                        }
-                        afterHook {
-                            field {
-                                name = fieldName[0].toString()
-                            }.get(instance).setFalse()
-                        }
-                    }
-                }
-                //低版本相同版本警告
-                //search ->  ? 1 : 0; -> this Method
-                if (!methodName[5].equals(null)) {
-                    injectMember {
-                        method {
-                            name = methodName[5].toString()
-                            returnType = BooleanType
-                        }
-                        replaceToFalse()
-                    }
-                }
-            }
-            //uncheck app_suggest_option as default 取消选中默认应用建议选项
-            //search -> CompoundButton.SavedState{
-            findClass(name = "com.coui.appcompat.widget.COUICheckBox").hook {
+            //skip appdetail,search isStartAppDetail
+            //search -> count_canceled_by_app_detail -4 -> MethodName
+            findClass("com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
                 injectMember {
                     method {
-                        name = "setState"
-                        param(IntType)
+                        name = list[0]
                     }
-                    beforeHook {
-                        if (args().equals(2)) {
-                            args(0).set(0)
-                        }
+                    afterHook {
+                        resultFalse()
                     }
                 }
             }
 
-            //安装成功时隐藏建议布局
-            //private LinearLayout mSuggestLayoutA;
-            //***************
-            //private RelativeLayout mSuggestLayoutATitle;
-            //private LinearLayout mSuggestLayoutB;
-            //private LinearLayout mSuggestLayoutC;
+            //skip app scan, search method checkToScanRisk
+            //search -> "button_type", "install_old_version_button" -5 -> MethodName
+            //replace to initiateInstall
+            //search -> "button_type", "install_old_version_button" -11 -> MethodName
+            findClass("com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
+                injectMember {
+                    method {
+                        name = list[1]
+                    }
+                    replaceUnit {
+                        method {
+                            name = list[2]
+                        }.get(instance).call()
+                    }
+                }
+            }
+        }
+    }
 
-            //WYZ LinearLayout
-            //X RelativeLayout
-//            findClass(name = "com.android.packageinstaller.oplus.b").hook {
-//                injectMember {
-//                    method {
-//                        name = "handleMessage"
-//                    }
-//                    afterHook {
-//                        "com.android.packageinstaller.oplus.InstallAppProgress".clazz.hook {
-//                            method {
-//                                name = "a"
-//                            }
-//                            afterHook {
-//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
-//                                    name = "W"
-//                                }.get(instance).setNull()
-//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
-//                                    name = "Y"
-//                                }.get(instance).setNull()
-//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
-//                                    name = "Z"
-//                                }.get(instance).setNull()
-//                                "com.android.packageinstaller.oplus.InstallAppProgress".clazz.field{
-//                                    name = "X"
-//                                }.get(instance).setNull()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-
-            //hooklog
-            //search -> OppoLog, isQELogOn =
-            if(!fieldName[1].equals(null)){
-                "com.android.packageinstaller.oplus.common.k".clazz.field {
-                    name = fieldName[1].toString()
-                }.get().setTrue()
+    class AllowReplace : YukiBaseHooker() {
+        override fun onHook() {
+            val list: String = when(prefs("XposedSettings").getString("PackageInstallCommit","null")){
+                "7bc7db7","e1a2c58","a222497" -> "Q"
+                "75fe984","532ffef" -> "P"
+                "38477f0" -> "R"
+                //d132ce2
+                else -> "isReplaceInstall"
+            }
+            //Allow replace install,Low/same version warning
+            //search ->  ? 1 : 0; -> this Method
+            findClass("com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
+                injectMember {
+                    method {
+                        name = list
+                        returnType = BooleanType
+                    }
+                    replaceToFalse()
+                }
             }
         }
     }
@@ -181,28 +77,34 @@ class HookPackageInstaller {
     //search -> DeleteStagedFileOnResult
     class ReplaceInstaller : YukiBaseHooker() {
         override fun onHook() {
-            val packageInstallCommit = prefs("XposedSettings").getString("PackageInstallCommit","a222497")
-            var methodName = ""
-            var fieldName = ""
-            if(packageInstallCommit == "a222497"){
-                methodName = "com.android.packageinstaller.oplus.common.j"
-                fieldName = "f"
-            }else if (packageInstallCommit == "104bacb"){
-                methodName = "com.android.packageinstaller.oplus.common.FeatureOption"
-                fieldName = "sIsClosedSuperFirewall"
+            val list: Array<String> = when (prefs("XposedSettings").getString("PackageInstallCommit","null")) {
+                "7bc7db7", "e1a2c58", "75fe984", "532ffef", "38477f0", "a222497" -> {
+                    arrayOf(
+                        "com.android.packageinstaller.DeleteStagedFileOnResult",
+                        "com.android.packageinstaller.oplus.common.j",
+                        "f"
+                    )
+                }
+                //d132ce2
+                else -> {
+                    arrayOf(
+                        "com.android.packageinstaller.DeleteStagedFileOnResult",
+                        "com.android.packageinstaller.oplus.common.FeatureOption",
+                        "sIsClosedSuperFirewall"
+                    )
+                }
             }
-            findClass(name = "com.android.packageinstaller.DeleteStagedFileOnResult").hook {
-                if(!fieldName.equals(null)){
-                    injectMember {
-                        method {
-                            name = "onCreate"
-                            param(BundleClass)
-                        }
-                        beforeHook {
-                            methodName.clazz.field {
-                                name = fieldName
-                            }.get().setTrue()
-                        }
+            //use AOSP installer,search -> DeleteStagedFileOnResult
+            findClass(list[0]).hook{
+                injectMember {
+                    method {
+                        name = "onCreate"
+                        param(BundleClass)
+                    }
+                    beforeHook {
+                        list[1].clazz.field {
+                            name = list[2]
+                        }.get().setTrue()
                     }
                 }
             }

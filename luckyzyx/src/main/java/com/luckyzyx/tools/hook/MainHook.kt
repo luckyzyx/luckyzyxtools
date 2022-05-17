@@ -44,8 +44,9 @@ class MainHook : IYukiHookXposedInit {
         if (prefs(PrefsFile).getBoolean("charging_completed",false)) loadApp(name = "com.android.systemui", HookSystemUI.RemoveChargingCompleted())
         if (prefs(PrefsFile).getBoolean("statusbar_bottom_networkwarn",false)) loadApp(name = "com.android.systemui", HookSystemUI.RemoveStatusBatBottomWarn())
 
-        if (prefs(PrefsFile).getBoolean("replacePackageInstaller",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.ReplaceHook())
-        if (prefs(PrefsFile).getBoolean("replaceInstaller",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.ReplaceInstaller())
+        if (prefs(PrefsFile).getBoolean("skipscan",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.SkipScan())
+        if (prefs(PrefsFile).getBoolean("allowreplace",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.AllowReplace())
+        if (prefs(PrefsFile).getBoolean("replaseaosp",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.ReplaceInstaller())
 
         if (prefs(PrefsFile).getBoolean("unlock_task_locks",false)) loadApp(name = "com.android.launcher", HookLauncher.UnlockTaskLocks())
         if (prefs(PrefsFile).getBoolean("app_update_dot",false)) loadApp(name = "com.android.launcher", HookLauncher.RemoveAppUpdateDot())

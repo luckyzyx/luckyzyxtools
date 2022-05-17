@@ -11,17 +11,24 @@
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="replacePackageInstaller"
+            app:key="skipscan"
             app:iconSpaceReserved="false"
-            app:title="一键开启"
-            app:summary="移除Apk检查/扫描,版本弹窗,界面净化等"/>
+            app:title="跳过Apk扫描"
+            app:summary="Apk病毒扫描相关"/>
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="replaceInstaller"
+            app:key="allowreplace"
             app:iconSpaceReserved="false"
-            app:title="替换应用包安装程序"
-            app:summary="切换原生安装器"/>
+            app:title="允许降级安装"
+            app:summary="移除低/相同版本警告等,搭配核心破解使用"/>
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="replaseaosp"
+            app:iconSpaceReserved="false"
+            app:title="替换AOSP安装器"
+            app:summary="替换原生安装器"/>
 
     </PreferenceCategory>
 
