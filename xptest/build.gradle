@@ -6,13 +6,11 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.luckyzyx.xposdedemo"
+        applicationId 'com.luckyzyx.xptest'
         minSdk 30
         targetSdk 32
-        versionCode 8
+        versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -22,15 +20,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
-    namespace 'com.luckyzyx.xposdedemo'
 }
 
 dependencies {
     compileOnly "de.robv.android.xposed:api:82"
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 }
