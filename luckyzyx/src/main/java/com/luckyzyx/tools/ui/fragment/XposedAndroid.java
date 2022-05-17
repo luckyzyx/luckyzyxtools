@@ -7,6 +7,8 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
 
+import java.util.Objects;
+
 public class XposedAndroid extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private static final String PREFERENCE_NAME = "XposedSettings";

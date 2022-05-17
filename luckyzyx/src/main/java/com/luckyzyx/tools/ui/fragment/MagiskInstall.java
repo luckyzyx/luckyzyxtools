@@ -3,6 +3,7 @@ package com.luckyzyx.tools.ui.fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
@@ -58,7 +59,6 @@ public class MagiskInstall extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         initBottomSheet();
         initInstall();
     }
@@ -257,7 +257,7 @@ public class MagiskInstall extends Fragment {
         boolean fingerprint_repair = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"fingerprint_repair",false);
         boolean statusbar_developer_warn = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"statusbar_developer_warn",false);
         boolean modify_brand = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"modify_brand",false);
-        boolean httpcanary_ca = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"httpcanary_ca",false);
+        boolean automatic_fps = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"automatic_fps",false);
         boolean app_avatar = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"app_avatar",false);
 
         String[] installcommands = {
@@ -335,23 +335,13 @@ public class MagiskInstall extends Fragment {
                 "</permissions>\n" +
                 "zyx\n" +
                 "chmod -Rf 644 "+moduleSystemDir+"etc/permissions/developer_features.xml\n"+
+                "fi",
+                //全局高刷
+                "if [[ "+automatic_fps+" == true ]]; then\n"+
+                "    cat <<zyx >>"+moduleService+"\n" +
+                "su -c service call SurfaceFlinger 1035 i32 1\n" +
+                "zyx\n" +
                 "fi"
-//                //HttpCanary CA
-//                "if [[ "+httpcanary_ca+" == true ]]; then\n"+
-//                "if [[ \"$(pm list packages com.guoshi.httpcanary)\" == \"\" ]]; then\n" +
-//                "    abort \"  你还没有安装HttpCanary,请先安装此应用！\"\n" +
-//                "else\n" +
-//                "    if [ -d \"/data/data/com.guoshi.httpcanary.premium\" ] ; then\n" +
-//                "        CanaryPath=\"/data/data/com.guoshi.httpcanary.premium\"\n" +
-//                "        if [ -d \"/data/data/com.guoshi.httpcanary\" ] ; then\n" +
-//                "            ui_print \"  你好像同时安装了HttpCanary普通版和高级版。\"\n" +
-//                "            ui_print \"  然而接下来将只为高级版安装CA证书。\"   \n" +
-//                "        fi\n" +
-//                "    else\n" +
-//                "        CanaryPath=\"/data/data/com.guoshi.httpcanary\"\n" +
-//                "    fi\n" +
-//                "fi\n"+
-//                "fi"
         };
         //执行并获取命令信息
         ShellUtils.CommandResult installcommandslog = ShellUtils.execCommand(installcommands,true,true);

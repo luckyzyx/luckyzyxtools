@@ -37,6 +37,12 @@
 
         <Preference
             app:iconSpaceReserved="false"
+            app:key="gamespace"
+            app:title="游戏空间"
+            app:summary="打开游戏空间"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
             app:key="back_page"
             app:title="返回上一页"
             app:summary="点击返回跳转前的一页"/>

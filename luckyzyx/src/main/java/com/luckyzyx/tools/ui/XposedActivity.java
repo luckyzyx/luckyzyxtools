@@ -16,6 +16,7 @@ import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.XposedAndroid;
 import com.luckyzyx.tools.ui.fragment.XposedOther;
 import com.luckyzyx.tools.ui.fragment.XposedSystemUI;
+import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,12 @@ public class XposedActivity extends AppCompatActivity {
     }
 
     //创建Menu
+
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0,1,0,"重启系统界面");
+        menu.add(0,2,1,"停止应用包安装器");
+        menu.add(0,3,1,"停止系统桌面");
+        menu.add(0,4,1,"停止好多动漫");
         return true;
     }
 
@@ -71,8 +77,22 @@ public class XposedActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.openOptionsMenu();
-        if(item.getItemId() == android.R.id.home){
-            finish();
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+            case 1:
+                ShellUtils.execCommand("killall com.android.systemui",true);
+                break;
+            case 2:
+                ShellUtils.execCommand("killall com.android.packageinstaller",true);
+                break;
+            case 3:
+                ShellUtils.execCommand("killall com.android.launcher",true);
+                break;
+            case 4:
+                ShellUtils.execCommand("killall com.east2d.everyimage",true);
+                break;
         }
         return false;
     }

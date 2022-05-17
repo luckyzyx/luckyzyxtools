@@ -15,7 +15,7 @@
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="statusbar_top_notification"
+            app:key="remove_statusbar_top_notification"
             app:iconSpaceReserved="false"
             app:title="移除状态栏上层警告"
             app:summary="移除状态栏“此应用在其他应用上层显示”"/>

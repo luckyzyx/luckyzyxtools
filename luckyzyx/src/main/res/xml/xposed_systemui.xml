@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
+    <PreferenceCategory
         app:iconSpaceReserved="false"
         app:key="systemui"
-        app:title="点击重启系统界面" />
+        app:title="系统界面"
+        app:summary="右上角菜单停止/重启作用域"/>
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
@@ -13,37 +14,37 @@
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="statusbar_clock_color"
+            app:key="remove_statusbar_clock_redone"
             app:iconSpaceReserved="false"
             app:title="移除状态栏时钟红1" />
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="statusbar_clock_second"
+            app:key="statusbar_clock_show_second"
             app:iconSpaceReserved="false"
             app:title="设置下拉状态栏时钟显秒" />
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="developer_mode"
+            app:key="remove_statusbar_devmode"
             app:iconSpaceReserved="false"
             app:title="移除状态栏开发者选项警告" />
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="charging_completed"
+            app:key="remove_charging_completed"
             app:iconSpaceReserved="false"
             app:title="移除充电完成通知" />
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="network_speed"
+            app:key="set_network_speed"
             app:iconSpaceReserved="false"
             app:title="状态栏网速刷新率1s" />
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="statusbar_bottom_networkwarn"
+            app:key="remove_statusbar_bottom_networkwarn"
             app:iconSpaceReserved="false"
             app:title="移除下拉状态栏底部网络警告" />
 
@@ -56,7 +57,7 @@
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="lock_screen_color"
+            app:key="remove_lock_screen_redone"
             app:iconSpaceReserved="false"
             app:title="移除锁屏时钟红一" />
 

@@ -3,11 +3,14 @@ package com.luckyzyx.tools.ui.fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.utils.ShellUtils;
+
+import java.util.Objects;
 
 public class XposedOther extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -20,16 +23,7 @@ public class XposedOther extends PreferenceFragmentCompat implements SharedPrefe
     }
 
     @Override
-    public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference.getKey().equals("packageinstaller")){
-            ShellUtils.execCommand("killall com.android.packageinstaller",true);
-        }
-        if (preference.getKey().equals("more_anime")){
-            ShellUtils.execCommand("killall com.east2d.everyimage",true);
-        }
-        if (preference.getKey().equals("launcher")){
-            ShellUtils.execCommand("killall com.android.launcher",true);
-        }
+    public boolean onPreferenceTreeClick(@NonNull Preference preference) {
         return super.onPreferenceTreeClick(preference);
     }
 

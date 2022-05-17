@@ -8,6 +8,7 @@ import com.highcapable.yukihookapi.hook.xposed.proxy.IYukiHookXposedInit
 @InjectYukiHookWithXposed
 class MainHook : IYukiHookXposedInit {
 
+    @Suppress("unused")
     private val PrefsFile = "XposedSettings"
 
     override fun onInit() {
@@ -31,24 +32,15 @@ class MainHook : IYukiHookXposedInit {
     }
 
     override fun onHook() = encase {
-        if (prefs(PrefsFile).getBoolean("ad", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookAd())
-        if (prefs(PrefsFile).getBoolean("vip", false)) loadApp(name = "com.east2d.everyimage", HookMoreAnime.HookVip())
-
-        if (prefs(PrefsFile).getBoolean("statusbar_top_notification", false)) loadSystem(HookAndroid.HookTopNotification())
-
-        if (prefs(PrefsFile).getBoolean("statusbar_clock_color",false)) loadApp(name = "com.android.systemui", HookSystemUI.RemoveStatusBarClockRedOne())
-        if (prefs(PrefsFile).getBoolean("lock_screen_color",false)) loadApp(name = "com.android.systemui", HookSystemUI.RemoveLockScreenClockRedOne())
-        if (prefs(PrefsFile).getBoolean("statusbar_clock_second",false)) loadApp(name = "com.android.systemui", HookSystemUI.SetStatusBarClockShowSecond())
-        if (prefs(PrefsFile).getBoolean("developer_mode",false)) loadApp(name = "com.android.systemui", HookSystemUI.RemoveStatusBatDeveloper())
-        if (prefs(PrefsFile).getBoolean("network_speed",false)) loadApp(name = "com.android.systemui", HookSystemUI.SetNetWorkSpeed())
-        if (prefs(PrefsFile).getBoolean("charging_completed",false)) loadApp(name = "com.android.systemui", HookSystemUI.RemoveChargingCompleted())
-        if (prefs(PrefsFile).getBoolean("statusbar_bottom_networkwarn",false)) loadApp(name = "com.android.systemui", HookSystemUI.RemoveStatusBatBottomWarn())
-
-        if (prefs(PrefsFile).getBoolean("skipscan",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.SkipScan())
-        if (prefs(PrefsFile).getBoolean("allowreplace",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.AllowReplace())
-        if (prefs(PrefsFile).getBoolean("replaseaosp",false)) loadApp(name = "com.android.packageinstaller", HookPackageInstaller.ReplaceInstaller())
-
-        if (prefs(PrefsFile).getBoolean("unlock_task_locks",false)) loadApp(name = "com.android.launcher", HookLauncher.UnlockTaskLocks())
-        if (prefs(PrefsFile).getBoolean("app_update_dot",false)) loadApp(name = "com.android.launcher", HookLauncher.RemoveAppUpdateDot())
+        //系统框架
+        loadSystem(HookAndroid())
+        //系统界面
+        loadApp(name = "com.android.systemui", HookSystemUI())
+        //应用包安装程序
+        loadApp(name = "com.android.packageinstaller", HookPackageInstaller())
+        //系统桌面 启动器
+        loadApp(name = "com.android.launcher", HookLauncher())
+        //好多动漫
+        loadApp(name = "com.east2d.everyimage", HookMoreAnime())
     }
 }

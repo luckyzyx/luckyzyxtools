@@ -13,6 +13,8 @@ import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.utils.SPUtils;
 import com.luckyzyx.tools.utils.ShellUtils;
 
+import java.util.Objects;
+
 public class OtherFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private static final String PREFERENCE_NAME = "OtherSettings";
@@ -21,7 +23,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
         setPreferencesFromResource(R.xml.other_preferences, rootKey);
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        Objects.requireNonNull(getPreferenceScreen().getSharedPreferences()).registerOnSharedPreferenceChangeListener(this);
 
         //判断无线调试状态
         SwitchPreference wifi_adb = findPreference("wifi_adb");
@@ -87,6 +89,11 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
         //开发者模式
         if (preference.getKey().equals("development")) {
             ShellUtils.execCommand("am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true);
+        }
+
+        //游戏空间
+        if (preference.getKey().equals("gamespace")) {
+            ShellUtils.execCommand("am start -n com.oplus.games/com.coloros.gamespaceui.activity.GameBoxCoverActivity", true);
         }
 
         //打开快捷页面
@@ -165,12 +172,12 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        Objects.requireNonNull(getPreferenceScreen().getSharedPreferences()).registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        Objects.requireNonNull(getPreferenceScreen().getSharedPreferences()).unregisterOnSharedPreferenceChangeListener(this);
     }
 }

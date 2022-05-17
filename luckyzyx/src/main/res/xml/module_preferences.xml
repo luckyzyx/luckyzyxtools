@@ -16,11 +16,10 @@
         android:summary="C11可用,C12请使用XP方式"/>
 
     <CheckBoxPreference
-        android:enabled="false"
         android:defaultValue="false"
-        android:key="httpcanary_ca"
+        android:key="automatic_fps"
         app:iconSpaceReserved="false"
-        android:title="HttpCanary CA证书"
-        android:summary="Magisk方式安装HttpCanary CA证书"/>
+        android:title="全局高刷"
+        android:summary="开机自动设置全局高刷"/>
 
 </PreferenceScreen>

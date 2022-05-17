@@ -84,8 +84,9 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+        menu.add(0,1,0,"重启").setIcon(R.drawable.ic_baseline_refresh_24).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(0,2,0,"关于").setIcon(R.drawable.ic_baseline_info_24).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         super.onCreateOptionsMenu(menu, menuInflater);
     }
 
@@ -94,10 +95,10 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
-            case R.id.refresh:
+            case 1:
                 MainActivity.refreshmode(requireActivity());
                 break;
-            case R.id.about:
+            case 2:
                 startActivity(new Intent(requireActivity(), AboutActivity.class));
                 break;
         }

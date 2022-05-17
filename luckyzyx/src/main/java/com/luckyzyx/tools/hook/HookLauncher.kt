@@ -1,14 +1,15 @@
 package com.luckyzyx.tools.hook
 
+import android.annotation.SuppressLint
 import android.widget.TextView
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import java.lang.reflect.Field
 
-class HookLauncher {
-
-    //解锁最近任务限制
-    class UnlockTaskLocks : YukiBaseHooker(){
-        override fun onHook() {
+class HookLauncher : YukiBaseHooker(){
+    private val PrefsFile = "XposedSettings"
+    @SuppressLint("PrivateApi")
+    override fun onHook() {
+        //解锁最近任务限制
+        if (prefs(PrefsFile).getBoolean("unlock_task_locks",false)){
             findClass(name = "com.oplus.quickstep.applock.OplusLockManager").hook {
                 injectMember {
                     method {
@@ -23,11 +24,9 @@ class HookLauncher {
                 }
             }
         }
-    }
 
-    //移除APP更新蓝点
-    class RemoveAppUpdateDot : YukiBaseHooker(){
-        override fun onHook() {
+        //移除APP更新蓝点
+        if (prefs(PrefsFile).getBoolean("remove_app_update_dot",false)){
             findClass(name =  "com.android.launcher3.OplusBubbleTextView").hook {
                 injectMember {
                     method {
@@ -35,10 +34,10 @@ class HookLauncher {
                         paramCount = 3
                     }
                     beforeHook {
-                        val field:Field = "com.android.launcher3.model.data.ItemInfo".clazz.getDeclaredField("title")
+                        val field = appClassLoader.loadClass("com.android.launcher3.model.data.ItemInfo").getDeclaredField("title")
                         field.isAccessible = true
-                        val title = field[args(0)] as CharSequence
-                        (method as TextView).text = title
+                        val title = field[args[0]] as CharSequence
+                        (instance as TextView).text = title
                         resultNull()
                     }
                 }

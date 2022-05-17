@@ -7,11 +7,11 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.highcapable.yukihookapi.hook.type.java.IntType
 import com.highcapable.yukihookapi.hook.type.java.LongType
 
-class HookSystemUI {
-
-    //状态栏网速刷新率
-    class SetNetWorkSpeed : YukiBaseHooker(){
-        override fun onHook() {
+class HookSystemUI : YukiBaseHooker(){
+    private val PrefsFile = "XposedSettings"
+    override fun onHook() {
+        //设置状态栏网速刷新率
+        if (prefs(PrefsFile).getBoolean("set_network_speed",false)){
             findClass(name = "com.oplusos.systemui.statusbar.controller.NetworkSpeedController").hook {
                 injectMember {
                     method {
@@ -24,11 +24,9 @@ class HookSystemUI {
                 }
             }
         }
-    }
 
-    //移除充电完成通知
-    class RemoveChargingCompleted : YukiBaseHooker(){
-        override fun onHook() {
+        //移除充电完成通知
+        if (prefs(PrefsFile).getBoolean("remove_charging_completed",false)){
             findClass(name =  "com.oplusos.systemui.notification.power.OplusPowerNotificationWarnings").hook {
                 injectMember {
                     method {
@@ -41,11 +39,9 @@ class HookSystemUI {
                 }
             }
         }
-    }
 
-    //移除状态栏时钟红1
-    class RemoveStatusBarClockRedOne : YukiBaseHooker(){
-        override fun onHook() {
+        //移除状态栏时钟红1
+        if (prefs(PrefsFile).getBoolean("remove_statusbar_clock_redone",false)){
             findClass(name = "com.android.systemui.statusbar.policy.Clock").hook {
                 injectMember {
                     method {
@@ -58,20 +54,16 @@ class HookSystemUI {
                 }
             }
         }
-    }
 
-    //移除锁屏时钟红1
-    class RemoveLockScreenClockRedOne : YukiBaseHooker(){
-        override fun onHook() {
+        //移除锁屏时钟红1
+        if (prefs(PrefsFile).getBoolean("remove_lock_screen_redone",false)){
             "com.oplusos.systemui.keyguard.clock.RedTextClock".clazz.field {
                 name = "NUMBER_ONE"
             }.get().set("")
         }
-    }
 
-    //设置下拉状态栏时钟显秒
-    class SetStatusBarClockShowSecond : YukiBaseHooker(){
-        override fun onHook() {
+        //设置下拉状态栏时钟显秒
+        if (prefs(PrefsFile).getBoolean("statusbar_clock_show_second",false)){
             findClass(name = "com.android.systemui.statusbar.policy.Clock").hook {
                 injectMember {
                     method {
@@ -84,16 +76,13 @@ class HookSystemUI {
                 }
             }
         }
-    }
 
-    //屏蔽状态栏开发者选项警告
-    class RemoveStatusBatDeveloper : YukiBaseHooker(){
-        private val DeveloperList = VariousClass(
-            "com.oplusos.systemui.statusbar.policy.SystemPromptController",
-            "com.coloros.systemui.statusbar.policy.SystemPromptController"
-        )
-        override fun onHook() {
-            DeveloperList.hook {
+        //移除状态栏开发者选项警告
+        if (prefs(PrefsFile).getBoolean("remove_statusbar_devmode",false)){
+            VariousClass(
+                "com.oplusos.systemui.statusbar.policy.SystemPromptController",
+                "com.coloros.systemui.statusbar.policy.SystemPromptController"
+            ).hook {
                 injectMember {
                     method {
                         name = "updateDeveloperMode"
@@ -104,11 +93,9 @@ class HookSystemUI {
                 }
             }
         }
-    }
 
-    //移除下拉状态栏底部网络警告
-    class RemoveStatusBatBottomWarn : YukiBaseHooker(){
-        override fun onHook() {
+        //移除下拉状态栏底部网络警告
+        if (prefs(PrefsFile).getBoolean("remove_statusbar_bottom_networkwarn",false)){
             findClass(name =  "com.oplusos.systemui.qs.widget.OplusQSSecurityText").hook {
                 injectMember {
                     method {

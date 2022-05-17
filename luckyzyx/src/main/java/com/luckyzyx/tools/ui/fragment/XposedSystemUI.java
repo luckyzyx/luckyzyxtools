@@ -3,11 +3,11 @@ package com.luckyzyx.tools.ui.fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.utils.ShellUtils;
 
 public class XposedSystemUI extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -20,10 +20,7 @@ public class XposedSystemUI extends PreferenceFragmentCompat implements SharedPr
     }
 
     @Override
-    public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference.getKey().equals("systemui")){
-            ShellUtils.execCommand("killall com.android.systemui",true);
-        }
+    public boolean onPreferenceTreeClick(@NonNull Preference preference) {
         return super.onPreferenceTreeClick(preference);
     }
 

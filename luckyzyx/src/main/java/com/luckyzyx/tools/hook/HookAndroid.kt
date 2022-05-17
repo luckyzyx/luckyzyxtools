@@ -1,20 +1,30 @@
 package com.luckyzyx.tools.hook
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.type.java.BooleanType
 
-class HookAndroid {
+class HookAndroid : YukiBaseHooker(){
+    private val PrefsFile = "XposedSettings"
+    override fun onHook() {
+        findClass("com.android.server.wm.WindowState").hook {
+            injectMember {
+                method {
+                    name = "isSecureLocked"
+                    returnType = BooleanType
+                }
+                beforeHook {
+                    if (prefs(PrefsFile).getBoolean("disable_flag_secure", false)) resultFalse()
+                }
+            }
+        }
 
-    //移除状态栏上层通知警告
-    class HookTopNotification : YukiBaseHooker(){
-        override fun onHook() {
-            findClass(name = "com.android.server.wm.AlertWindowNotification").hook {
-                injectMember {
-                    method {
-                        name = "onPostNotification"
-                    }
-                    beforeHook {
-                        resultNull()
-                    }
+        findClass("com.android.server.wm.AlertWindowNotification").hook {
+            injectMember {
+                method {
+                    name = "onPostNotification"
+                }
+                beforeHook {
+                    if (prefs(PrefsFile).getBoolean("remove_statusbar_top_notification", false)) resultNull()
                 }
             }
         }
