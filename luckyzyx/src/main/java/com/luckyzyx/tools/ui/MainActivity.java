@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
     public static void setfps(Context context){
         new MaterialAlertDialogBuilder(context)
                 .setTitle("FPS")
-                .setMessage("手动强制全局刷新率 重启恢复默认值\n例: 60Hz/90Hz\n最低即60Hz 最高即90Hz\n详情请根据系统选项")
+                .setMessage("手动强制全局刷新率 重启恢复默认值\n支持在状态栏创建磁贴Tile\n与dfps模块冲突 会导致不生效等问题\n例: 60Hz/90Hz 60Hz/120Hz\n最低即60Hz 最高即90Hz/120Hz\n具体以系统为准")
                 .setCancelable(true)
                 .setPositiveButton("最高", (dialog, which) -> {
                     ShellUtils.execCommand("su -c service call SurfaceFlinger 1035 i32 1",true);
