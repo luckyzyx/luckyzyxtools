@@ -35,12 +35,14 @@ class MainHook : IYukiHookXposedInit {
         //系统框架
         loadSystem(HookAndroid())
         //系统界面
-        loadApp(name = "com.android.systemui", HookSystemUI())
+        loadApp("com.android.systemui", HookSystemUI())
         //应用包安装程序
-        loadApp(name = "com.android.packageinstaller", HookPackageInstaller())
+        loadApp("com.android.packageinstaller", HookPackageInstaller())
         //系统桌面 启动器
-        loadApp(name = "com.android.launcher", HookLauncher())
+        loadApp("com.android.launcher", HookLauncher())
+        //时钟
+        loadApp("com.coloros.alarmclock", HookAlarmclock())
         //好多动漫
-        loadApp(name = "com.east2d.everyimage", HookMoreAnime())
+        loadApp("com.east2d.everyimage", HookMoreAnime())
     }
 }

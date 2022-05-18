@@ -141,11 +141,15 @@ public class MainActivity extends AppCompatActivity {
     //初始化Hook APP
     private void InitHookAPP(){
         if(CheckXposed){
-            String PackageInstaller = "com.android.packageinstaller";
-            SPUtils.putString(this,"XposedSettings","PackageInstallCommit",getAppCommit(PackageInstaller));
+            String[] keylist = {"PackageInstallCommit","AlarmClockCommit"};
+            String[] packlist = {"com.android.packageinstaller","com.coloros.alarmclock"};
+            for(int i = 0; i < keylist.length; i++) {
+                SPUtils.putString(this,"XposedSettings",keylist[i],getAppCommit(packlist[i]));
+            }
         }
    }
 
+    //获取APPCommit API
     private String getAppCommit(String packageName) {
         try {
             PackageManager packageManager = this.getPackageManager();

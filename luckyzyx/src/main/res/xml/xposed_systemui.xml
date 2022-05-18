@@ -63,4 +63,18 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="时钟"
+        app:summary="右上角菜单停止/重启作用域"
+        app:key="AlarmClock">
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="remove_alarmclick_widget_redone"
+            app:iconSpaceReserved="false"
+            app:title="移除桌面时钟组件红一" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

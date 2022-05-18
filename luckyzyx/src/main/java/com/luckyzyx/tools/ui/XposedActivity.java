@@ -69,7 +69,8 @@ public class XposedActivity extends AppCompatActivity {
         menu.add(0,1,0,"重启系统界面");
         menu.add(0,2,1,"停止应用包安装器");
         menu.add(0,3,1,"停止系统桌面");
-        menu.add(0,4,1,"停止好多动漫");
+        menu.add(0,4,1,"停止时钟");
+        menu.add(0,9,1,"停止好多动漫");
         return true;
     }
 
@@ -91,6 +92,9 @@ public class XposedActivity extends AppCompatActivity {
                 ShellUtils.execCommand("killall com.android.launcher",true);
                 break;
             case 4:
+                ShellUtils.execCommand("killall com.coloros.alarmclock",true);
+                break;
+            case 9:
                 ShellUtils.execCommand("killall com.east2d.everyimage",true);
                 break;
         }
