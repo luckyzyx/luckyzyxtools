@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2540", "修复异常"));
         logslist.add(new UpdateLogBean("2.0.2537", "修复无法获取时钟Commit问题"));
         logslist.add(new UpdateLogBean("2.0.2491", "支持状态栏全局高刷磁贴"));
         logslist.add(new UpdateLogBean("2.0.2484", "添加移除桌面时钟组件红一"));
