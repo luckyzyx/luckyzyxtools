@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    namespace 'com.luckyzyx.tools'
     signingConfigs {
         release {
             storeFile file('D:\\Android\\luckyzyx\\luckyzyx.jks')
@@ -15,6 +16,8 @@ android {
             v2SigningEnabled true
         }
     }
+    compileSdk 31
+
     //获取最近一条commit信息
 //    def cmd="git rev-parse --short HEAD"
 //    def commitId=cmd.execute().text.trim()
@@ -51,7 +54,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    compileSdk 31
     applicationVariants.all { variant ->
         variant.outputs.all {
             if ('release' == variant.buildType.name) {
@@ -62,10 +64,6 @@ android {
             }
         }
     }
-    buildFeatures {
-        prefab true
-    }
-    namespace 'com.luckyzyx.tools'
 //    allprojects {
 //        gradle.projectsEvaluated {
 //            tasks.withType(JavaCompile) {

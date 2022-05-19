@@ -28,10 +28,10 @@
 #指定代码优化级别，值在0-7之间，默认为5
 -optimizationpasses 10
 #混淆时不使用大小写混合类名
--dontusemixedcaseclassnames
+#-dontusemixedcaseclassnames
 
 #关闭代码优化
--dontoptimize
+#-dontoptimize
 #输出详细信息
 -verbose
 -overloadaggressively

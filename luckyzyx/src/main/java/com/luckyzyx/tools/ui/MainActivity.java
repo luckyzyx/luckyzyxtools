@@ -144,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
             String[] keylist = {"PackageInstallCommit","AlarmClockCommit"};
             String[] packlist = {"com.android.packageinstaller","com.coloros.alarmclock"};
             for(int i = 0; i < keylist.length; i++) {
+                if (getAppCommit(packlist[i]).equals("error")){
+                    Toast.makeText(this, keylist[i]+":"+getAppCommit(packlist[i]), Toast.LENGTH_SHORT).show();
+                }
                 SPUtils.putString(this,"XposedSettings",keylist[i],getAppCommit(packlist[i]));
             }
         }
@@ -154,8 +157,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             PackageManager packageManager = this.getPackageManager();
             return packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA).metaData.getString("versionCommit");
-        } catch (Exception exception) {
-            return "Error";
+        } catch (PackageManager.NameNotFoundException exception) {
+//            Toast.makeText(this, exception.toString(), Toast.LENGTH_SHORT).show();
+            return "error";
         }
     }
 
