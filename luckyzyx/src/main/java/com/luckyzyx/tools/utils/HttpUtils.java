@@ -45,7 +45,7 @@ public class HttpUtils {
     private final Context context;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final String jsonurl = "https://raw.githubusercontentS.com/luckyzyx/luckyzyxtools/main/docs/update.json";
+    private final String jsonurl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/docs/update.json";
 
     @SuppressWarnings("unused")
     private String newPackageName;//包名
