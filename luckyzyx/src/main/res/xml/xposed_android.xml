@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="系统框架"
-        app:key="android">
+        app:key="Android">
 
         <SwitchPreference
             app:defaultValue="false"
@@ -19,6 +19,49 @@
             app:iconSpaceReserved="false"
             app:title="移除状态栏上层警告"
             app:summary="移除状态栏“此应用在其他应用上层显示”"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/corepatch"
+        app:key="CorePatch"
+        app:summary="@string/corepatch_summer" >
+
+        <SwitchPreference
+            app:key="downgrade"
+            app:title="@string/downgr"
+            app:summary="@string/downgr_summary"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true" />
+
+        <SwitchPreference
+            app:key="authcreak"
+            app:title="@string/authcreak"
+            app:summary="@string/authcreak_summary"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true" />
+
+        <SwitchPreference
+            app:key="digestCreak"
+            app:title="@string/digestCreak"
+            app:summary="@string/digestCreak_summary"
+            app:iconSpaceReserved="false"
+            app:defaultValue="true" />
+
+        <SwitchPreference
+            app:key="UsePreSig"
+            app:title="@string/UsePreSig"
+            app:summary="@string/UsePreSig_summary"
+            app:iconSpaceReserved="false"
+            app:defaultValue="false" />
+
+        <SwitchPreference
+            app:key="enhancedMode"
+            app:title="@string/enhancedMode"
+            app:summary="@string/enhancedMode_summary"
+            app:iconSpaceReserved="false"
+            app:defaultValue="false" />
 
     </PreferenceCategory>
 

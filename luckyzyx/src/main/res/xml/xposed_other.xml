@@ -5,7 +5,7 @@
             app:iconSpaceReserved="false"
             app:title="应用包安装程序"
             app:summary="右上角菜单停止/重启作用域"
-            app:key="packageinstaller" >
+            app:key="PackageInstaller" >
 
         <SwitchPreference
             app:defaultValue="false"
@@ -31,7 +31,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-            app:key="launcher"
+            app:key="Launcher"
             app:title="启动器"
             app:summary="右上角菜单停止/重启作用域"
             app:iconSpaceReserved="false" >
@@ -51,7 +51,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-            app:key="more_anime"
+            app:key="MoreAnime"
             app:title="好多动漫"
             app:summary="右上角菜单停止/重启作用域"
             app:iconSpaceReserved="false" >

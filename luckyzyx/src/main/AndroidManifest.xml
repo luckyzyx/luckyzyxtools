@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
     <queries>
-        <package android:name="com.coloros.alarmclock"/>
+        <package android:name="com.coloros.alarmclock" />
     </queries>
 
     <application
@@ -42,7 +42,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

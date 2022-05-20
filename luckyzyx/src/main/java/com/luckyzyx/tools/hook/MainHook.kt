@@ -1,9 +1,16 @@
 package com.luckyzyx.tools.hook
 
+import android.os.Build.VERSION.SDK_INT
 import com.highcapable.yukihookapi.annotation.xposed.InjectYukiHookWithXposed
 import com.highcapable.yukihookapi.hook.factory.configs
 import com.highcapable.yukihookapi.hook.factory.encase
+import com.highcapable.yukihookapi.hook.xposed.bridge.event.YukiXposedEvent
 import com.highcapable.yukihookapi.hook.xposed.proxy.IYukiHookXposedInit
+import com.luckyzyx.tools.hook.CorePatch.CorePatchForR
+import com.luckyzyx.tools.hook.CorePatch.CorePatchForS
+import de.robv.android.xposed.IXposedHookZygoteInit
+import de.robv.android.xposed.XposedBridge
+import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 @InjectYukiHookWithXposed
 class MainHook : IYukiHookXposedInit {
@@ -41,8 +48,31 @@ class MainHook : IYukiHookXposedInit {
         //系统桌面 启动器
         loadApp("com.android.launcher", HookLauncher())
         //时钟
-        loadApp("com.coloros.alarmclock", HookAlarmclock())
+        loadApp("com.coloros.alarmclock", HookAlarmClock())
         //好多动漫
         loadApp("com.east2d.everyimage", HookMoreAnime())
+    }
+
+    override fun onXposedEvent() {
+        YukiXposedEvent.onInitZygote { startupParam: IXposedHookZygoteInit.StartupParam ->
+            run {
+                when(SDK_INT){
+                    30 -> CorePatchForR().initZygote(startupParam)
+                    31 -> CorePatchForS().initZygote(startupParam)
+                    else -> XposedBridge.log("[CorePatch] 不支持的Android版本: $SDK_INT")
+                }
+            }
+        }
+        YukiXposedEvent.onHandleLoadPackage { lpparam: XC_LoadPackage.LoadPackageParam ->
+            run {
+                if ("android" == lpparam.packageName && lpparam.processName == "android") {
+                    when(SDK_INT) {
+                        30 -> CorePatchForR().handleLoadPackage(lpparam)
+                        31 -> CorePatchForS().handleLoadPackage(lpparam)
+                        else -> XposedBridge.log("[CorePatch] 不支持的Android版本: $SDK_INT")
+                    }
+                }
+            }
+        }
     }
 }

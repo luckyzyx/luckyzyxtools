@@ -57,7 +57,7 @@ class HookSystemUI : YukiBaseHooker(){
 
         //移除锁屏时钟红1
         if (prefs(PrefsFile).getBoolean("remove_lock_screen_redone",false)){
-            "com.oplusos.systemui.keyguard.clock.RedTextClock".clazz.field {
+          appClassLoader.loadClass("com.oplusos.systemui.keyguard.clock.RedTextClock").field {
                 name = "NUMBER_ONE"
             }.get().set("")
         }

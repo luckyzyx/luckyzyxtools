@@ -53,7 +53,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="锁屏"
-        app:key="Lock Screen">
+        app:key="LockScreen">
 
         <SwitchPreference
             app:defaultValue="false"

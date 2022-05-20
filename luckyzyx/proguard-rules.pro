@@ -31,7 +31,7 @@
 #-dontusemixedcaseclassnames
 
 #关闭代码优化
-#-dontoptimize
+-dontoptimize
 #输出详细信息
 -verbose
 -overloadaggressively

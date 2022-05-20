@@ -3,7 +3,7 @@ package com.luckyzyx.tools.hook
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 
-class HookAlarmclock : YukiBaseHooker() {
+class HookAlarmClock : YukiBaseHooker() {
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
         //移除桌面时钟组件红一
@@ -14,7 +14,7 @@ class HookAlarmclock : YukiBaseHooker() {
                 else -> "Sb"
             }
         if (prefs(PrefsFile).getBoolean("remove_alarmclick_widget_redone",false)) {
-            "com.coloros.widget.smallweather.OnePlusWidget".clazz.field {
+            appClassLoader.loadClass("com.coloros.widget.smallweather.OnePlusWidget").field {
                 name = list
             }.get().set("")
         }
