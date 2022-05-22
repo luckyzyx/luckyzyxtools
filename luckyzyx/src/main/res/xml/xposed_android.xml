@@ -4,6 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="系统框架"
+        app:summary="不生效可尝试重启"
         app:key="Android">
 
         <SwitchPreference

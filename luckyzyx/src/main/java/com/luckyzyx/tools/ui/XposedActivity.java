@@ -3,6 +3,7 @@ package com.luckyzyx.tools.ui;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.XposedAndroid;
-import com.luckyzyx.tools.ui.fragment.XposedOther;
+import com.luckyzyx.tools.ui.fragment.XposedUserApp;
+import com.luckyzyx.tools.ui.fragment.XposedSystemOther;
 import com.luckyzyx.tools.ui.fragment.XposedSystemUI;
 import com.luckyzyx.tools.utils.ShellUtils;
 
@@ -38,12 +40,13 @@ public class XposedActivity extends AppCompatActivity {
 
     //Tabs + ViewPage2
     private void initFragments() {
-        String[] titles = {"系统框架", "系统界面","其他APP"};
+        String[] titles = {"系统框架", "系统界面","系统其他","三方APP"};
         List<Fragment> fragmentList = new ArrayList<>();
 
         fragmentList.add(new XposedAndroid());
         fragmentList.add(new XposedSystemUI());
-        fragmentList.add(new XposedOther());
+        fragmentList.add(new XposedSystemOther());
+        fragmentList.add(new XposedUserApp());
         TabLayout tabs = findViewById(R.id.tabs);
         ViewPager2 viewPager2 = findViewById(R.id.view_page2);
         viewPager2.setAdapter(new FragmentStateAdapter(this) {
@@ -64,12 +67,11 @@ public class XposedActivity extends AppCompatActivity {
     }
 
     //创建Menu
-
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0,1,0,"重启系统界面");
+        menu.add(0,4,1,"重启时钟");
+        menu.add(0,3,1,"重启系统桌面");
         menu.add(0,2,1,"停止应用包安装器");
-        menu.add(0,3,1,"停止系统桌面");
-        menu.add(0,4,1,"停止时钟");
         menu.add(0,9,1,"停止好多动漫");
         return true;
     }
@@ -96,6 +98,9 @@ public class XposedActivity extends AppCompatActivity {
                 break;
             case 9:
                 ShellUtils.execCommand("killall com.east2d.everyimage",true);
+                break;
+            default:
+                Toast.makeText(this, "错误->"+item.getItemId()+":"+item.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
         }
         return false;

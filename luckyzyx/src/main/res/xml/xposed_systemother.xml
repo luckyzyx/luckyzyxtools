@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="时钟"
+        app:summary="右上角菜单停止/重启作用域"
+        app:key="AlarmClock">
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="remove_alarmclock_widget_redone"
+            app:iconSpaceReserved="false"
+            app:title="移除桌面时钟组件红一" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:key="Launcher"
+            app:title="系统桌面"
+            app:summary="右上角菜单停止/重启作用域"
+            app:iconSpaceReserved="false" >
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="unlock_task_locks"
+            app:title="解锁最近任务限制" />
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="remove_app_update_dot"
+            app:iconSpaceReserved="false"
+            app:title="移除APP更新蓝点" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="应用包安装程序"
+        app:summary="右上角菜单停止/重启作用域"
+        app:key="PackageInstaller" >
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="skip_apk_scan"
+            app:iconSpaceReserved="false"
+            app:title="跳过Apk扫描"
+            app:summary="Apk病毒扫描相关"/>
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="allow_replace_install"
+            app:iconSpaceReserved="false"
+            app:title="允许降级安装"
+            app:summary="移除低/相同版本警告等,搭配核心破解使用"/>
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="replase_aosp_installer"
+            app:iconSpaceReserved="false"
+            app:title="替换AOSP安装器"
+            app:summary="替换为原生安装器"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

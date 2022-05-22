@@ -1,32 +1,16 @@
 package com.luckyzyx.tools.hook
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
+import com.luckyzyx.tools.hook.android.DisableFlagSecure
+import com.luckyzyx.tools.hook.android.RemoveStatusBarTopNotification
 
 class HookAndroid : YukiBaseHooker(){
+    @Suppress("unused")
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
-        findClass("com.android.server.wm.WindowState").hook {
-            injectMember {
-                method {
-                    name = "isSecureLocked"
-                    returnType = BooleanType
-                }
-                beforeHook {
-                    if (prefs(PrefsFile).getBoolean("disable_flag_secure", false)) resultFalse()
-                }
-            }
-        }
-
-        findClass("com.android.server.wm.AlertWindowNotification").hook {
-            injectMember {
-                method {
-                    name = "onPostNotification"
-                }
-                beforeHook {
-                    if (prefs(PrefsFile).getBoolean("remove_statusbar_top_notification", false)) resultNull()
-                }
-            }
-        }
+        //禁用FLAG_SECURE
+        loadSystem(DisableFlagSecure())
+        //移除状态栏上层警告
+        loadSystem(RemoveStatusBarTopNotification())
     }
 }

@@ -25,9 +25,9 @@
             android:title="状态栏时钟显秒"
             app:iconSpaceReserved="false" />
 
-        <Preference
+        <Preference app:fragment="com.luckyzyx.tools.ui.fragment.OtherFragment$QuickEntranceFragment"
             app:iconSpaceReserved="false"
-            android:key="coloros_quick"
+            android:key="quick_entrance"
             app:title="ColorOS快捷入口"
             app:summary="快捷入口以及隐藏页面" />
 

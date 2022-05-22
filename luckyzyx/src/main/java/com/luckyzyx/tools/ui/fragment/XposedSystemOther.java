@@ -8,18 +8,15 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.luckyzyx.tools.R;
-import com.luckyzyx.tools.utils.ShellUtils;
 
-import java.util.Objects;
-
-public class XposedOther extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class XposedSystemOther extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private static final String PREFERENCE_NAME = "XposedSettings";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
-        setPreferencesFromResource(R.xml.xposed_other, rootKey);
+        setPreferencesFromResource(R.xml.xposed_systemother, rootKey);
     }
 
     @Override

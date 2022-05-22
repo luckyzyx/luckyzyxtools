@@ -20,15 +20,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Luckyzyx"
-        android:usesCleartextTraffic="true"
-        tools:ignore="AllowBackup">
+        android:usesCleartextTraffic="true" >
+
         <activity
             android:name=".ui.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.MagiskActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/title_activity_magisk" />
         <activity
             android:name=".ui.XposedActivity"
             android:exported="false"

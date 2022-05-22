@@ -21,6 +21,7 @@
     否则微信分身保存的图片，就会导致
     java.lang.IllegalArgumentException: Failed to find configured root that contains /storage/emulated/999/tencent/MicroMsg/WeiXin/export1544062754693.jpg，
     在小米6的手机上微信分身有这个crash，华为没有-->
+    <!--suppress AndroidElementNotAllowed -->
     <root-path
         name="root-path"
         path="" />

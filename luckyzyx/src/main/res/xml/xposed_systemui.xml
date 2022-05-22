@@ -10,6 +10,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="状态栏"
+        app:summary="作用域:系统界面"
         app:key="StatusBar">
 
         <SwitchPreference
@@ -38,7 +39,7 @@
 
         <SwitchPreference
             app:defaultValue="false"
-            app:key="set_network_speed"
+            app:key="network_speed"
             app:iconSpaceReserved="false"
             app:title="状态栏网速刷新率1s" />
 
@@ -53,6 +54,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="锁屏"
+        app:summary="作用域:系统界面"
         app:key="LockScreen">
 
         <SwitchPreference
@@ -60,20 +62,6 @@
             app:key="remove_lock_screen_redone"
             app:iconSpaceReserved="false"
             app:title="移除锁屏时钟红一" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:title="时钟"
-        app:summary="右上角菜单停止/重启作用域"
-        app:key="AlarmClock">
-
-        <SwitchPreference
-            app:defaultValue="false"
-            app:key="remove_alarmclick_widget_redone"
-            app:iconSpaceReserved="false"
-            app:title="移除桌面时钟组件红一" />
 
     </PreferenceCategory>
 

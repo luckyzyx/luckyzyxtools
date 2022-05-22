@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2585", "重构优化XP功能与页面\n关于页面新增条目\n优化快捷入口功能"));
         logslist.add(new UpdateLogBean("2.0.2564", "添加核心破解\n修复模块不生效问题"));
         logslist.add(new UpdateLogBean("2.0.2541", "更换下载更新源"));
         logslist.add(new UpdateLogBean("2.0.2537", "修复无法获取时钟Commit问题"));
@@ -40,7 +41,6 @@ public class UpdateLog {
         logslist.add(new UpdateLogBean("2.0.2420", "添加更多功能(WooBox)"));
         logslist.add(new UpdateLogBean("2.0.2336", "更新Yuki API"));
         logslist.add(new UpdateLogBean("2.0.2335", "添加Xposed Hook功能"));
-
         logslist.add(new UpdateLogBean("2.0.2326", "优化代码逻辑\n修复部分可能导致闪退的bug"));
         logslist.add(new UpdateLogBean("2.0.2305", "优化获取APP Commit\n关于页面添加权限说明"));
         logslist.add(new UpdateLogBean("2.0.2293", "更新Yuki API\n修复lpparam.appinfo报错"));

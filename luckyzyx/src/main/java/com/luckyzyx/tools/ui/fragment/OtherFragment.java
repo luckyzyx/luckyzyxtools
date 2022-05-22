@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
@@ -45,67 +47,9 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
 
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
-
-        //进程管理
-        if (preference.getKey().equals("process_management")) {
-            Intent process_management_oppo = new Intent().setClassName("com.android.settings", "com.coloros.settings.feature.process.RunningApplicationActivity");
-            Intent process_management_oplus = new Intent().setClassName("com.android.settings", "com.oplus.settings.feature.process.RunningApplicationActivity");
-            if (requireActivity().getPackageManager().resolveActivity(process_management_oppo, 0) != null) {
-                ShellUtils.execCommand("am start -n com.android.settings/com.coloros.settings.feature.process.RunningApplicationActivity", true);
-            }else if (requireActivity().getPackageManager().resolveActivity(process_management_oplus, 0) != null) {
-                ShellUtils.execCommand("am start -n com.android.settings/com.oplus.settings.feature.process.RunningApplicationActivity", true);
-            }
-        }
-
-        //工程模式
-        boolean engineermode_oppo = MainActivity.APPexist(requireActivity(),"com.oppo.engineermode");
-        boolean engineermode_oplus = MainActivity.APPexist(requireActivity(),"com.oplus.engineermode");
-        if(preference.getKey().equals("engineering_model")) {
-            if (engineermode_oppo) {
-                ShellUtils.execCommand("am start -n com.oppo.engineermode/.aftersale.AfterSalePage", true);
-            }else if (engineermode_oplus) {
-                ShellUtils.execCommand("am start -n com.oplus.engineermode/.aftersale.AfterSalePage", true);
-            }
-        }
-        //充电测试
-        if(preference.getKey().equals("power_test")) {
-            if (engineermode_oppo) {
-                ShellUtils.execCommand("am start -n com.oppo.engineermode/.charge.modeltest.BatteryInfoShow", true);
-            }else if (engineermode_oplus) {
-                ShellUtils.execCommand("am start -n com.oplus.engineermode/.charge.modeltest.BatteryInfoShow", true);
-            }
-        }
-
-        //反馈工具箱
-        if (preference.getKey().equals("logkit")){
-            ShellUtils.execCommand("am start -n com.oplus.logkit/.activity.MainActivity", true);
-        }
-
-        //系统界面演示模式
-        if (preference.getKey().equals("systemui_demomode")){
-            ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true);
-        }
-
         //开发者模式
         if (preference.getKey().equals("development")) {
             ShellUtils.execCommand("am start -a com.android.settings.APPLICATION_DEVELOPMENT_SETTINGS", true);
-        }
-
-        //游戏空间
-        if (preference.getKey().equals("gamespace")) {
-            ShellUtils.execCommand("am start -n com.oplus.games/com.coloros.gamespaceui.activity.GameBoxCoverActivity", true);
-        }
-
-        //打开快捷页面
-        if (preference.getKey().equals("coloros_quick")) {
-            getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
-            setPreferencesFromResource(R.xml.coloros_preferences,null);
-        }
-
-        //返回上一页
-        if (preference.getKey().equals("back_page")) {
-            getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
-            setPreferencesFromResource(R.xml.other_preferences,null);
         }
 
         return super.onPreferenceTreeClick(preference);
@@ -179,5 +123,65 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
     public void onPause() {
         super.onPause();
         Objects.requireNonNull(getPreferenceScreen().getSharedPreferences()).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    //快捷入口页面Fragment
+    @Keep
+    public static class QuickEntranceFragment extends PreferenceFragmentCompat {
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
+            setPreferencesFromResource(R.xml.quick_entrance_preferences, rootKey);
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(@NonNull Preference preference) {
+            //系统界面演示模式
+            if (preference.getKey().equals("systemui_demomode")){
+                ShellUtils.execCommand("am start -n com.android.systemui/.DemoMode", true);
+            }
+            //进程管理
+            if (preference.getKey().equals("process_management")) {
+                Intent process_management_oppo = new Intent().setClassName("com.android.settings", "com.coloros.settings.feature.process.RunningApplicationActivity");
+                Intent process_management_oplus = new Intent().setClassName("com.android.settings", "com.oplus.settings.feature.process.RunningApplicationActivity");
+                if (requireActivity().getPackageManager().resolveActivity(process_management_oppo, 0) != null) {
+                    ShellUtils.execCommand("am start -n com.android.settings/com.coloros.settings.feature.process.RunningApplicationActivity", true);
+                }else if (requireActivity().getPackageManager().resolveActivity(process_management_oplus, 0) != null) {
+                    ShellUtils.execCommand("am start -n com.android.settings/com.oplus.settings.feature.process.RunningApplicationActivity", true);
+                }
+            }
+            //工程模式
+            boolean engineermode_oppo = MainActivity.APPexist(requireActivity(),"com.oppo.engineermode");
+            boolean engineermode_oplus = MainActivity.APPexist(requireActivity(),"com.oplus.engineermode");
+            if(preference.getKey().equals("engineering_model")) {
+                if (engineermode_oppo) {
+                    ShellUtils.execCommand("am start -n com.oppo.engineermode/.aftersale.AfterSalePage", true);
+                }else if (engineermode_oplus) {
+                    ShellUtils.execCommand("am start -n com.oplus.engineermode/.aftersale.AfterSalePage", true);
+                }
+            }
+            //充电测试
+            if(preference.getKey().equals("power_test")) {
+                if (engineermode_oppo) {
+                    ShellUtils.execCommand("am start -n com.oppo.engineermode/.charge.modeltest.BatteryInfoShow", true);
+                }else if (engineermode_oplus) {
+                    ShellUtils.execCommand("am start -n com.oplus.engineermode/.charge.modeltest.BatteryInfoShow", true);
+                }
+            }
+            //反馈工具箱
+            if (preference.getKey().equals("logkit")){
+                ShellUtils.execCommand("am start -n com.oplus.logkit/.activity.MainActivity", true);
+            }
+            //游戏助手
+            if (preference.getKey().equals("gamespace")) {
+                ShellUtils.execCommand("am start -n com.oplus.games/com.coloros.gamespaceui.activity.GameBoxCoverActivity", true);
+            }
+            //游戏助手开发者选项
+            if (preference.getKey().equals("gamespace_devmode")) {
+                ShellUtils.execCommand("am start -n com.oplus.games/com.coloros.gamespaceui.activity.GameDevelopOptionsActivity\n", true);
+            }
+
+            return super.onPreferenceTreeClick(preference);
+        }
     }
 }
