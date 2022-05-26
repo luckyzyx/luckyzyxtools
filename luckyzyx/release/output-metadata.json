@@ -4,16 +4,16 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.luckyzyx.tools",
+  "applicationId": "com.luckyzyx.clockredone",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 2585,
-      "versionName": "2.0",
-      "outputFile": "luckyzyx_v2.0.2585.apk"
+      "versionCode": 2,
+      "versionName": "1.0",
+      "outputFile": "RemoveClockRedOne-release.apk"
     }
   ],
   "elementType": "File"
