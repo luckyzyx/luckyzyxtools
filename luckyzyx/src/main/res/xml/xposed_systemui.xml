@@ -17,7 +17,7 @@
             app:defaultValue="false"
             app:key="remove_statusbar_clock_redone"
             app:iconSpaceReserved="false"
-            app:title="移除状态栏时钟红1" />
+            app:title="移除下拉状态栏时钟红1" />
 
         <SwitchPreference
             app:defaultValue="false"

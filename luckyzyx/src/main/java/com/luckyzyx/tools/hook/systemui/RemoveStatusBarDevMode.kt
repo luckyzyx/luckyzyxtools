@@ -7,7 +7,7 @@ class RemoveStatusBarDevMode : YukiBaseHooker() {
     override fun onHook() {
         VariousClass(
             "com.oplusos.systemui.statusbar.policy.SystemPromptController",
-            "com.coloros.systemui.statusbar.policy.SystemPromptController"
+            "com.coloros.systemui.statusbar.policy.ColorSystemPromptController"
         ).hook {
             injectMember {
                 method {

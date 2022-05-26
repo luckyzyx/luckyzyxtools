@@ -69,9 +69,10 @@ public class XposedActivity extends AppCompatActivity {
     //创建Menu
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0,1,0,"重启系统界面");
-        menu.add(0,4,1,"重启时钟");
-        menu.add(0,3,1,"重启系统桌面");
-        menu.add(0,2,1,"停止应用包安装器");
+        menu.add(0,2,1,"重启时钟");
+        menu.add(0,3,1,"重启设置");
+        menu.add(0,4,1,"重启系统桌面");
+        menu.add(0,5,1,"停止应用包安装器");
         menu.add(0,9,1,"停止好多动漫");
         return true;
     }
@@ -87,13 +88,16 @@ public class XposedActivity extends AppCompatActivity {
             case 1:
                 ShellUtils.execCommand("killall com.android.systemui",true);
                 break;
-            case 2:
+            case 5:
                 ShellUtils.execCommand("killall com.android.packageinstaller",true);
                 break;
-            case 3:
+            case 4:
                 ShellUtils.execCommand("killall com.android.launcher",true);
                 break;
-            case 4:
+            case 3:
+                ShellUtils.execCommand("killall com.android.settings",true);
+                break;
+            case 2:
                 ShellUtils.execCommand("killall com.coloros.alarmclock",true);
                 break;
             case 9:

@@ -9,8 +9,8 @@ class HookAndroid : YukiBaseHooker(){
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
         //禁用FLAG_SECURE
-        loadSystem(DisableFlagSecure())
+        loadHooker(DisableFlagSecure())
         //移除状态栏上层警告
-        loadSystem(RemoveStatusBarTopNotification())
+        loadHooker(RemoveStatusBarTopNotification())
     }
 }

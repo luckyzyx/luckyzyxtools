@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2609", "适配移除下拉状态栏时钟红一\n更新Hook API\n优化代码逻辑"));
         logslist.add(new UpdateLogBean("2.0.2585", "重构优化XP功能与页面\n关于页面新增条目\n优化快捷入口功能"));
         logslist.add(new UpdateLogBean("2.0.2564", "添加核心破解\n修复模块不生效问题"));
         logslist.add(new UpdateLogBean("2.0.2541", "更换下载更新源"));

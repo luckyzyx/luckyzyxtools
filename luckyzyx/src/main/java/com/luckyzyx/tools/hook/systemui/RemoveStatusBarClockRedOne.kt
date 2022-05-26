@@ -5,14 +5,17 @@ import com.highcapable.yukihookapi.hook.type.java.BooleanType
 
 class RemoveStatusBarClockRedOne : YukiBaseHooker() {
     override fun onHook() {
-        findClass("com.android.systemui.statusbar.policy.Clock").hook {
+        findClass("com.oplusos.systemui.ext.BaseClockExt").hook {
             injectMember {
                 method {
-                    name = "setShouldShowOpStyle"
-                    param(BooleanType)
+                    name = "setTextWithRedOneStyle"
+                    paramCount = 2
                 }
                 beforeHook {
-                    args(0).setFalse()
+                    field {
+                        name = "mIsDateTimePanel"
+                        type = BooleanType
+                    }.get(instance).setFalse()
                 }
             }
         }

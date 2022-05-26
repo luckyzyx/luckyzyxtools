@@ -6,13 +6,14 @@ import com.luckyzyx.tools.hook.systemui.*
 class HookSystemUI : YukiBaseHooker(){
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
+        //5752f55->9RT12.1
         //设置状态栏网速刷新率
         if (prefs(PrefsFile).getBoolean("network_speed",false)) loadHooker(NetworkSpeed())
 
         //移除充电完成通知
         if (prefs(PrefsFile).getBoolean("remove_charging_completed",false)) loadHooker(RemoveChargingCompleted())
 
-        //移除状态栏时钟红1
+        //移除下拉状态栏时钟红1
         if (prefs(PrefsFile).getBoolean("remove_statusbar_clock_redone",false)) loadHooker(RemoveStatusBarClockRedOne())
 
         //移除锁屏时钟红1

@@ -19,7 +19,8 @@ class SkipApkScan : YukiBaseHooker() {
                 "a222497" -> {
                     arrayOf("M", "E", "j")
                 }
-                //d132ce2
+                //d132ce2->ACE12.1
+                //faec6ba->9RT12.1
                 else -> {
                     arrayOf("isStartAppDetail", "checkToScanRisk", "initiateInstall")
                 }

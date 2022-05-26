@@ -43,6 +43,8 @@ class MainHook : IYukiHookXposedInit {
         loadSystem(HookAndroid())
         //系统界面
         loadApp("com.android.systemui", HookSystemUI())
+        //设置
+        //loadApp("com.android.settings"){}
         //应用包安装程序
         loadApp("com.android.packageinstaller", HookPackageInstaller())
         //系统桌面 启动器

@@ -15,7 +15,8 @@ class ReplaseAospInstaller : YukiBaseHooker() {
                     "f"
                 )
             }
-            //d132ce2
+            //d132ce2->ACE12.1
+            //faec6ba->9RT12.1
             else -> {
                 arrayOf(
                     "com.android.packageinstaller.DeleteStagedFileOnResult",
@@ -24,7 +25,8 @@ class ReplaseAospInstaller : YukiBaseHooker() {
                 )
             }
         }
-        //use AOSP installer,search -> DeleteStagedFileOnResult
+        //use AOSP installer,search class -> DeleteStagedFileOnResult
+        //search class.method -> onCreate +4 -> class.method
         findClass(list3[0]).hook{
             injectMember {
                 method {
