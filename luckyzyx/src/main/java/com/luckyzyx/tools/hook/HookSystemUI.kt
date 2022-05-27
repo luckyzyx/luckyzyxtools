@@ -3,29 +3,32 @@ package com.luckyzyx.tools.hook
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.luckyzyx.tools.hook.systemui.*
 
-class HookSystemUI : YukiBaseHooker(){
+class HookSystemUI(private val App:String) : YukiBaseHooker(){
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
         //5752f55->9RT12.1
         //设置状态栏网速刷新率
-        if (prefs(PrefsFile).getBoolean("network_speed",false)) loadHooker(NetworkSpeed())
+        if (prefs(PrefsFile).getBoolean("network_speed",false)) loadApp(App,NetworkSpeed())
 
         //移除充电完成通知
-        if (prefs(PrefsFile).getBoolean("remove_charging_completed",false)) loadHooker(RemoveChargingCompleted())
+        if (prefs(PrefsFile).getBoolean("remove_charging_completed",false)) loadApp(App,RemoveChargingCompleted())
 
         //移除下拉状态栏时钟红1
-        if (prefs(PrefsFile).getBoolean("remove_statusbar_clock_redone",false)) loadHooker(RemoveStatusBarClockRedOne())
+        if (prefs(PrefsFile).getBoolean("remove_statusbar_clock_redone",false)) loadApp(App,RemoveStatusBarClockRedOne())
 
         //移除锁屏时钟红1
-        if (prefs(PrefsFile).getBoolean("remove_lock_screen_redone",false)) loadHooker(RemoveLockScreenRedOne())
+        if (prefs(PrefsFile).getBoolean("remove_lock_screen_redone",false)) loadApp(App,RemoveLockScreenRedOne())
 
         //设置下拉状态栏时钟显秒
-        if (prefs(PrefsFile).getBoolean("statusbar_clock_show_second",false)) loadHooker(StatusBarClockShowSecond())
+        if (prefs(PrefsFile).getBoolean("statusbar_clock_show_second",false)) loadApp(App,StatusBarClockShowSecond())
 
         //移除状态栏开发者选项警告
-        if (prefs(PrefsFile).getBoolean("remove_statusbar_devmode",false)) loadHooker(RemoveStatusBarDevMode())
+        if (prefs(PrefsFile).getBoolean("remove_statusbar_devmode",false)) loadApp(App,RemoveStatusBarDevMode())
 
         //移除下拉状态栏底部网络警告
-        if (prefs(PrefsFile).getBoolean("remove_statusbar_bottom_networkwarn",false)) loadHooker(RemoveStatusBarBottomNetworkWarn())
+        if (prefs(PrefsFile).getBoolean("remove_statusbar_bottom_networkwarn",false)) loadApp(App,RemoveStatusBarBottomNetworkWarn())
+
+        //移除状态栏支付保护图标
+        if (prefs(PrefsFile).getBoolean("remove_statusbar_securepayment_icon",false)) loadApp(App,RemoveStatusBarSecurePayment())
     }
 }

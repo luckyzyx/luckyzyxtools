@@ -15,6 +15,21 @@
 
     </PreferenceCategory>
 
+<!--    <PreferenceCategory-->
+<!--        app:iconSpaceReserved="false"-->
+<!--        app:title="支付保护"-->
+<!--        app:summary="右上角菜单停止/重启作用域"-->
+<!--        app:key="SecurePay">-->
+
+<!--        <SwitchPreference-->
+<!--            app:defaultValue="false"-->
+<!--            app:key="purify_securepay"-->
+<!--            app:iconSpaceReserved="false"-->
+<!--            app:title="净化支付保护"-->
+<!--            app:summary="移除已允许USB传输数据通知与对话框" />-->
+
+<!--    </PreferenceCategory>-->
+
     <PreferenceCategory
             app:key="Launcher"
             app:title="系统桌面"

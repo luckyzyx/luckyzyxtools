@@ -73,7 +73,7 @@ android {
 //    }
 
 }
-def YukiVersion = "1.0.89"
+def YukiVersion = "1.0.90"
 dependencies {
     //Xposed基础
     compileOnly "de.robv.android.xposed:api:82"

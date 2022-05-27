@@ -1,17 +1,16 @@
 package com.luckyzyx.tools.hook
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
-import com.highcapable.yukihookapi.hook.type.java.BooleanType
 import com.luckyzyx.tools.hook.moreanime.SkipStartupPage
 import com.luckyzyx.tools.hook.moreanime.VipDownload
 
-class HookMoreAnime : YukiBaseHooker(){
+class HookMoreAnime(private val App:String) : YukiBaseHooker(){
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
         //跳过启动广告页
-        if (prefs(PrefsFile).getBoolean("skip_startup_page", false)) loadHooker(SkipStartupPage())
+        if (prefs(PrefsFile).getBoolean("skip_startup_page", false)) loadApp(App,SkipStartupPage())
 
         //VIP 下载原图
-        if(prefs(PrefsFile).getBoolean("vip_download", false)) loadHooker(VipDownload())
+        if(prefs(PrefsFile).getBoolean("vip_download", false)) loadApp(App,VipDownload())
     }
 }

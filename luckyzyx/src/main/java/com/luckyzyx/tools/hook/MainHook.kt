@@ -40,19 +40,19 @@ class MainHook : IYukiHookXposedInit {
 
     override fun onHook() = encase {
         //系统框架
-        loadSystem(HookAndroid())
+        loadHooker(HookAndroid())
         //系统界面
-        loadApp("com.android.systemui", HookSystemUI())
+        loadHooker(HookSystemUI("com.android.systemui"))
         //设置
-        //loadApp("com.android.settings"){}
-        //应用包安装程序
-        loadApp("com.android.packageinstaller", HookPackageInstaller())
-        //系统桌面 启动器
-        loadApp("com.android.launcher", HookLauncher())
+        //loadHooker("com.android.settings"){}
+        //系统桌面
+        loadHooker(HookLauncher("com.android.launcher"))
         //时钟
-        loadApp("com.coloros.alarmclock", HookAlarmClock())
+        loadHooker(HookAlarmClock("com.coloros.alarmclock"))
+        //应用包安装程序
+        loadHooker(HookPackageInstaller("com.android.packageinstaller"))
         //好多动漫
-        loadApp("com.east2d.everyimage", HookMoreAnime())
+        loadHooker(HookMoreAnime("com.east2d.everyimage"))
     }
 
     override fun onXposedEvent() {

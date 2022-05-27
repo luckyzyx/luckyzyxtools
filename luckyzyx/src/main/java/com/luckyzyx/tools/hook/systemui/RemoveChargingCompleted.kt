@@ -16,7 +16,7 @@ class RemoveChargingCompleted : YukiBaseHooker() {
                     param(IntType)
                 }
                 beforeHook {
-                    if (args().first().int() == 7) resultNull()
+                    if (args(0).int() == 7) resultNull()
                 }
             }
         }

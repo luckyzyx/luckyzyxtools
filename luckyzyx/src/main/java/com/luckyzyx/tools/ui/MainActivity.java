@@ -317,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //全局刷新率
+    //90Hz -> settings put secure oplus_customize_screen_refresh_rate 1
     public static void setfps(Context context){
         new MaterialAlertDialogBuilder(context)
                 .setTitle("FPS")
