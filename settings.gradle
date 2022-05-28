@@ -9,6 +9,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "luckyzyx"
-include ':luckyzyx_old'
+include ':luckyzyx'
 include ':xptest'
 include ':RemoveClockRedOne'
