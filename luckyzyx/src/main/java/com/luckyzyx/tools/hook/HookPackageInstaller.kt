@@ -5,17 +5,17 @@ import com.luckyzyx.tools.hook.packageinstaller.AllowReplaceInstall
 import com.luckyzyx.tools.hook.packageinstaller.ReplaseAospInstaller
 import com.luckyzyx.tools.hook.packageinstaller.SkipApkScan
 
-class HookPackageInstaller(private val App:String) : YukiBaseHooker() {
+class HookPackageInstaller : YukiBaseHooker() {
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
         //跳过安装扫描
-        if (prefs(PrefsFile).getBoolean("skip_apk_scan", false)) loadApp(App,SkipApkScan())
+        if (prefs(PrefsFile).getBoolean("skip_apk_scan", false)) loadHooker(SkipApkScan())
 
         //低/相同版本警告
-        if (prefs(PrefsFile).getBoolean("allow_replace_install",false)) loadApp(App,AllowReplaceInstall())
+        if (prefs(PrefsFile).getBoolean("allow_replace_install",false)) loadHooker(AllowReplaceInstall())
 
         //ColorOS安装器替换为原生安装器
-        if (prefs(PrefsFile).getBoolean("replase_aosp_installer",false)) loadApp(App,ReplaseAospInstaller())
+        if (prefs(PrefsFile).getBoolean("replase_aosp_installer",false)) loadHooker(ReplaseAospInstaller())
 
     }
 }

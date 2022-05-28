@@ -12,3 +12,4 @@ rootProject.name = "luckyzyx"
 include ':luckyzyx'
 include ':xptest'
 include ':RemoveClockRedOne'
+include ':yuki_debug'
