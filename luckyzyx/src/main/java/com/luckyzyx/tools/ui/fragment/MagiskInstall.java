@@ -263,6 +263,8 @@ public class MagiskInstall extends Fragment {
                 "if [[ -d "+moduleDir+" ]];then\n" +
                 "    rm -rf "+moduleDir+"\n"+
                 "    mkdir -p "+moduleSystemDir+"\n" +
+                "else\n"+
+                "    mkdir -p "+moduleSystemDir+"\n" +
                 "fi",
                 //重写module.prop
                 "    cat <<zyx >"+moduleProp+"\n" +
