@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:title="ColorOS快捷入口"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="systemui_demomode"
+            app:title="系统界面调节工具"
+            app:summary="状态栏图标隐藏等"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="process_management"
+            app:summary="ColorOS进程管理"
+            app:title="进程管理" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="engineering_model"
+            app:title="工程模式"
+            app:summary="*#899#"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="power_test"
+            app:title="充电测试"
+            app:summary="查看充电数据"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="logkit"
+            app:title="反馈工具箱"
+            app:summary="抓取log进行反馈"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="gamespace"
+            app:title="游戏助手"
+            app:summary="打开游戏助手页面"/>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="gamespace_devmode"
+            app:title="游戏助手开发者选项"
+            app:summary="游戏助手开发者选项页面"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

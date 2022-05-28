@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    修改机型模板列表-->
+    <string-array name="brandlist">
+        <item>OPPO Find x3Pro</item>
+        <item>OPPO Find x5Pro</item>
+        <item>OnePlus 9RT</item>
+        <item>OnePlus 10Pro</item>
+        <item>Xiaomi 12Pro</item>
+    </string-array>
+
+<!--    brand,name,model,device,manufacturer-->
+    <string-array name="oppofindx3pro">
+        <item>OPPO</item>
+        <item>OPPO PEEM00</item>
+        <item>PEEM00</item>
+        <item>PEEM00</item>
+        <item>OPPO</item>
+    </string-array>
+
+ <!--    brand,name,model,device,manufacturer-->
+    <string-array name="oppofindx5pro">
+        <item>OPPO</item>
+        <item>OPPO PFEM10</item>
+        <item>PFEM10</item>
+        <item>PFEM10</item>
+        <item>OPPO</item>
+    </string-array>
+
+ <!--    brand,name,model,device,manufacturer-->
+    <string-array name="oneplus9rt">
+        <item>OnePlus</item>
+        <item>OnePlus MT2110</item>
+        <item>MT2110</item>
+        <item>OP5154L1</item>
+        <item>OnePlus</item>
+    </string-array>
+
+ <!--    brand,name,model,device,manufacturer-->
+    <string-array name="oneplus10pro">
+        <item>OnePlus</item>
+        <item>OnePlus NE2210</item>
+        <item>NE2210</item>
+        <item>NE2210</item>
+        <item>OnePlus</item>
+    </string-array>
+
+ <!--    brand,name,model,device,manufacturer-->
+    <string-array name="xiaomi12pro">
+        <item>Xiaomi</item>
+        <item>Xiaomi 2201122C</item>
+        <item>2201122C</item>
+        <item>2201122C</item>
+        <item>Xiaomi</item>
+    </string-array>
+
+</resources>
