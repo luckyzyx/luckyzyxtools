@@ -67,7 +67,7 @@ class MainHook : IYukiHookXposedInit {
         }
         YukiXposedEvent.onHandleLoadPackage { lpparam: XC_LoadPackage.LoadPackageParam ->
             run {
-                if ("android" == lpparam.packageName && lpparam.processName == "android") {
+                if (lpparam.packageName == "android" && lpparam.processName == "android") {
                     when(SDK_INT) {
                         30 -> CorePatchForR().handleLoadPackage(lpparam)
                         31 -> CorePatchForS().handleLoadPackage(lpparam)

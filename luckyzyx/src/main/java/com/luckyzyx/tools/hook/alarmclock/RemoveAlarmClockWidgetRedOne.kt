@@ -13,19 +13,6 @@ class RemoveAlarmClockWidgetRedOne : YukiBaseHooker() {
                 //c3d4fc6->9RT12.1
                 else -> arrayOf("Sc","z")
             }
-//        findClass("com.coloros.widget.smallweather.OnePlusWidget").hook {
-//            injectMember {
-//                method {
-//                    name = list[1]
-//                }
-//                beforeHook {
-//                    field {
-//                        name = list[0]
-//                        type = CharSequenceType
-//                    }.get().set("")
-//                }
-//            }
-//        }
         "com.coloros.widget.smallweather.OnePlusWidget".clazz.field {
             name = list[0]
             type = CharSequenceType

@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2730", "修复重启部分功能报错问题"));
         logslist.add(new UpdateLogBean("2.0.2685", "修复Magisk模块无法安装问题"));
         logslist.add(new UpdateLogBean("2.0.2655", "修复重启后报错问题\n添加移除支付保护图标\n优化Hook逻辑"));
         logslist.add(new UpdateLogBean("2.0.2609", "适配移除下拉状态栏时钟红一\n更新Hook API\n优化代码逻辑"));
