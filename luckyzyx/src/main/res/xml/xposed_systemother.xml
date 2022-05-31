@@ -72,6 +72,13 @@
 
         <SwitchPreference
             app:defaultValue="false"
+            app:key="remove_install_ads"
+            app:iconSpaceReserved="false"
+            app:title="移除安装完成广告"
+            app:summary="安全应用推荐广告"/>
+
+        <SwitchPreference
+            app:defaultValue="false"
             app:key="replase_aosp_installer"
             app:iconSpaceReserved="false"
             app:title="替换AOSP安装器"
