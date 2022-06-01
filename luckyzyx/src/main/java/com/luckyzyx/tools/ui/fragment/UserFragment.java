@@ -50,7 +50,7 @@ public class UserFragment extends Fragment {
         user.setOnClickListener(v -> Snackbar.make(v, "不认识字? 还点?", Snackbar.LENGTH_SHORT).show());
 
         MaterialCardView checkupdate_card = requireActivity().findViewById(R.id.checkupdate_card);
-        checkupdate_card.setOnClickListener(v -> new HttpUtils(requireActivity()).CheckUpdate(true));
+        checkupdate_card.setOnClickListener(v -> new HttpUtils(requireActivity()).ShowUpdateDialog(true));
 
         MaterialCardView settings = requireActivity().findViewById(R.id.settings_card);
         settings.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingsActivity.class)));

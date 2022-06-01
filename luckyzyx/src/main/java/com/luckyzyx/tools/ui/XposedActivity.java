@@ -72,7 +72,8 @@ public class XposedActivity extends AppCompatActivity {
         menu.add(0,2,1,"重启时钟");
         menu.add(0,3,1,"重启设置");
         menu.add(0,4,1,"重启系统桌面");
-        menu.add(0,5,1,"停止应用包安装器");
+        menu.add(0,5,1,"重启主题商店");
+        menu.add(0,6,1,"停止应用包安装器");
         menu.add(0,9,1,"停止好多动漫");
         return true;
     }
@@ -88,8 +89,11 @@ public class XposedActivity extends AppCompatActivity {
             case 1:
                 ShellUtils.execCommand("killall com.android.systemui",true);
                 break;
-            case 5:
+            case 6:
                 ShellUtils.execCommand("killall com.android.packageinstaller",true);
+                break;
+            case 5:
+                ShellUtils.execCommand("killall com.heytap.themestore",true);
                 break;
             case 4:
                 ShellUtils.execCommand("killall com.android.launcher",true);

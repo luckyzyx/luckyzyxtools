@@ -51,6 +51,21 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+            app:key="ThemeStore"
+            app:title="主题商店"
+            app:summary="右上角菜单停止/重启作用域"
+            app:iconSpaceReserved="false" >
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="unlock_themestore_vip"
+            app:title="解锁主题商店VIP"
+            app:summary="在任意详情页面点击应用"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="应用包安装程序"
         app:summary="右上角菜单停止/重启作用域"

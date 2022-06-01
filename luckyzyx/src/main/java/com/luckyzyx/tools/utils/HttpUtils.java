@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -19,7 +18,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -44,11 +42,15 @@ public class HttpUtils {
 
     private final Context context;
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final String jsonurl = "https://raw.fastgit.org/luckyzyx/luckyzyxtools/main/docs/update.json";
+    private String jsonurl;
+    private final String filename = "docs/update.json";
+    private final String RawUrl = "https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/";
+    private final String FastGitUrl = "https://ghproxy.futils.com/https://github.com/luckyzyx/luckyzyxtools/blob/main/";
+    private final String iQDNSUrl = "https://raw.iqiq.io/luckyzyx/luckyzyxtools/main/";
 
     @SuppressWarnings("unused")
     private String newPackageName;//包名
+    @SuppressWarnings("unused")
     private String newVersionName;//版本名
     private String newVersionCode;//版本号
     private String newFileName;//文件名
@@ -70,20 +72,47 @@ public class HttpUtils {
             }).start();
     }
 
-    //获取更新json
-    public void CheckUpdate(boolean showToast){
-        if (showToast) {
-            Toast.makeText(context, "查询中...", Toast.LENGTH_SHORT).show();
+    //显示更新对话框
+    public void ShowUpdateDialog(boolean isShow){
+        jsonurl = RawUrl+filename;
+        if (!isShow){
+            CheckUpdate(false,jsonurl);
+            return;
         }
+        final String [] items = {"GithubRaw","FastGit","iQDNS"};
+        new MaterialAlertDialogBuilder(context)
+                .setTitle("检查更新源")
+                .setCancelable(true)
+                .setSingleChoiceItems(items, 0, (dialog, which) -> {
+                    switch (which){
+                        case 0:
+                            jsonurl = RawUrl+filename;
+                            newFileUrl = RawUrl;
+                            break;
+                        case 1:
+                            jsonurl = FastGitUrl+filename;
+                            newFileUrl = FastGitUrl;
+                            break;
+                        case 2:
+                            jsonurl = iQDNSUrl+filename;
+                            newFileUrl = iQDNSUrl;
+                            break;
+                    }
+                })
+                .setPositiveButton("确定", (dialog, which) -> CheckUpdate(true,jsonurl))
+                .create()
+                .show();
+    }
+
+    //获取更新json
+    public void CheckUpdate(boolean showToast,String url) {
         //OkHttp3获取json回调
-        sendRequestWithOkhttp(jsonurl, new Callback() {
+        sendRequestWithOkhttp(url, new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                if (showToast){
-                    Looper.prepare();
-                    Toast.makeText(context, "检查更新失败!", Toast.LENGTH_SHORT).show();
-                    Looper.loop();
-                }
+                Looper.prepare();
+                Toast.makeText(context, "检查更新失败!", Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
@@ -95,18 +124,18 @@ public class HttpUtils {
                     newVersionName = jsonObject.getString("versionname");
                     newVersionCode = jsonObject.getString("versioncode");
                     newFileName = jsonObject.getString("outputfilename");
-                    newFileUrl = jsonObject.getString("outputfileurl");
+//                    newFileUrl = jsonObject.getString("outputfileurl");
+                    newFileUrl += "luckyzyx/release/"+newFileName;
                     newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
 
-                    //显示对话框
-                    if (showToast) {
+                    if (Integer.parseInt(newVersionCode) > BuildConfig.VERSION_CODE){
+                        //版本号大于已安装
                         Looper.prepare();
-                        showUpdateDialog();
+                        ShowDownloadDialog();
                         Looper.loop();
-                    }else if (Integer.parseInt(newVersionCode) > BuildConfig.VERSION_CODE){
-                        //版本号不同
+                    }else if(showToast){
                         Looper.prepare();
-                        showUpdateDialog();
+                        Toast.makeText(context, "已是最新版本!", Toast.LENGTH_SHORT).show();
                         Looper.loop();
                     }
                 } catch (JSONException e) {
@@ -117,27 +146,22 @@ public class HttpUtils {
         });
     }
 
-    //显示更新对话框
-    private void showUpdateDialog(){
-        //对话框
-        AlertDialog update_dialog = new MaterialAlertDialogBuilder(context)
+    //显示下载对话框
+    public void ShowDownloadDialog() {
+        new MaterialAlertDialogBuilder(context)
                 .setTitle("检查更新!")
                 .setMessage("最新版本: " + newVersionName + "_" + newVersionCode + "\n当前版本: " + BuildConfig.VERSION_NAME + "_" + BuildConfig.VERSION_CODE)
                 .setCancelable(false)
                 .setPositiveButton("更新", (dialog, which) -> startUpdate())
                 .setNeutralButton("取消", null)
                 .show();
-        if (Integer.parseInt(newVersionCode) <= BuildConfig.VERSION_CODE){
-            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setText("无需更新");
-            update_dialog.setCancelable(true);
-            update_dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> update_dialog.dismiss());
-        }
     }
-
     //开始下载
     private void startUpdate() {
         //下载前删除目录并输出删除状态
-        System.out.print(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete());
+        if (!context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete()){
+            Toast.makeText(context, "下载缓存删除失败!", Toast.LENGTH_SHORT).show();
+        }
         //检查写入权限
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -165,7 +189,7 @@ public class HttpUtils {
         //设置下载的标题信息
         request.setTitle(newFileName);
         //下载目录 Download + 文件名
-        //request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, outFileName);
+//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/luckyzyx", newFileName);
         //Android/data/packageName/file/Download/name.apk
         request.setDestinationUri(Uri.fromFile(newFile));
         // 将下载请求放入队列
@@ -231,5 +255,6 @@ public class HttpUtils {
             }
             context.startActivity(intent);
         }
+        installApk();
     }
 }
