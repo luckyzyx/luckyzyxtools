@@ -11,6 +11,12 @@
         <item>com.east2d.everyimage</item>
     </string-array>
 
+    <string-array name="checkupdate_settings">
+        <item>Github</item>
+        <item>FastGit</item>
+        <item>iQDNS</item>
+    </string-array>
+
     <string-array name="network_speed_option">
         <item>1秒</item>
         <item>2秒</item>

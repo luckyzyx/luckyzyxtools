@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -104,30 +103,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //判断主题
+    @SuppressWarnings("CommentedOutCode")
     public static void CheckTheme(Context context){
         context.setTheme(R.style.Theme_Luckyzyx_sakura);
 
-//        String theme = SPUtils.getString(context,"theme","material");
-//        switch (theme){
-//            default:
-//                context.setTheme(R.style.Theme_Luckyzyx);
-//                break;
-//            case "purple":
-//                context.setTheme(R.style.Theme_Luckyzyx_purple);
-//                break;
-//            case "red":
-//                context.setTheme(R.style.Theme_Luckyzyx_red);
-//                break;
-//            case "yellow":
-//                context.setTheme(R.style.Theme_Luckyzyx_yellow);
-//                break;
-//            case "orange":
-//                context.setTheme(R.style.Theme_Luckyzyx_orange);
-//                break;
-//            case "green":
-//                context.setTheme(R.style.Theme_Luckyzyx_green);
-//                break;
-//        }
+/*
+        String theme = SPUtils.getString(context,"theme","material");
+        switch (theme){
+            default:
+                context.setTheme(R.style.Theme_Luckyzyx);
+                break;
+            case "purple":
+                context.setTheme(R.style.Theme_Luckyzyx_purple);
+                break;
+            case "red":
+                context.setTheme(R.style.Theme_Luckyzyx_red);
+                break;
+            case "yellow":
+                context.setTheme(R.style.Theme_Luckyzyx_yellow);
+                break;
+            case "orange":
+                context.setTheme(R.style.Theme_Luckyzyx_orange);
+                break;
+            case "green":
+                context.setTheme(R.style.Theme_Luckyzyx_green);
+                break;
+        }
+*/
     }
 
     //初始化Xposed XSharedPreferences

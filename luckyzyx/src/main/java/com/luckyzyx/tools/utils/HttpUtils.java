@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.luckyzyx.tools.BuildConfig;
+import com.luckyzyx.tools.ui.SettingsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,10 +44,11 @@ public class HttpUtils {
     private final Context context;
 
     private String jsonurl;
-    private final String filename = "docs/update.json";
-    private final String RawUrl = "https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/";
+    private final String jsonfile = "docs/update.json";
+    private final String GithubUrl = "https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/";
     private final String FastGitUrl = "https://ghproxy.futils.com/https://github.com/luckyzyx/luckyzyxtools/blob/main/";
     private final String iQDNSUrl = "https://raw.iqiq.io/luckyzyx/luckyzyxtools/main/";
+    private String checkupdate_settings;
 
     @SuppressWarnings("unused")
     private String newPackageName;//包名
@@ -74,33 +76,31 @@ public class HttpUtils {
 
     //显示更新对话框
     public void ShowUpdateDialog(boolean isShow){
-        jsonurl = RawUrl+filename;
+        checkupdate_settings = SPUtils.getString(context,"Settings","checkupdate_settings","Github");
+        jsonurl = GithubUrl+jsonfile;
         if (!isShow){
             CheckUpdate(false,jsonurl);
             return;
         }
-        final String [] items = {"GithubRaw","FastGit","iQDNS"};
         new MaterialAlertDialogBuilder(context)
-                .setTitle("检查更新源")
+                .setTitle("检查更新")
+                .setMessage("当前更新源: "+checkupdate_settings+"\n官方源永久有效,检查失败请科学上网\n其他更新源无需科学上网,但不保证永久有效")
                 .setCancelable(true)
-                .setSingleChoiceItems(items, 0, (dialog, which) -> {
-                    switch (which){
-                        case 0:
-                            jsonurl = RawUrl+filename;
-                            newFileUrl = RawUrl;
+                .setNeutralButton("切换更新源", (dialog, which) -> context.startActivity(new Intent(context, SettingsActivity.class)))
+                .setPositiveButton("确定", (dialog, which) -> {
+                    switch (checkupdate_settings){
+                        case "Github":
+                            jsonurl = GithubUrl+jsonfile;newFileUrl = GithubUrl;
                             break;
-                        case 1:
-                            jsonurl = FastGitUrl+filename;
-                            newFileUrl = FastGitUrl;
+                        case "FastGit":
+                            jsonurl = FastGitUrl+jsonfile;newFileUrl = FastGitUrl;
                             break;
-                        case 2:
-                            jsonurl = iQDNSUrl+filename;
-                            newFileUrl = iQDNSUrl;
+                        case "iQDNS":
+                            jsonurl = iQDNSUrl+jsonfile;newFileUrl = iQDNSUrl;
                             break;
                     }
+                    CheckUpdate(true, jsonurl);
                 })
-                .setPositiveButton("确定", (dialog, which) -> CheckUpdate(true,jsonurl))
-                .create()
                 .show();
     }
 
@@ -139,7 +139,7 @@ public class HttpUtils {
                         Looper.loop();
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(context, "Error:"+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -244,6 +244,7 @@ public class HttpUtils {
             Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".FileProvider", newFile);
             intent.setDataAndType(uri, "application/vnd.android.package-archive");
             context.startActivity(intent);
+            return;
         }else{
             Toast.makeText(context, "请开启未知应用安装权限!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();

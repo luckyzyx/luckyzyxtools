@@ -98,6 +98,15 @@
                 android:data="https://github.com/LSPosed/CorePatch"/>
         </Preference>
 
+        <Preference
+            android:title="Disable-FLAG_SECURE"
+            android:summary="VarunS2002 , GPL-3.0 license"
+            app:iconSpaceReserved="false">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/VarunS2002/Xposed-Disable-FLAG_SECURE"/>
+        </Preference>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

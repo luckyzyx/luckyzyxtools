@@ -174,11 +174,11 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             }
             //游戏助手
             if (preference.getKey().equals("gamespace")) {
-                ShellUtils.execCommand("am start -n com.oplus.games/com.coloros.gamespaceui.activity.GameBoxCoverActivity", true);
+                ShellUtils.execCommand("am start -n com.oplus.games/business.compact.activity.GameBoxCoverActivity", true);
             }
             //游戏助手开发者选项
             if (preference.getKey().equals("gamespace_devmode")) {
-                ShellUtils.execCommand("am start -n com.oplus.games/com.coloros.gamespaceui.activity.GameDevelopOptionsActivity\n", true);
+                ShellUtils.execCommand("am start -n com.oplus.games/business.compact.activity.GameDevelopOptionsActivity", true);
             }
 
             return super.onPreferenceTreeClick(preference);

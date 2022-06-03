@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">luckyzyx</string>
     <string name="title_name">Luckyzyx Tools</string>
+    <string name="xposeddescription">luckyzyx Xposed + magisk</string>
     <string name="checkupdate">检查更新</string>
     <string name="todo" translatable="false" />
     <string name="button">Toast</string>
@@ -18,6 +19,7 @@
     <string name="nav_item_user">我的</string>
 
     <string name="fps">刷新率</string>
+    <string name="fpstilelable">全局高刷</string>
     <string name="btn_xposed_text">Xposed</string>
     <string name="btn_magisk_text">Magisk</string>
     <string name="not_supported">请确保Xposed API >= 93,并且模块已勾选作用域\n若上述已经完成,可尝试点击确定退出APP,然后重试</string>

@@ -62,7 +62,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="luckyzyx xposed + magisk" />
+            android:value="@string/xposeddescription" />
         <meta-data
             android:name="xposedminversion"
             android:value="93" />
@@ -72,7 +72,7 @@
 
         <service
             android:name=".utils.tile.FpsTile"
-            android:label="全局高刷"
+            android:label="@string/fpstilelable"
             android:icon="@drawable/ic_baseline_refresh_24"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             android:exported="true">

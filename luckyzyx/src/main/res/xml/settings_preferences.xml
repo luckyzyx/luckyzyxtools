@@ -1,14 +1,24 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        app:title="设置"
+        app:title="更新设置"
         app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:defaultValue="Github"
+            app:iconSpaceReserved="false"
+            android:entries="@array/checkupdate_settings"
+            android:entryValues="@array/checkupdate_settings"
+            android:key="checkupdate_settings"
+            android:title="默认检查更新源"
+            app:useSimpleSummaryProvider="true"/>
 
         <SwitchPreference
             app:defaultValue="false"
             app:key="startCheckUpdate"
             app:title="启动时检查更新"
-            app:summary="启动时自动检查更新(有更新时提示)"
+            app:summary="启动时自动从更新源检查更新"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
