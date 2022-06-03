@@ -159,9 +159,9 @@ public class HttpUtils {
     //开始下载
     private void startUpdate() {
         //下载前删除目录并输出删除状态
-        if (!context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete()){
-            Toast.makeText(context, "下载缓存删除失败!", Toast.LENGTH_SHORT).show();
-        }
+//        if (!context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete()){
+//            Toast.makeText(context, "下载缓存删除失败!", Toast.LENGTH_SHORT).show();
+//        }
         //检查写入权限
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -189,9 +189,9 @@ public class HttpUtils {
         //设置下载的标题信息
         request.setTitle(newFileName);
         //下载目录 Download + 文件名
-//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/luckyzyx", newFileName);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/luckyzyx", newFileName);
         //Android/data/packageName/file/Download/name.apk
-        request.setDestinationUri(Uri.fromFile(newFile));
+//        request.setDestinationUri(Uri.fromFile(newFile));
         // 将下载请求放入队列
         downloadid = downloadManager.enqueue(request);
         //注册广播监听下载状态
