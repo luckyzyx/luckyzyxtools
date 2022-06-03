@@ -244,7 +244,6 @@ public class HttpUtils {
             Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".FileProvider", newFile);
             intent.setDataAndType(uri, "application/vnd.android.package-archive");
             context.startActivity(intent);
-            return;
         }else{
             Toast.makeText(context, "请开启未知应用安装权限!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
@@ -256,6 +255,5 @@ public class HttpUtils {
             }
             context.startActivity(intent);
         }
-        installApk();
     }
 }
