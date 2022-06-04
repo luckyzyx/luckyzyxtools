@@ -1,8 +1,4 @@
 {
-  "packagename": "com.luckyzyx.tools",
-  "versionname": "2.0",
-  "versioncode": 2788,
-  "outputfilename": "luckyzyx_v2.0.2788.apk",
-  "outputfileurl": "https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/luckyzyx/release/luckyzyx_v2.0.2788.apk",
-  "changelog": "https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/docs/changelog.md"
+  "versioncode": 2789,
+  "outputfilename": "luckyzyx_v2.0.2789.apk"
 }

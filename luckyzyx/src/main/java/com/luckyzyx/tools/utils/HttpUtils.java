@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Looper;
 import android.provider.Settings;
 import android.webkit.MimeTypeMap;
@@ -44,15 +43,13 @@ public class HttpUtils {
     private final Context context;
 
     private String jsonurl;
-    private final String jsonfile = "docs/update.json";
-    private final String GithubUrl = "https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/";
-    private final String FastGitUrl = "https://ghproxy.futils.com/https://github.com/luckyzyx/luckyzyxtools/blob/main/";
-    private final String iQDNSUrl = "https://raw.iqiq.io/luckyzyx/luckyzyxtools/main/";
+    private final String jsonfile = "output-metadata.json";
+    private final String GithubUrl = "https://raw.githubusercontent.com/luckyzyx/luckyzyxtools/main/luckyzyx/release/";
+    private final String FastGitUrl = "https://ghproxy.futils.com/https://github.com/luckyzyx/luckyzyxtools/blob/main/luckyzyx/release/";
+    private final String iQDNSUrl = "https://raw.iqiq.io/luckyzyx/luckyzyxtools/main/luckyzyx/release/";
     private String checkupdate_settings;
 
-    @SuppressWarnings("unused")
     private String newPackageName;//包名
-    @SuppressWarnings("unused")
     private String newVersionName;//版本名
     private String newVersionCode;//版本号
     private String newFileName;//文件名
@@ -119,23 +116,29 @@ public class HttpUtils {
                 try {
                     JSONObject jsonObject = new JSONObject(Objects.requireNonNull(response.body()).string());
                     //包名
-                    newPackageName = jsonObject.getString("packagename");
+                    newPackageName = jsonObject.getString("applicationId");
                     //版本,版本号,输出文件名
-                    newVersionName = jsonObject.getString("versionname");
-                    newVersionCode = jsonObject.getString("versioncode");
-                    newFileName = jsonObject.getString("outputfilename");
-//                    newFileUrl = jsonObject.getString("outputfileurl");
-                    newFileUrl += "luckyzyx/release/"+newFileName;
-                    newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), newFileName);
+                    newVersionName = jsonObject.getString("versionName");
+                    newVersionCode = jsonObject.getString("versionCode");
+                    newFileName = jsonObject.getString("outputFile");
+                    newFileUrl += newFileName;
+                    newFile = new File(context.getExternalCacheDir(), newFileName);
 
-                    if (Integer.parseInt(newVersionCode) > BuildConfig.VERSION_CODE){
-                        //版本号大于已安装
+                    //判断包名
+                    if (newPackageName.equals(BuildConfig.APPLICATION_ID)){
+                        //判断版本号
+                        if (Integer.parseInt(newVersionCode) > BuildConfig.VERSION_CODE){
+                            Looper.prepare();
+                            ShowDownloadDialog();
+                            Looper.loop();
+                        }else if(showToast){
+                            Looper.prepare();
+                            Toast.makeText(context, "已是最新版本!", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+                    }else {
                         Looper.prepare();
-                        ShowDownloadDialog();
-                        Looper.loop();
-                    }else if(showToast){
-                        Looper.prepare();
-                        Toast.makeText(context, "已是最新版本!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "云端文件错误!", Toast.LENGTH_SHORT).show();
                         Looper.loop();
                     }
                 } catch (JSONException e) {
@@ -159,7 +162,7 @@ public class HttpUtils {
     //开始下载
     private void startUpdate() {
         //下载前删除目录并输出删除状态
-//        if (!context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).delete()){
+//        if (!context.getExternalCacheDir().delete()){
 //            Toast.makeText(context, "下载缓存删除失败!", Toast.LENGTH_SHORT).show();
 //        }
         //检查写入权限
@@ -189,9 +192,9 @@ public class HttpUtils {
         //设置下载的标题信息
         request.setTitle(newFileName);
         //下载目录 Download + 文件名
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS+"/luckyzyx", newFileName);
+//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, newFileName);
         //Android/data/packageName/file/Download/name.apk
-//        request.setDestinationUri(Uri.fromFile(newFile));
+        request.setDestinationUri(Uri.fromFile(newFile));
         // 将下载请求放入队列
         downloadid = downloadManager.enqueue(request);
         //注册广播监听下载状态
