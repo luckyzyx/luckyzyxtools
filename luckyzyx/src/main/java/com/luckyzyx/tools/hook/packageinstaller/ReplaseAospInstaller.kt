@@ -1,41 +1,31 @@
 package com.luckyzyx.tools.hook.packageinstaller
 
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.factory.field
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 
 class ReplaseAospInstaller : YukiBaseHooker() {
-    private val PrefsFile = "XposedSettings"
     override fun onHook() {
-        val list3: Array<String> = when (prefs(PrefsFile).getString("PackageInstallCommit","null")) {
-            "7bc7db7", "e1a2c58", "75fe984", "532ffef", "38477f0", "a222497" -> {
-                arrayOf(
-                    "com.android.packageinstaller.DeleteStagedFileOnResult",
-                    "com.android.packageinstaller.oplus.common.j",
-                    "f"
-                )
-            }
-            //d132ce2->ACE12.1
-            //faec6ba->9RT12.1
-            else -> {
-                arrayOf(
-                    "com.android.packageinstaller.DeleteStagedFileOnResult",
-                    "com.android.packageinstaller.oplus.common.FeatureOption",
-                    "sIsClosedSuperFirewall"
-                )
-            }
-        }
         //use AOSP installer,search class -> DeleteStagedFileOnResult
         //search class.method -> onCreate +4 -> class.method
-        findClass(list3[0]).hook{
+        findClass("com.android.packageinstaller.DeleteStagedFileOnResult").hook{
             injectMember {
                 method {
                     name = "onCreate"
                     param(BundleClass)
                 }
                 beforeHook {
-                    list3[1].clazz.field {
-                        name = list3[2]
+                    VariousClass(
+                        "com.android.packageinstaller.oplus.common.FeatureOption",
+                        "com.android.packageinstaller.oplus.common.j"
+                    ).get().field {
+                        name {
+                            //7bc7db7,e1a2c58,75fe984,532ffef,38477f0,a222497
+                            equalsOf(other = "f",isIgnoreCase = false)
+                            //d132ce2,faec6ba
+                            equalsOf(other = "sIsClosedSuperFirewall",isIgnoreCase = false)
+                        }
                     }.get().setTrue()
                 }
             }

@@ -11,4 +11,4 @@ dependencyResolutionManagement {
 rootProject.name = "luckyzyx"
 include ':luckyzyx'
 include ':xptest'
-include ':RemoveClockRedOne'
+include ':FuckRedOne'

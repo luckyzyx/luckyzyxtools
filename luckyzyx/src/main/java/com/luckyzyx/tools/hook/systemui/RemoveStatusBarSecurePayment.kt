@@ -4,7 +4,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 
 class RemoveStatusBarSecurePayment : YukiBaseHooker() {
     override fun onHook() {
-        //图标
+        //安全支付图标
         findClass("com.oplusos.systemui.ext.SecurePaymentControllerExt").hook {
             injectMember {
                 method {

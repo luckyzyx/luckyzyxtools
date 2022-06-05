@@ -6,8 +6,6 @@ import com.luckyzyx.tools.hook.systemui.*
 class HookSystemUI : YukiBaseHooker(){
     private val PrefsFile = "XposedSettings"
     override fun onHook() {
-        //5752f55->9RT12.1
-
         //移除锁屏时钟红1
         if (prefs(PrefsFile).getBoolean("remove_lock_screen_redone",false)) loadHooker(RemoveLockScreenRedOne())
 
