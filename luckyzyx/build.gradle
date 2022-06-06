@@ -11,6 +11,9 @@ android {
             storeFile file('D:\\Android\\luckyzyx.jks')
             v1SigningEnabled true
             v2SigningEnabled true
+            storePassword 'luckyzyx'
+            keyAlias 'luckyzyx'
+            keyPassword 'luckyzyx'
         }
     }
     compileSdk 31

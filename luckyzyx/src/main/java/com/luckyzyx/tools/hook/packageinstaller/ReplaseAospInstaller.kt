@@ -17,9 +17,9 @@ class ReplaseAospInstaller : YukiBaseHooker() {
                 }
                 beforeHook {
                     VariousClass(
-                        "com.android.packageinstaller.oplus.common.FeatureOption",
-                        "com.android.packageinstaller.oplus.common.j"
-                    ).get().field {
+                        "com.android.packageinstaller.oplus.common.j",
+                        "com.android.packageinstaller.oplus.common.FeatureOption"
+                        ).get().field {
                         name {
                             //7bc7db7,e1a2c58,75fe984,532ffef,38477f0,a222497
                             equalsOf(other = "f",isIgnoreCase = false)

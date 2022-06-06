@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private final OtherFragment otherFragment = new OtherFragment();
     private final UserFragment userFragment = new UserFragment();
 
-    private boolean CheckXposed = true;
+    private boolean XposedStatus = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             getSharedPreferences("OtherSettings", Context.MODE_WORLD_READABLE);
             getSharedPreferences("MagiskSettings", Context.MODE_WORLD_READABLE);
         } catch (SecurityException ignored) {
-            CheckXposed = false;
+            XposedStatus = false;
             new MaterialAlertDialogBuilder(this)
                     .setCancelable(false)
                     .setMessage(getString(R.string.not_supported))
@@ -154,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
     //初始化Hook APP
     private void InitHookAPP(){
-        if(CheckXposed){
-            String[] keylist = {"PackageInstallCommit","AlarmClockCommit"};
-            String[] packlist = {"com.android.packageinstaller","com.coloros.alarmclock"};
+        if(XposedStatus){
+            String[] keylist = {"PackageInstallCommit"};
+            String[] packlist = {"com.android.packageinstaller"};
             for(int i = 0; i < keylist.length; i++) {
                 if (getAppCommit(packlist[i]).equals("error")){
                     Toast.makeText(this, keylist[i]+":"+getAppCommit(packlist[i]), Toast.LENGTH_SHORT).show();

@@ -28,7 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
-        logslist.add(new UpdateLogBean("2.0.2815", "优化Hook相关"));
+        logslist.add(new UpdateLogBean("2.0.2834", "优化Hook相关"));
         logslist.add(new UpdateLogBean("2.0.2789", "下载目录移动至Cache\n优化检查更新"));
         logslist.add(new UpdateLogBean("2.0.2787", "适配最新游戏助手入口\n优化检查更新功能\n尝试修复DisableFlagSecure"));
         logslist.add(new UpdateLogBean("2.0.2779", "添加解锁主题商店VIP\n检查更新功能优化"));
