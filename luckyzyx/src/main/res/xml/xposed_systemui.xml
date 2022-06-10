@@ -69,6 +69,12 @@
             app:iconSpaceReserved="false"
             app:title="移除锁屏时钟红一" />
 
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="remove_lock_screen_camera"
+            app:iconSpaceReserved="false"
+            app:title="移除锁屏右下角相机" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

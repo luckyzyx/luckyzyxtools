@@ -9,6 +9,9 @@ class HookSystemUI : YukiBaseHooker(){
         //移除锁屏时钟红1
         if (prefs(PrefsFile).getBoolean("remove_lock_screen_redone",false)) loadHooker(RemoveLockScreenRedOne())
 
+        //移除锁屏右下角相机
+        if (prefs(PrefsFile).getBoolean("remove_lock_screen_camera",false)) loadHooker(RemoveLockScreenCamera())
+
         //设置状态栏网速刷新率
         if (prefs(PrefsFile).getBoolean("network_speed",false)) loadHooker(NetworkSpeed())
 
@@ -29,5 +32,6 @@ class HookSystemUI : YukiBaseHooker(){
 
         //移除状态栏支付保护图标
         if (prefs(PrefsFile).getBoolean("remove_statusbar_securepayment_icon",false)) loadHooker(RemoveStatusBarSecurePayment())
+
     }
 }

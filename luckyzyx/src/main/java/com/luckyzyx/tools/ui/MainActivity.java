@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         CheckXposed();
         InitHookAPP();
         startCheckUpdate();
-
         //初始化BottomNavigationView底部导航栏
         initBottomNavigationView();
         //获取Root权限
