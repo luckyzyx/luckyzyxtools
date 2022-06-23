@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.hook.android
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.log.loggerE
 
 class RemoveStatusBarTopNotification : YukiBaseHooker() {
     private val PrefsFile = "XposedSettings"
@@ -14,6 +15,8 @@ class RemoveStatusBarTopNotification : YukiBaseHooker() {
                     if (prefs(PrefsFile).getBoolean("remove_statusbar_top_notification", false)) resultNull()
                 }
             }
+        }.onHookClassNotFoundFailure {
+            loggerE(msg = "ClassNotFound->AlertWindowNotification")
         }
     }
 }

@@ -16,4 +16,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
 
+    <color name="test">#fffafafa</color>
+
 </resources>

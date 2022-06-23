@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.2900", "适配9RT C03桌面时钟组件\n修复停止作用域不生效问题\n更换Xposed页面UI"));
         logslist.add(new UpdateLogBean("2.0.2850", "新增移除锁屏右下角相机"));
         logslist.add(new UpdateLogBean("2.0.2834", "优化Hook相关"));
         logslist.add(new UpdateLogBean("2.0.2789", "下载目录移动至Cache\n优化检查更新"));

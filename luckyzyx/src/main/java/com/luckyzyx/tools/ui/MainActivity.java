@@ -217,13 +217,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    //联系作者_跳转URL
-    public void ContactAuthor(){
-        Uri uri = Uri.parse("http://www.coolapk.com/u/1930284");
-        startActivity(new Intent().setAction("android.intent.action.VIEW").setData(uri));
-    }
-
     //重启自身
+    @SuppressWarnings("unused")
     public static void reStart(Context context){
         final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -252,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //复制整个文件夹
+    @SuppressWarnings("unused")
     public void copyFolder(String oldPath, String newPath) {
         try {
             //noinspection ResultOfMethodCallIgnored

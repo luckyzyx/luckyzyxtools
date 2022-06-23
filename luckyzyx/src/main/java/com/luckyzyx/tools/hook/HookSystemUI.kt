@@ -33,5 +33,46 @@ class HookSystemUI : YukiBaseHooker(){
         //移除状态栏支付保护图标
         if (prefs(PrefsFile).getBoolean("remove_statusbar_securepayment_icon",false)) loadHooker(RemoveStatusBarSecurePayment())
 
+/*
+
+        resources().hook {
+            //下拉面板模糊程度
+//            injectResource {
+//                conditions {
+//                    name = "max_window_blur_radius"
+//                    dimen()
+//                }
+//                replaceTo("100px")
+//            }
+
+            //通知左右内边距
+//            injectResource {
+//                conditions {
+//                    name = "notification_side_paddings"
+//                    dimen()
+//                }
+//                replaceTo("15.0dp")
+//            }
+
+            //Android12充电动画
+//            injectResource {
+//                conditions {
+//                    name = "flag_charging_ripple"
+//                    bool()
+//                }
+//                replaceToTrue()
+//            }
+
+            //Android12锁屏动画
+//            injectResource {
+//                conditions {
+//                    name = "flag_lockscreen_animations"
+//                    bool()
+//                }
+//                replaceToTrue()
+//            }
+        }
+*/
+
     }
 }

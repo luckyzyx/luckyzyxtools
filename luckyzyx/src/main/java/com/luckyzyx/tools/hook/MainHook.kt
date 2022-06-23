@@ -30,6 +30,7 @@ class MainHook : IYukiHookXposedInit {
     override fun onHook() = encase {
         //系统框架
         loadSystem(HookAndroid())
+        //loadZygote(HookZygote())
         //系统界面
         loadApp("com.android.systemui",HookSystemUI())
         //设置
@@ -44,6 +45,7 @@ class MainHook : IYukiHookXposedInit {
         loadApp("com.android.packageinstaller",HookPackageInstaller())
         //好多动漫
         loadApp("com.east2d.everyimage",HookMoreAnime())
+
     }
 
     override fun onXposedEvent() {

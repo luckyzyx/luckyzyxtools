@@ -250,6 +250,7 @@ public class MagiskInstall extends Fragment {
     }
 
     //主要安装
+    @SuppressWarnings("unused")
     public void install(){
         //读取状态
         boolean fingerprint_repair = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"fingerprint_repair",false);

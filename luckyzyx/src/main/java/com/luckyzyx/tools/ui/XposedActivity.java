@@ -5,23 +5,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.XposedAndroid;
-import com.luckyzyx.tools.ui.fragment.XposedUserApp;
 import com.luckyzyx.tools.ui.fragment.XposedSystemOther;
 import com.luckyzyx.tools.ui.fragment.XposedSystemUI;
+import com.luckyzyx.tools.ui.fragment.XposedUserApp;
 import com.luckyzyx.tools.utils.ShellUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class XposedActivity extends AppCompatActivity {
@@ -38,47 +33,69 @@ public class XposedActivity extends AppCompatActivity {
         initFragments();
     }
 
-    //Tabs + ViewPage2
+    //Tabs + Fragment
     private void initFragments() {
-        String[] titles = {"系统框架", "系统界面","系统其他","三方APP"};
-        List<Fragment> fragmentList = new ArrayList<>();
-
-        fragmentList.add(new XposedAndroid());
-        fragmentList.add(new XposedSystemUI());
-        fragmentList.add(new XposedSystemOther());
-        fragmentList.add(new XposedUserApp());
         TabLayout tabs = findViewById(R.id.tabs);
-        ViewPager2 viewPager2 = findViewById(R.id.view_page2);
-        viewPager2.setAdapter(new FragmentStateAdapter(this) {
-            @NonNull
+        tabs.addTab(tabs.newTab().setText("系统框架"),0,true);
+        tabs.addTab(tabs.newTab().setText("系统界面"),1,false);
+        tabs.addTab(tabs.newTab().setText("系统其他"),2,false);
+        tabs.addTab(tabs.newTab().setText("三方APP"),3,false);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public Fragment createFragment(int position) {
-                return fragmentList.get(position);
+            public void onTabSelected(TabLayout.Tab tab) {
+                //添加选中Tab的逻辑
+                switch (tab.getPosition()){
+                    case 0:
+                        switchFragment(new XposedAndroid());
+                        break;
+                    case 1:
+                        switchFragment(new XposedSystemUI());
+                        break;
+                    case 2:
+                        switchFragment(new XposedSystemOther());
+                        break;
+                    case 3:
+                        switchFragment(new XposedUserApp());
+                        break;
+                }
             }
 
             @Override
-            public int getItemCount() {
-                return fragmentList.size();
+            public void onTabUnselected(TabLayout.Tab tab) {
+                //添加未选中Tab的逻辑
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                //再次选中tab的逻辑
             }
         });
-        new TabLayoutMediator(tabs, viewPager2, true, true, (tab, position) ->
-                tab.setText(titles[position])
-        ).attach();
+
+        //设置默认选中item
+        switchFragment(new XposedAndroid());
+    }
+
+    //跳转Fragment函数
+    private void switchFragment(Fragment fragment){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.replace(R.id.tabs_container,fragment).commitNow();
     }
 
     //创建Menu
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0,1,0,"重启系统界面");
-        menu.add(0,2,1,"重启时钟");
-        menu.add(0,3,1,"重启设置");
-        menu.add(0,4,1,"重启系统桌面");
-        menu.add(0,5,1,"重启主题商店");
+        menu.add(0,1,0,"停止系统界面");
+        menu.add(0,2,1,"停止时钟");
+//        menu.add(0,3,1,"停止设置");
+        menu.add(0,4,1,"停止系统桌面");
+        menu.add(0,5,1,"停止主题商店");
         menu.add(0,6,1,"停止应用包安装器");
         menu.add(0,9,1,"停止好多动漫");
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
-    //标题栏返回事件
+    //菜单栏
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.openOptionsMenu();
@@ -87,30 +104,30 @@ public class XposedActivity extends AppCompatActivity {
                 finish();
                 break;
             case 1:
-                ShellUtils.execCommand("killall com.android.systemui",true);
+                ShellUtils.execCommand("kill -9 `pgrep systemui`",true);
                 break;
             case 6:
-                ShellUtils.execCommand("killall com.android.packageinstaller",true);
+                ShellUtils.execCommand("am force-stop com.android.packageinstaller",true);
                 break;
             case 5:
-                ShellUtils.execCommand("killall com.heytap.themestore",true);
+                ShellUtils.execCommand("am force-stop com.heytap.themestore",true);
                 break;
             case 4:
-                ShellUtils.execCommand("killall com.android.launcher",true);
+                ShellUtils.execCommand("am force-stop com.android.launcher",true);
                 break;
             case 3:
-                ShellUtils.execCommand("killall com.android.settings",true);
+                ShellUtils.execCommand("am force-stop com.android.settings",true);
                 break;
             case 2:
-                ShellUtils.execCommand("killall com.coloros.alarmclock",true);
+                ShellUtils.execCommand("am force-stop com.coloros.alarmclock",true);
                 break;
             case 9:
-                ShellUtils.execCommand("killall com.east2d.everyimage",true);
+                ShellUtils.execCommand("am force-stop com.east2d.everyimage",true);
                 break;
             default:
                 Toast.makeText(this, "错误->"+item.getItemId()+":"+item.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
         }
-        return false;
+        return true;
     }
 }
