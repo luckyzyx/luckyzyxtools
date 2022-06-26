@@ -41,6 +41,8 @@ class MainHook : IYukiHookXposedInit {
         loadApp("com.coloros.alarmclock",HookAlarmClock())
         //主题商店
         loadApp("com.heytap.themestore",HookThemeStore())
+        //游戏助手
+        loadApp("com.oplus.games",HookOplusGames())
         //应用包安装程序
         loadApp("com.android.packageinstaller",HookPackageInstaller())
         //好多动漫

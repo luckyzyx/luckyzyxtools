@@ -101,4 +101,19 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="游戏助手"
+        app:summary="右上角菜单停止/重启作用域"
+        app:key="OplusGames" >
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="remove_root_check"
+            app:iconSpaceReserved="false"
+            app:title="移除游戏滤镜检测"
+            app:summary="移除游戏滤镜的Root检测"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

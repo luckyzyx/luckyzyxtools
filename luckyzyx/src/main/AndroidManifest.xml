@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
     <queries>
+        <package android:name="com.oplus.games" />
         <package android:name="com.coloros.alarmclock" />
     </queries>
 

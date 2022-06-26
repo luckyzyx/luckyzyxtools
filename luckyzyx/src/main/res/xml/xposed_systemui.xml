@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
@@ -24,6 +25,15 @@
             app:key="statusbar_clock_show_second"
             app:iconSpaceReserved="false"
             app:title="设置下拉状态栏时钟显秒" />
+
+        <ListPreference
+            app:defaultValue="2"
+            app:iconSpaceReserved="false"
+            app:entries="@array/AMPM_Status"
+            app:entryValues="@array/AMPM_Status_Value"
+            app:useSimpleSummaryProvider="true"
+            app:key="statusbar_clock_show_ampm"
+            app:title="设置状态栏时钟显示上午下午" />
 
         <SwitchPreference
             app:defaultValue="false"
@@ -68,6 +78,15 @@
             app:key="remove_lock_screen_redone"
             app:iconSpaceReserved="false"
             app:title="移除锁屏时钟红一" />
+
+        <EditTextPreference
+            app:defaultValue="#000000"
+            app:iconSpaceReserved="false"
+            app:key="set_lock_screen_textview_color"
+            app:singleLine="true"
+            app:useSimpleSummaryProvider="true"
+            app:title="设置锁屏组件颜色"
+            app:dialogMessage="颜色规范\nRGB:#000000\nARGB:#FF000000\n黑色:#000000\n红色:#FF0000\n绿色:#00FF00\n蓝色:#0000FF\n若不填写则为系统默认颜色\n按照规范举一反三,或者百度查询"/>
 
         <SwitchPreference
             app:defaultValue="false"

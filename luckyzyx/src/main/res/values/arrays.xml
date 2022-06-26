@@ -8,6 +8,7 @@
         <item>com.coloros.alarmclock</item>
 <!--        <item>com.coloros.securepay</item>-->
         <item>com.heytap.themestore</item>
+        <item>com.oplus.games</item>
         <item>com.east2d.everyimage</item>
     </string-array>
 
@@ -17,16 +18,16 @@
         <item>iQDNS</item>
     </string-array>
 
-    <string-array name="network_speed_option">
-        <item>1秒</item>
-        <item>2秒</item>
-        <item>4秒(默认)</item>
+    <string-array name="AMPM_Status">
+        <item>隐藏(默认)</item>
+        <item>显示(标准)</item>
+        <item>显示(小)</item>
     </string-array>
 
-    <string-array name="network_speed_value">
-        <item>1000</item>
-        <item>2000</item>
-        <item>4000</item>
+    <string-array name="AMPM_Status_Value">
+        <item>2</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
 
     <string-array name="theme_option">

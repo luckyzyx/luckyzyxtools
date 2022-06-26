@@ -9,6 +9,9 @@ class HookSystemUI : YukiBaseHooker(){
         //移除锁屏时钟红1
         if (prefs(PrefsFile).getBoolean("remove_lock_screen_redone",false)) loadHooker(RemoveLockScreenRedOne())
 
+        //设置锁屏组件文本颜色
+        if (prefs(PrefsFile).getString("set_lock_screen_textview_color","") != "") loadHooker(LockScreenTextViewColor())
+
         //移除锁屏右下角相机
         if (prefs(PrefsFile).getBoolean("remove_lock_screen_camera",false)) loadHooker(RemoveLockScreenCamera())
 
@@ -23,6 +26,9 @@ class HookSystemUI : YukiBaseHooker(){
 
         //设置下拉状态栏时钟显秒
         if (prefs(PrefsFile).getBoolean("statusbar_clock_show_second",false)) loadHooker(StatusBarClockShowSecond())
+
+        //设置状态栏时钟显示上午下午
+        if (prefs(PrefsFile).getString("statusbar_clock_show_ampm","2") != "2") loadHooker(StatusBarClockShowAMPM())
 
         //移除状态栏开发者选项警告
         if (prefs(PrefsFile).getBoolean("remove_statusbar_devmode",false)) loadHooker(RemoveStatusBarDevMode())

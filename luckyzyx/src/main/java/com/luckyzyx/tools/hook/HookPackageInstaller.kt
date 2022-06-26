@@ -6,6 +6,7 @@ import com.luckyzyx.tools.hook.packageinstaller.RemoveInstallAds
 import com.luckyzyx.tools.hook.packageinstaller.ReplaseAospInstaller
 import com.luckyzyx.tools.hook.packageinstaller.SkipApkScan
 
+
 class HookPackageInstaller : YukiBaseHooker() {
     private val PrefsFile = "XposedSettings"
     override fun onHook() {

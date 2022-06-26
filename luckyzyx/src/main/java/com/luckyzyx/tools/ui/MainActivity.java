@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -49,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         CheckPermission();
         CheckXposed();
+        //初始化APPCommit
         InitHookAPP();
-        startCheckUpdate();
+        //startCheckUpdate();
         //初始化BottomNavigationView底部导航栏
         initBottomNavigationView();
         //获取Root权限
@@ -154,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
     //初始化Hook APP
     private void InitHookAPP(){
         if(XposedStatus){
-            String[] keylist = {"PackageInstallCommit"};
-            String[] packlist = {"com.android.packageinstaller"};
+            String[] keylist = {"PackageInstallCommit","OplusGamesCommit"};
+            String[] packlist = {"com.android.packageinstaller","com.oplus.games"};
             for(int i = 0; i < keylist.length; i++) {
                 if (getAppCommit(packlist[i]).equals("error")){
                     Toast.makeText(this, keylist[i]+":"+getAppCommit(packlist[i]), Toast.LENGTH_SHORT).show();
@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //启动时检查更新
+    @SuppressWarnings("unused")
     private void startCheckUpdate(){
         if (SPUtils.getBoolean(this,"Settings","startCheckUpdate",false)){
             new HttpUtils(this).ShowUpdateDialog(false);

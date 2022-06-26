@@ -3,12 +3,12 @@ package com.luckyzyx.tools.ui;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.XposedAndroid;
@@ -85,13 +85,7 @@ public class XposedActivity extends AppCompatActivity {
     //创建Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0,1,0,"停止系统界面");
-        menu.add(0,2,1,"停止时钟");
-//        menu.add(0,3,1,"停止设置");
-        menu.add(0,4,1,"停止系统桌面");
-        menu.add(0,5,1,"停止主题商店");
-        menu.add(0,6,1,"停止应用包安装器");
-        menu.add(0,9,1,"停止好多动漫");
+        menu.add(0,0,0,"重启全部作用域").setIcon(R.drawable.ic_baseline_refresh_24).setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -103,31 +97,24 @@ public class XposedActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
-            case 1:
-                ShellUtils.execCommand("kill -9 `pgrep systemui`",true);
-                break;
-            case 6:
-                ShellUtils.execCommand("am force-stop com.android.packageinstaller",true);
-                break;
-            case 5:
-                ShellUtils.execCommand("am force-stop com.heytap.themestore",true);
-                break;
-            case 4:
-                ShellUtils.execCommand("am force-stop com.android.launcher",true);
-                break;
-            case 3:
-                ShellUtils.execCommand("am force-stop com.android.settings",true);
-                break;
-            case 2:
-                ShellUtils.execCommand("am force-stop com.coloros.alarmclock",true);
-                break;
-            case 9:
-                ShellUtils.execCommand("am force-stop com.east2d.everyimage",true);
-                break;
-            default:
-                Toast.makeText(this, "错误->"+item.getItemId()+":"+item.getTitle(), Toast.LENGTH_SHORT).show();
+            case 0:
+                String[] commands = {
+                        "kill -9 `pgrep systemui`",
+                        "am force-stop com.android.packageinstaller",
+                        "am force-stop com.heytap.themestore",
+                        "am force-stop com.oplus.games",
+                        "am force-stop com.android.launcher",
+                        //"am force-stop com.android.settings",
+                        "am force-stop com.coloros.alarmclock",
+                        "am force-stop com.east2d.everyimage",
+                };
+                new MaterialAlertDialogBuilder(this)
+                        .setMessage("确定要重启除系统框架外的全部作用域?")
+                        .setPositiveButton("确定", (dialog, which) -> ShellUtils.execCommand(commands,true))
+                        .setNeutralButton("取消",null)
+                        .show();
                 break;
         }
-        return true;
+        return false;
     }
 }
