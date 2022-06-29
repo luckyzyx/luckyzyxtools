@@ -25,23 +25,40 @@
 #忽略警告
 -ignorewarnings
 
+#不做预校验，preverify是proguard的四个步骤之一，Android不需要preverify，去掉这一步能够加快混淆速度。
+-dontpreverify
+
 #指定代码优化级别，值在0-7之间，默认为5
 -optimizationpasses 10
 #混淆时不使用大小写混合类名
 -dontusemixedcaseclassnames
 
 #关闭代码优化
--dontoptimize
-#输出详细信息
--verbose
+#-dontoptimize
+
+# 有了verbose这句话，混淆后就会生成映射文件
+# 包含有类名->混淆后类名的映射关系
+# 然后使用printmapping指定映射文件的名称
+#-verbose
+#-printmapping proguardMapping.txt
+
+# 指定混淆时采用的算法，后面的参数是一个过滤器
+# 这个过滤器是谷歌推荐的算法，一般不改变
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+#混淆时应用侵入式重载
 -overloadaggressively
+#优化时允许访问并修改有修饰符的类和类的成员
 -allowaccessmodification
 
 -adaptclassstrings
 -adaptresourcefilenames
 -adaptresourcefilecontents
 
--renamesourcefileattribute P
+#将文件来源重命名为“SourceFile”字符串
+-renamesourcefileattribute SourceFile
+
+#抛出异常时保留代码行号，在异常分析中可以方便定位
 -keepattributes SourceFile,LineNumberTable
 
 

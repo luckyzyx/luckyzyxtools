@@ -3,13 +3,16 @@ package com.luckyzyx.tools.ui.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
+import com.joom.paranoid.Obfuscate;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.MainActivity;
 import com.luckyzyx.tools.utils.SPUtils;
@@ -41,6 +44,32 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                 }
             }else{
                 wifi_adb.setChecked(false);
+            }
+        }
+
+        //判断freezer状态
+        ShellUtils.CommandResult freezerStatus = ShellUtils.execCommand("settings get global cached_apps_freezer",true,true);
+        ListPreference freezer_cached_apps = findPreference("freezer_cached_apps");
+        if (freezer_cached_apps != null) {
+            switch (freezerStatus.successMsg){
+                case "device_default":
+                    freezer_cached_apps.setValueIndex(0);
+                    if (!SPUtils.getString(requireActivity(),PREFERENCE_NAME,"freezer_cached_apps").equals("device_default"))
+                        SPUtils.putString(requireActivity(),PREFERENCE_NAME,"freezer_cached_apps","device_default");
+                    break;
+                case "enabled":
+                    freezer_cached_apps.setValueIndex(1);
+                    if (!SPUtils.getString(requireActivity(),PREFERENCE_NAME,"freezer_cached_apps").equals("device_default"))
+                        SPUtils.putString(requireActivity(),PREFERENCE_NAME,"freezer_cached_apps","enabled");
+                    break;
+                case "disabled":
+                    freezer_cached_apps.setValueIndex(2);
+                    if (!SPUtils.getString(requireActivity(),PREFERENCE_NAME,"freezer_cached_apps").equals("device_default"))
+                        SPUtils.putString(requireActivity(),PREFERENCE_NAME,"freezer_cached_apps","disabled");
+                    break;
+                default:
+                    Toast.makeText(requireActivity(), "freezerError:"+freezerStatus.successMsg, Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     }
@@ -97,6 +126,20 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
             }
         }
 
+        if ("freezer_cached_apps".equals(key)) {
+            switch (sharedPreferences.getString(key, "device_default")){
+                case "device_default":
+                    ShellUtils.execCommand("settings put global cached_apps_freezer device_default", true);
+                    break;
+                case "enabled":
+                    ShellUtils.execCommand("settings put global cached_apps_freezer enabled", true);
+                    break;
+                case "disabled":
+                    ShellUtils.execCommand("settings put global cached_apps_freezer disabled", true);
+                    break;
+            }
+        }
+
         if ("clock_seconds".equals(key)) {
             if (sharedPreferences.getBoolean(key, false)) ShellUtils.execCommand("settings put secure clock_seconds 1", true);
             else ShellUtils.execCommand("settings put secure clock_seconds 0", true);
@@ -127,6 +170,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
 
     //快捷入口页面Fragment
     @Keep
+    @Obfuscate
     public static class QuickEntranceFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

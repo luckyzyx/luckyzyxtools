@@ -3,8 +3,10 @@ package com.luckyzyx.tools.utils.tile;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
+import com.joom.paranoid.Obfuscate;
 import com.luckyzyx.tools.utils.ShellUtils;
 
+@Obfuscate
 public class FpsTile extends TileService {
     @Override
     public void onTileAdded() {

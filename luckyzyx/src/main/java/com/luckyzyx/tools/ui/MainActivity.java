@@ -18,6 +18,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
+import com.joom.paranoid.Obfuscate;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.HomeFragment;
 import com.luckyzyx.tools.ui.fragment.OtherFragment;
@@ -32,6 +33,7 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Objects;
 
+@Obfuscate
 public class MainActivity extends AppCompatActivity {
 
     //底部导航栏

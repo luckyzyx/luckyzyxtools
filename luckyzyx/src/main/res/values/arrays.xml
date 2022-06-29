@@ -30,6 +30,18 @@
         <item>1</item>
     </string-array>
 
+    <string-array name="freezer_apps">
+        <item>设备默认设置</item>
+        <item>已启用</item>
+        <item>已禁用</item>
+    </string-array>
+
+    <string-array name="freezer_apps_value">
+        <item>device_default</item>
+        <item>enable</item>
+        <item>disable</item>
+    </string-array>
+
     <string-array name="theme_option">
         <item>Material</item>
         <item>基佬紫</item>

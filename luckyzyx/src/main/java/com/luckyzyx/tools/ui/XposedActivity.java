@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
+import com.joom.paranoid.Obfuscate;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.XposedAndroid;
 import com.luckyzyx.tools.ui.fragment.XposedSystemOther;
@@ -19,6 +20,7 @@ import com.luckyzyx.tools.utils.ShellUtils;
 
 import java.util.Objects;
 
+@Obfuscate
 public class XposedActivity extends AppCompatActivity {
 
     @Override

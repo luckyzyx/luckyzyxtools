@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.joom.paranoid.Obfuscate;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.MagiskInstall;
 import com.luckyzyx.tools.ui.fragment.MagiskList;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Obfuscate
 public class MagiskActivity extends AppCompatActivity {
 
     @Override
