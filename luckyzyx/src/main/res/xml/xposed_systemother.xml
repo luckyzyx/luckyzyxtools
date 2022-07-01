@@ -4,7 +4,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="时钟"
-        app:summary="右上角菜单停止/重启作用域"
+        app:summary="右上角菜单重启作用域"
         app:key="AlarmClock">
 
         <SwitchPreference
@@ -15,25 +15,25 @@
 
     </PreferenceCategory>
 
-<!--    <PreferenceCategory-->
-<!--        app:iconSpaceReserved="false"-->
-<!--        app:title="支付保护"-->
-<!--        app:summary="右上角菜单停止/重启作用域"-->
-<!--        app:key="SecurePay">-->
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="安全中心"
+        app:summary="右上角菜单重启作用域"
+        app:key="SafeCenter">
 
-<!--        <SwitchPreference-->
-<!--            app:defaultValue="false"-->
-<!--            app:key="purify_securepay"-->
-<!--            app:iconSpaceReserved="false"-->
-<!--            app:title="净化支付保护"-->
-<!--            app:summary="移除已允许USB传输数据通知与对话框" />-->
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="unlock_startup_limit"
+            app:iconSpaceReserved="false"
+            app:title="解锁自启数量限制"
+            app:summary="解锁应用自启动数量限制" />
 
-<!--    </PreferenceCategory>-->
+    </PreferenceCategory>
 
     <PreferenceCategory
             app:key="Launcher"
             app:title="系统桌面"
-            app:summary="右上角菜单停止/重启作用域"
+            app:summary="右上角菜单重启作用域"
             app:iconSpaceReserved="false" >
 
         <SwitchPreference
@@ -53,7 +53,7 @@
     <PreferenceCategory
             app:key="ThemeStore"
             app:title="主题商店"
-            app:summary="右上角菜单停止/重启作用域"
+            app:summary="右上角菜单重启作用域"
             app:iconSpaceReserved="false" >
 
         <SwitchPreference
@@ -68,7 +68,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="应用包安装程序"
-        app:summary="右上角菜单停止/重启作用域"
+        app:summary="右上角菜单重启作用域"
         app:key="PackageInstaller" >
 
         <SwitchPreference
@@ -104,7 +104,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="游戏助手"
-        app:summary="右上角菜单停止/重启作用域"
+        app:summary="右上角菜单重启作用域"
         app:key="OplusGames" >
 
         <SwitchPreference

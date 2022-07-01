@@ -5,6 +5,7 @@ import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 
 class RemoveAppUpdateDot : YukiBaseHooker() {
     override fun onHook() {
+        //Source OplusBubbleTextView
         findClass(name =  "com.android.launcher3.OplusBubbleTextView").hook {
             injectMember {
                 method {
@@ -14,8 +15,7 @@ class RemoveAppUpdateDot : YukiBaseHooker() {
                 beforeHook {
                     val field = "com.android.launcher3.model.data.ItemInfo".clazz.getDeclaredField("title")
                     field.isAccessible = true
-                    val title = field[args[0]] as CharSequence
-                    (instance as TextView).text = title
+                    (instance as TextView).text = field[args[0]] as CharSequence
                     resultNull()
                 }
             }

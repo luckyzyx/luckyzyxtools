@@ -28,7 +28,9 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
-        logslist.add(new UpdateLogBean("2.0.2992", "添加判断freezer状态并且修复不生效问题"));
+        logslist.add(new UpdateLogBean("2.0.3016", "优化适配游戏助手\n修复重启全部作用域的卡屏BUG"));
+        logslist.add(new UpdateLogBean("2.0.2998", "添加解锁自启数量限制"));
+        logslist.add(new UpdateLogBean("2.0.2994", "添加判断freezer状态并且修复不生效问题"));
         logslist.add(new UpdateLogBean("2.0.2982", "其他页面添加暂停执行已缓存应用功能"));
         logslist.add(new UpdateLogBean("2.0.2953", "修复替换AOSP安装器失效\n完善移除APK安装完成广告\n添加显示状态栏时钟上下午\n添加设置锁屏组件颜色功能"));
         logslist.add(new UpdateLogBean("2.0.2900", "适配9RT C03桌面时钟组件\n修复停止作用域不生效问题\n更换Xposed页面UI"));

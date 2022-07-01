@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.hook.packageinstaller
 
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
+import com.highcapable.yukihookapi.hook.type.java.BooleanType
 
 class SkipApkScan : YukiBaseHooker() {
     private val PrefsFile = "XposedSettings"
@@ -28,19 +29,18 @@ class SkipApkScan : YukiBaseHooker() {
 
         findClass("com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
             //skip appdetail,search isStartAppDetail
-            //search -> count_canceled_by_app_detail -4 -> MethodName
+            //search -> count_canceled_by_app_detail -4 -> Method
             injectMember {
                 method {
                     name = Member[0]
+                    returnType = BooleanType
                 }
-                afterHook {
-                    resultFalse()
-                }
+                replaceToFalse()
             }
             //skip app scan, search method checkToScanRisk
-            //search -> "button_type", "install_old_version_button" -5 -> MethodName
+            //search -> "button_type", "install_old_version_button" -5 -> Method
             //replace to initiateInstall
-            //search -> "button_type", "install_old_version_button" -11 -> MethodName
+            //search -> "button_type", "install_old_version_button" -11 -> Method
             injectMember {
                 method {
                     name = Member[1]

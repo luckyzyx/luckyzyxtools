@@ -1,5 +1,6 @@
 package com.luckyzyx.tools.hook.packageinstaller
 
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.type.java.BooleanType
 
@@ -15,7 +16,7 @@ class AllowReplaceInstall : YukiBaseHooker() {
             else -> "isReplaceInstall"
         }
         //Allow replace install,Low/same version warning
-        //search ->  ? 1 : 0; -> this Method
+        //search ->  ? 1 : 0; -> Method
         findClass("com.android.packageinstaller.oplus.OPlusPackageInstallerActivity").hook {
             injectMember {
                 method {

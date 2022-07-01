@@ -94,7 +94,6 @@ public class XposedActivity extends AppCompatActivity {
     //菜单栏
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.openOptionsMenu();
         switch(item.getItemId()){
             case android.R.id.home:
                 finish();
@@ -104,6 +103,7 @@ public class XposedActivity extends AppCompatActivity {
                         "kill -9 `pgrep systemui`",
                         "am force-stop com.android.packageinstaller",
                         "am force-stop com.heytap.themestore",
+                        "am force-stop com.oplus.safecenter",
                         "am force-stop com.oplus.games",
                         "am force-stop com.android.launcher",
                         //"am force-stop com.android.settings",
@@ -117,6 +117,6 @@ public class XposedActivity extends AppCompatActivity {
                         .show();
                 break;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 }

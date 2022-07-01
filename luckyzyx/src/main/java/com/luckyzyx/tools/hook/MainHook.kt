@@ -37,6 +37,8 @@ class MainHook : IYukiHookXposedInit {
         //loadApp("com.android.settings"){}
         //系统桌面
         loadApp("com.android.launcher",HookLauncher())
+        //安全中心
+        loadApp("com.oplus.safecenter",HookSafeCenter())
         //时钟
         loadApp("com.coloros.alarmclock",HookAlarmClock())
         //主题商店

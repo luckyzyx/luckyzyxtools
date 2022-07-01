@@ -1,24 +1,24 @@
 package com.luckyzyx.tools.hook.oplusgames
 
 import android.os.Bundle
+import com.highcapable.yukihookapi.hook.bean.VariousClass
 import com.highcapable.yukihookapi.hook.entity.YukiBaseHooker
 import com.highcapable.yukihookapi.hook.type.android.BundleClass
 
 class RemoveRootCheck : YukiBaseHooker() {
-    private val PrefsFile = "XposedSettings"
     override fun onHook() {
-        val Member: Array<String> = when(prefs(PrefsFile).getString("OplusGamesCommit","null")){
-            "f86f767","ce65873" -> arrayOf("com.oplus.x.c","b")
-
-            else -> arrayOf("com.oplus.x.c","b")
-        }
-        //Remove Root Check
+        //Remove Root Check --> Source COSASDKManager
         //search -> dynamic_feature_cool_ex --> Method
-        //("isSafe")) : null;
-        findClass(Member[0]).hook {
+        //("isSafe")) : null; --> isSafe:0
+        VariousClass(
+            "com.oplus.x.c", //f86f767,ce65873
+            "com.oplus.f.c", //424d87a
+        ).hook {
             injectMember {
                 method {
-                    name = Member[1]
+                    name {
+                        equalsOf(other = "b",isIgnoreCase = false)
+                    }
                     returnType = BundleClass
                 }
                 afterHook {

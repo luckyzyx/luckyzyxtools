@@ -216,8 +216,8 @@ public class ShellUtils {
             this.result = result;
             this.successMsg = successMsg;
             this.errorMsg = errorMsg;
-            this.logMsg = "\n-----\nresult: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg+"\n-----\n";
-            this.allMsg = "\n-----"+"\ncommand: \n"+ Arrays.toString(commands) +"\nresult: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg+"\n-----\n";
+            this.logMsg = "\n\nresult: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg+"\n\n";
+            this.allMsg = "\n\ncommand: \n"+ Arrays.toString(commands) +"\nresult: "+result+"\nsuccessMsg: "+successMsg+"\nerrorMsg: "+errorMsg+"\n\n";
         }
     }
 }
