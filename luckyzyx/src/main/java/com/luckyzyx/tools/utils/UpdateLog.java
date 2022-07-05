@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.3022", "修改部分UI文字\n添加移除水印字数限制"));
         logslist.add(new UpdateLogBean("2.0.3016", "优化适配游戏助手\n修复重启全部作用域的卡屏BUG"));
         logslist.add(new UpdateLogBean("2.0.2998", "添加解锁自启数量限制"));
         logslist.add(new UpdateLogBean("2.0.2994", "添加判断freezer状态并且修复不生效问题"));

@@ -4,7 +4,7 @@
     <PreferenceCategory
             app:key="MoreAnime"
             app:title="好多动漫"
-            app:summary="右上角菜单停止/重启作用域"
+            app:summary="右上角菜单重启作用域"
             app:iconSpaceReserved="false" >
 
         <SwitchPreference

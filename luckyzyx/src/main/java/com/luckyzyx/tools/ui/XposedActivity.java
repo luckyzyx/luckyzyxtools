@@ -105,6 +105,7 @@ public class XposedActivity extends AppCompatActivity {
                         "am force-stop com.heytap.themestore",
                         "am force-stop com.oplus.safecenter",
                         "am force-stop com.oplus.games",
+                        "am force-stop com.oplus.camera",
                         "am force-stop com.android.launcher",
                         //"am force-stop com.android.settings",
                         "am force-stop com.coloros.alarmclock",

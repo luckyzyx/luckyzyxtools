@@ -17,6 +17,20 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:title="相机"
+        app:summary="右上角菜单重启作用域"
+        app:key="Camera">
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="remove_watermark_word_limit"
+            app:iconSpaceReserved="false"
+            app:title="移除水印字数限制" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
         app:title="安全中心"
         app:summary="右上角菜单重启作用域"
         app:key="SafeCenter">

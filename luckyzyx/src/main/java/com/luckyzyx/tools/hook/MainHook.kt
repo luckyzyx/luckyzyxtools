@@ -35,6 +35,8 @@ class MainHook : IYukiHookXposedInit {
         loadApp("com.android.systemui",HookSystemUI())
         //设置
         //loadApp("com.android.settings"){}
+        //相机
+        loadApp("com.oplus.camera",HookCamera())
         //系统桌面
         loadApp("com.android.launcher",HookLauncher())
         //安全中心

@@ -6,7 +6,7 @@
         app:iconSpaceReserved="false"
         app:key="systemui"
         app:title="系统界面"
-        app:summary="右上角菜单停止/重启作用域"/>
+        app:summary="右上角菜单重启作用域"/>
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
