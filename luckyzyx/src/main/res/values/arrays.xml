@@ -11,7 +11,9 @@
 <!--        <item>com.coloros.securepay</item>-->
         <item>com.heytap.themestore</item>
         <item>com.oplus.games</item>
+        <item>com.heytap.cloud</item>
         <item>com.east2d.everyimage</item>
+        <item>com.chan.cwallpaper</item>
     </string-array>
 
     <string-array name="checkupdate_settings">

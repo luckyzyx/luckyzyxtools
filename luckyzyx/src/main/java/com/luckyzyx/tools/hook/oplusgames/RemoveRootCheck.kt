@@ -13,12 +13,15 @@ class RemoveRootCheck : YukiBaseHooker() {
         VariousClass(
             "com.oplus.x.c", //f86f767,ce65873
             "com.oplus.f.c", //424d87a
+            "com.oplus.a0.c", //b1a0f1c
         ).hook {
             injectMember {
                 method {
                     name {
                         equalsOf(other = "b",isIgnoreCase = false)
+                        equalsOf(other = "c",isIgnoreCase = false)
                     }
+                    emptyParam()
                     returnType = BundleClass
                 }
                 afterHook {

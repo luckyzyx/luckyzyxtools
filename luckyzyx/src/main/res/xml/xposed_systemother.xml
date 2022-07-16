@@ -130,4 +130,19 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="云服务"
+        app:summary="右上角菜单重启作用域"
+        app:key="HeyTap" >
+
+        <SwitchPreference
+            app:defaultValue="false"
+            app:key="remove_network_restriction"
+            app:iconSpaceReserved="false"
+            app:title="移除网络限制"
+            app:summary="移除备份/恢复无法使用移动数据的限制"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

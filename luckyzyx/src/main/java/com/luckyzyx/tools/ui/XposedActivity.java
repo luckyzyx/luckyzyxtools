@@ -107,9 +107,11 @@ public class XposedActivity extends AppCompatActivity {
                         "am force-stop com.oplus.games",
                         "am force-stop com.oplus.camera",
                         "am force-stop com.android.launcher",
+                        "am force-stop com.heytap.cloud",
                         //"am force-stop com.android.settings",
                         "am force-stop com.coloros.alarmclock",
                         "am force-stop com.east2d.everyimage",
+                        "am force-stop com.chan.cwallpaper",
                 };
                 new MaterialAlertDialogBuilder(this)
                         .setMessage("确定要重启除系统框架外的全部作用域?")
