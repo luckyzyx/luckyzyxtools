@@ -3,7 +3,6 @@ package com.luckyzyx.tools.ui;
 import android.annotation.SuppressLint;
 import android.app.UiModeManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private final UserFragment userFragment = new UserFragment();
 
     private boolean XposedStatus = true;
+    private static final String PREFERENCE_NAME = "Settings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,10 +116,28 @@ public class MainActivity extends AppCompatActivity {
 
     //判断主题
     public static void CheckTheme(Context context){
-        if (!isDarkTheme(context)){
-            context.setTheme(R.style.Theme_Luckyzyx_sakura);
-        }else {
-            context.setTheme(R.style.Theme_Luckyzyx_sakura_night);
+        String theme_setting = SPUtils.getString(context,MainActivity.PREFERENCE_NAME,"theme_setting","light");
+        switch (theme_setting){
+            case "light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                context.setTheme(R.style.Theme_Luckyzyx_sakura);
+                break;
+            case "night":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                context.setTheme(R.style.Theme_Luckyzyx_sakura_night);
+                break;
+            case "system":
+                if (!isDarkTheme(context)){
+                    context.setTheme(R.style.Theme_Luckyzyx_sakura);
+                }else {
+                    context.setTheme(R.style.Theme_Luckyzyx_sakura_night);
+                }
+                break;
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                context.setTheme(R.style.Theme_Luckyzyx_sakura);
+                Toast.makeText(context, "themeError:"+theme_setting, Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -214,14 +233,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
-    }
-
-    //重启自身
-    @SuppressWarnings("unused")
-    public static void reStart(Context context){
-        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(intent);
     }
 
     //复制文件

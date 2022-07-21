@@ -2,6 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
+        app:title="主题设置"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:defaultValue="light"
+            app:iconSpaceReserved="false"
+            android:entries="@array/theme_setting"
+            android:entryValues="@array/theme_setting_value"
+            android:key="theme_setting"
+            android:title="默认主题"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="更新设置"
         app:iconSpaceReserved="false">
 

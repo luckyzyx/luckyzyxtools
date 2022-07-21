@@ -46,22 +46,16 @@
         <item>disabled</item>
     </string-array>
 
-    <string-array name="theme_option">
-        <item>Material</item>
-        <item>基佬紫</item>
-        <item>姨妈红</item>
-        <item>玉米黄</item>
-        <item>橘子橙</item>
-        <item>草原绿</item>
+    <string-array name="theme_setting">
+        <item>浅色</item>
+        <item>深色</item>
+        <item>跟随系统</item>
     </string-array>
 
-    <string-array name="theme_value">
-        <item>material</item>
-        <item>purple</item>
-        <item>red</item>
-        <item>yellow</item>
-        <item>orange</item>
-        <item>green</item>
+    <string-array name="theme_setting_value">
+        <item>light</item>
+        <item>night</item>
+        <item>system</item>
     </string-array>
 
 </resources>
