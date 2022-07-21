@@ -1,6 +1,7 @@
 package com.luckyzyx.tools.ui;
 
 import android.annotation.SuppressLint;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -105,34 +106,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    //判断主题
-    @SuppressWarnings("CommentedOutCode")
-    public static void CheckTheme(Context context){
-        context.setTheme(R.style.Theme_Luckyzyx_sakura);
+    //判断是否暗色模式
+    public static boolean isDarkTheme(Context context) {
+        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
+        int flag = uiModeManager.getNightMode();
+        return flag == UiModeManager.MODE_NIGHT_YES;
+    }
 
-/*
-        String theme = SPUtils.getString(context,"theme","material");
-        switch (theme){
-            default:
-                context.setTheme(R.style.Theme_Luckyzyx);
-                break;
-            case "purple":
-                context.setTheme(R.style.Theme_Luckyzyx_purple);
-                break;
-            case "red":
-                context.setTheme(R.style.Theme_Luckyzyx_red);
-                break;
-            case "yellow":
-                context.setTheme(R.style.Theme_Luckyzyx_yellow);
-                break;
-            case "orange":
-                context.setTheme(R.style.Theme_Luckyzyx_orange);
-                break;
-            case "green":
-                context.setTheme(R.style.Theme_Luckyzyx_green);
-                break;
+    //判断主题
+    public static void CheckTheme(Context context){
+        if (!isDarkTheme(context)){
+            context.setTheme(R.style.Theme_Luckyzyx_sakura);
+        }else {
+            context.setTheme(R.style.Theme_Luckyzyx_sakura_night);
         }
-*/
     }
 
     //初始化Xposed XSharedPreferences

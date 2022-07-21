@@ -28,6 +28,7 @@ public class UpdateLog {
         List<UpdateLogBean> logslist = new ArrayList<>();
         logslist.add(new UpdateLogBean("更新日志", "命名规则: {版本名}.{版本号}"));
 
+        logslist.add(new UpdateLogBean("2.0.3131", "修复暗色模式颜色异常问题"));
         logslist.add(new UpdateLogBean("2.0.3090", "新增Magisk模块:开机后关闭大核\n优化权限获取相关\n修复主页返回键崩溃"));
         logslist.add(new UpdateLogBean("2.0.3041", "适配9RT C04桌面时钟组件"));
         logslist.add(new UpdateLogBean("2.0.3039", "优化移除网络限制逻辑"));

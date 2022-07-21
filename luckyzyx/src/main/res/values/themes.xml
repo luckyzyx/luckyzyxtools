@@ -1,5 +1,7 @@
 <resources>
     <style name="Theme.Luckyzyx" parent="Theme.Material3.Light.NoActionBar">
+        <!-- 跟随系统设置自动切换DarkMode-->
+        <item name="android:forceDarkAllowed">true</item>
         <!-- 状态栏背景色 -->
         <item name="android:statusBarColor">@color/white</item>
         <!-- 改变状态栏文字颜色,true黑色,false白色 -->
