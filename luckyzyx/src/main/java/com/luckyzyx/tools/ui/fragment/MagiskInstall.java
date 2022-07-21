@@ -257,6 +257,7 @@ public class MagiskInstall extends Fragment {
         boolean statusbar_developer_warn = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"statusbar_developer_warn",false);
         boolean modify_brand = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"modify_brand",false);
         boolean automatic_fps = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"automatic_fps",false);
+        boolean stop_cpu_core7 = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"stop_cpu_core7",false);
         boolean app_avatar = SPUtils.getBoolean(requireActivity(),PREFERENCE_NAME,"app_avatar",false);
 
         String[] installcommands = {
@@ -341,6 +342,13 @@ public class MagiskInstall extends Fragment {
                 "if [[ "+automatic_fps+" == true ]]; then\n"+
                 "    cat <<zyx >>"+moduleService+"\n" +
                 "su -c service call SurfaceFlinger 1035 i32 1\n" +
+                "zyx\n" +
+                "fi",
+                //开机关闭大核
+                "if [[ "+stop_cpu_core7+" == true ]]; then\n"+
+                "    cat <<zyx >>"+moduleService+"\n" +
+                "sleep 1m\n"+
+                "echo 0 > /sys/devices/system/cpu/cpu7/online\n" +
                 "zyx\n" +
                 "fi"
         };

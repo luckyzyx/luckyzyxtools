@@ -92,6 +92,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.7'
     //一个强大并且灵活的RecyclerViewAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
+    //崩溃日志显示
+    implementation "com.github.simplepeng.SpiderMan:spiderman:v1.1.9"
+    //权限请求框架
+    implementation 'com.github.getActivity:XXPermissions:15.0'
 }
 
 def getVersionCode() {

@@ -61,4 +61,16 @@
 #抛出异常时保留代码行号，在异常分析中可以方便定位
 -keepattributes SourceFile,LineNumberTable
 
-
+# 崩溃日志手机端显示
+-keep class com.simple.spiderman.** { *; }
+-keepnames class com.simple.spiderman.** { *; }
+-keep public class * extends android.app.Activity
+-keep class * implements Android.os.Parcelable {
+    public static final Android.os.Parcelable$Creator *;
+}
+# support
+-keep public class * extends android.support.annotation.** { *; }
+-keep public class * extends android.support.v4.content.FileProvider
+# androidx
+-keep public class * extends androidx.annotation.** { *; }
+-keep public class * extends androidx.core.content.FileProvider

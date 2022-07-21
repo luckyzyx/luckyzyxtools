@@ -22,4 +22,11 @@
         android:title="全局高刷"
         android:summary="开机自动设置全局高刷"/>
 
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="stop_cpu_core7"
+        app:iconSpaceReserved="false"
+        android:title="开机关闭CPU大核"
+        android:summary="开机1分钟后关闭CPU7"/>
+
 </PreferenceScreen>

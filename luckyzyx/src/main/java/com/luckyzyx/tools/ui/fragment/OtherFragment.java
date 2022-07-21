@@ -68,7 +68,7 @@ public class OtherFragment extends PreferenceFragmentCompat implements SharedPre
                         SPUtils.putString(requireActivity(),PREFERENCE_NAME,"freezer_cached_apps","disabled");
                     break;
                 default:
-                    Toast.makeText(requireActivity(), "freezerError:"+freezerStatus.successMsg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "freezerStatus:"+freezerStatus.successMsg, Toast.LENGTH_SHORT).show();
                     break;
             }
         }

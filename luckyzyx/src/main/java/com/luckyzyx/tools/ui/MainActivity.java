@@ -11,13 +11,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceFragmentCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.joom.paranoid.Obfuscate;
 import com.luckyzyx.tools.R;
 import com.luckyzyx.tools.ui.fragment.HomeFragment;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         CheckTheme(this);
         setContentView(R.layout.activity_main);
-        CheckPermission();
+        InitPermission();
         CheckXposed();
         //初始化APPCommit
         InitHookAPP();
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         initBottomNavigationView();
         //获取Root权限
         ShellUtils.checkRootPermission();
+
     }
 
     //初始化BottomNavigationView底部导航栏
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){
-            PreferenceFragmentCompat current = (PreferenceFragmentCompat) getSupportFragmentManager().findFragmentById(R.id.nav_container);
+            Fragment current = getSupportFragmentManager().findFragmentById(R.id.nav_container);
             if (current instanceof OtherFragment) finishAndRemoveTask();
         }
         return super.onKeyDown(keyCode, event);
@@ -179,24 +181,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //存储权限
-    private void CheckPermission(){
-        final int REQUEST_EXTERNAL_STORAGE = 1;
-        String[] PERMISSIONS_STORAGE = {
-                "android.permission.REQUEST_INSTALL_PACKAGES",//申请安装APK
-                "android.permission.READ_EXTERNAL_STORAGE",//读取
-                "android.permission.WRITE_EXTERNAL_STORAGE"//写入
-        };
-        try {
-            //检测是否有写的权限
-            int permission = ActivityCompat.checkSelfPermission(this,
-                    "android.permission.WRITE_EXTERNAL_STORAGE");
-            if (permission != PackageManager.PERMISSION_GRANTED) {
-                // 没有写的权限，去申请写的权限，会弹出对话框
-                ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void InitPermission(){
+        String[] permissionList = new String[]{Permission.REQUEST_INSTALL_PACKAGES,Permission.MANAGE_EXTERNAL_STORAGE};
+        if (XXPermissions.isGranted(MainActivity.this, permissionList)){
+            return;
         }
+        XXPermissions.with(this)
+            .permission(permissionList)
+            .request(new OnPermissionCallback() {
+                @Override
+                public void onGranted(List<String> permissions, boolean all) {
+                    if (!all) {
+                        Toast.makeText(MainActivity.this, permissions+"权限获取失败!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onDenied(List<String> permissions, boolean never) {
+                    if (never) {
+                        Toast.makeText(MainActivity.this, permissions+"拒绝授权,请手动授予权限!", Toast.LENGTH_SHORT).show();
+                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
+                        XXPermissions.startPermissionActivity(MainActivity.this, permissions);
+                    } else {
+                        Toast.makeText(MainActivity.this, permissions+"获取权限失败!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
     }
 
     //启动时检查更新
